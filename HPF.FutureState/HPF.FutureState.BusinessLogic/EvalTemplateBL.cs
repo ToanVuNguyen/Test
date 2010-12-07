@@ -79,7 +79,7 @@ namespace HPF.FutureState.BusinessLogic
         private DataValidationException ValidateSection(EvalSectionDTO evalSection)
         {
             DataValidationException ex = new DataValidationException();
-            if (evalSection.IsInUse!=null && evalSection.IsInUse && (evalSection.ActiveInd == Constant.INDICATOR_NO))
+            if (evalSection.IsInUse && (evalSection.ActiveInd == Constant.INDICATOR_NO))
                 ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1108, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1108) });
             if (string.IsNullOrEmpty(evalSection.SectionName))
                 ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1107, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1107) });

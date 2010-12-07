@@ -7,8 +7,8 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
     public class PrePurchaseCaseSaveResponse:BaseResponse
     {
-        public int? PPCaseId { get; set; }
-        public int? PPBorrowerId { get; set; }
+        public int? PpcId { get; set; }
+        public int? ApplicantId { get; set; }
         public DateTime UploadDt { get; set; }
         public int AgencyId { get; set; }
     }

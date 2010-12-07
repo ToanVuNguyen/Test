@@ -15,7 +15,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? PPBudgetSetId { get; set; }
 
         [XmlIgnore]
-        public int? PPCaseId { get; set; }
+        public int? PpcId { get; set; }
 
         [XmlIgnore]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]

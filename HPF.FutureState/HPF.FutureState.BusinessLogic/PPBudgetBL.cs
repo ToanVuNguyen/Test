@@ -40,15 +40,15 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Get PPBudgetSet by PrePurchaseCaseId
         /// </summary>
-        /// <param name="ppCaseId">PrePurchaseCaseId</param>
+        /// <param name="ppcId">PrePurchaseCaseId</param>
         /// <returns>PPBudgetSetDTOCollection</returns>
-        public PPBudgetSetDTO GetPPBudgetSet(int? ppCaseId)
+        public PPBudgetSetDTO GetPPBudgetSet(int? ppcId)
         {
-            return PPBudgetDAO.Instance.GetPPBudgetSet(ppCaseId);
+            return PPBudgetDAO.Instance.GetPPBudgetSet(ppcId);
         }
-        public PPPBudgetSetDTO GetProposedPPBudgetSet(int? ppCaseId)
+        public PPPBudgetSetDTO GetProposedPPBudgetSet(int? ppcId)
         {
-            return PPBudgetDAO.Instance.GetProposedPPBudgetSet(ppCaseId);
+            return PPBudgetDAO.Instance.GetProposedPPBudgetSet(ppcId);
         }
         /// <summary>
         /// Group all the Budget Item by BudgetCategory
@@ -87,19 +87,19 @@ namespace HPF.FutureState.BusinessLogic
             }
             return result;
         }
-        public PPBudgetItemDTOCollection GetPPBudgetItemSet(int? ppCaseId)
+        public PPBudgetItemDTOCollection GetPPBudgetItemSet(int? ppcId)
         {
-            return PPBudgetDAO.Instance.GetPPBudgetItemSet(ppCaseId);
+            return PPBudgetDAO.Instance.GetPPBudgetItemSet(ppcId);
         }
 
-        public PPPBudgetItemDTOCollection GetProposedPPBudgetItemSet(int? ppCaseId)
+        public PPPBudgetItemDTOCollection GetProposedPPBudgetItemSet(int? ppcId)
         {
-            return PPBudgetDAO.Instance.GetProposedPPBudgetItemSet(ppCaseId);
+            return PPBudgetDAO.Instance.GetProposedPPBudgetItemSet(ppcId);
         }
 
-        public PPBudgetAssetDTOCollection GetPPBudgetAssetSet(int? ppCaseId)
+        public PPBudgetAssetDTOCollection GetPPBudgetAssetSet(int? ppcId)
         {
-            return PPBudgetDAO.Instance.GetPPBudgetAssetSet(ppCaseId);
+            return PPBudgetDAO.Instance.GetPPBudgetAssetSet(ppcId);
         }
     }
 }

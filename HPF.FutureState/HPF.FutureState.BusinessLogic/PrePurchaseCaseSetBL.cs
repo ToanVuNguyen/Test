@@ -48,7 +48,7 @@ namespace HPF.FutureState.BusinessLogic
         #region Implementation of IPrePurchaseCaseBL
         public PrePurchaseCaseDTO SavePrePurchaseCaseSet(PrePurchaseCaseSetDTO prePurchaseCaseSet)
         {
-            int? ppCaseId;
+            int? ppcId;
             if (prePurchaseCaseSet == null || prePurchaseCaseSet.PrePurchaseCase == null)
                 throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1165));
             var exceptionList = CheckRequireForPartial(prePurchaseCaseSet);
@@ -61,12 +61,12 @@ namespace HPF.FutureState.BusinessLogic
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
             PrePurchaseCaseDTO ppCase = prePurchaseCaseSet.PrePurchaseCase;
-            LoadPrePurchaseCaseFromDB(ppCase.PPCaseId);
-            if (ppCase.PPCaseId.HasValue)
-                ppCaseId = ProcessInsertUpdateWithPrePurchaseCaseId(prePurchaseCaseSet);
+            LoadPrePurchaseCaseFromDB(ppCase.PpcId);
+            if (ppCase.PpcId.HasValue)
+                ppcId = ProcessInsertUpdateWithPrePurchaseCaseId(prePurchaseCaseSet);
             else
-                ppCaseId = ProcessInsertUpdateWithoutPrePurchaseCaseId(prePurchaseCaseSet);
-            prePurchaseCaseSet.PrePurchaseCase.PPCaseId = ppCaseId;
+                ppcId = ProcessInsertUpdateWithoutPrePurchaseCaseId(prePurchaseCaseSet);
+            prePurchaseCaseSet.PrePurchaseCase.PpcId = ppcId;
             return prePurchaseCaseSet.PrePurchaseCase;
         }
         #endregion
@@ -94,25 +94,25 @@ namespace HPF.FutureState.BusinessLogic
                 return ProcessUpdatePrePurchaseCaseSet(prePurchaseCaseSet);
         }
 
-        private void LoadPrePurchaseCaseFromDB(int? ppCaseId)
+        private void LoadPrePurchaseCaseFromDB(int? ppcId)
         {
             IsPrePurchaseCaseInserted = true;
-            if (!ppCaseId.HasValue) return;
+            if (!ppcId.HasValue) return;
 
             IsPrePurchaseCaseInserted = false;
-            //check ppCaseId in db or not
-            PPCaseSetFromDB.PrePurchaseCase = GetPrePurchaseCase(ppCaseId);
+            //check ppcId in db or not
+            PPCaseSetFromDB.PrePurchaseCase = GetPrePurchaseCase(ppcId);
 
             if (PPCaseSetFromDB.PrePurchaseCase == null)
                 ThrowDataValidationException(ErrorMessages.ERR1175);
             else
             {   
                 //User this data to check data changed or not in Update function
-                PPCaseSetFromDB.PPBudgetSet = PPBudgetBL.Instance.GetPPBudgetSet(ppCaseId);
-                PPCaseSetFromDB.ProposedPPBudgetSet = PPBudgetBL.Instance.GetProposedPPBudgetSet(ppCaseId);
-                PPCaseSetFromDB.PPBudgetAssets = PPBudgetBL.Instance.GetPPBudgetAssetSet(ppCaseId);
-                PPCaseSetFromDB.PPBudgetItems = PPBudgetBL.Instance.GetPPBudgetItemSet(ppCaseId);
-                PPCaseSetFromDB.ProposedPPBudgetItems = PPBudgetBL.Instance.GetProposedPPBudgetItemSet(ppCaseId);
+                PPCaseSetFromDB.PPBudgetSet = PPBudgetBL.Instance.GetPPBudgetSet(ppcId);
+                PPCaseSetFromDB.ProposedPPBudgetSet = PPBudgetBL.Instance.GetProposedPPBudgetSet(ppcId);
+                PPCaseSetFromDB.PPBudgetAssets = PPBudgetBL.Instance.GetPPBudgetAssetSet(ppcId);
+                PPCaseSetFromDB.PPBudgetItems = PPBudgetBL.Instance.GetPPBudgetItemSet(ppcId);
+                PPCaseSetFromDB.ProposedPPBudgetItems = PPBudgetBL.Instance.GetProposedPPBudgetItemSet(ppcId);
             }
         }
 
@@ -277,17 +277,17 @@ namespace HPF.FutureState.BusinessLogic
             PPBudgetItemDTOCollection ppBudgetItemCollection = prePurchaseCaseSet.PPBudgetItems;
             PPBudgetAssetDTOCollection ppBudgetAssetCollection = prePurchaseCaseSet.PPBudgetAssets;
             PrePurchaseCaseDTO prePurchaseCase = prePurchaseCaseSet.PrePurchaseCase;
-            int? ppCaseId = 0;
+            int? ppcId = 0;
             try
             {
                 InitiateTransaction();
                 //Insert Pre_Purchase_Case table
                 //Return pp_case_id
-                ppCaseId = InsertPrePurchaseCase(prePurchaseCaseSetDAO, prePurchaseCase);
+                ppcId = InsertPrePurchaseCase(prePurchaseCaseSetDAO, prePurchaseCase);
 
                 //Insert Pre-Purchase Budget Set table
                 //Return Pre-Purchase Budget Set Id
-                int? ppBudgetSetId = InsertPPBudgetSet(prePurchaseCaseSetDAO, ppBudgetSet, ppCaseId);
+                int? ppBudgetSetId = InsertPPBudgetSet(prePurchaseCaseSetDAO, ppBudgetSet, ppcId);
                 //Insert Pre-Purchase Budget Item table 
                 InsertPPBudgetItem(prePurchaseCaseSetDAO, ppBudgetItemCollection, ppBudgetSetId);
                 //Insert Pre-Purchase Budget Asset table
@@ -296,7 +296,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (prePurchaseCaseSet.ProposedPPBudgetItems != null && prePurchaseCaseSet.ProposedPPBudgetItems.Count > 0)
                 {
                     PPPBudgetSetDTO proposedPPBudgetSet = AssignProposedPPBudgetSetHPFAuto(prePurchaseCaseSet.ProposedPPBudgetItems);
-                    int? proposedPPBudgetSetId = InsertProposedPPBudgetSet(prePurchaseCaseSetDAO, proposedPPBudgetSet, ppCaseId);
+                    int? proposedPPBudgetSetId = InsertProposedPPBudgetSet(prePurchaseCaseSetDAO, proposedPPBudgetSet, ppcId);
                     InsertProposedPPBudgetItem(prePurchaseCaseSetDAO, prePurchaseCaseSet.ProposedPPBudgetItems, proposedPPBudgetSetId);
                 }
                 CompleteTransaction();
@@ -310,7 +310,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 CloseConnection();
             }
-            return ppCaseId;
+            return ppcId;
         }
         #endregion
 
@@ -326,20 +326,20 @@ namespace HPF.FutureState.BusinessLogic
             PPBudgetItemDTOCollection ppBudgetItemCollection = prePurchaseCaseSet.PPBudgetItems;
             PPBudgetAssetDTOCollection ppBudgetAssetCollection = prePurchaseCaseSet.PPBudgetAssets;
             PrePurchaseCaseDTO prePurchaseCase = prePurchaseCaseSet.PrePurchaseCase;
-            int? ppCaseId = 0;
+            int? ppcId = 0;
             try
             {
                 InitiateTransaction();
                 //Update Pre-Purchase Case Table
                 //Return Fc_id
-                ppCaseId = UpdatePrePurchaseCase(prePurchaseCaseSetDAO, prePurchaseCase);
+                ppcId = UpdatePrePurchaseCase(prePurchaseCaseSetDAO, prePurchaseCase);
 
                 //check changed from pre-purchase budgetItem and pre-purchase budget asset
                 //if they are changed, insert new pre-purchase budget set, pre-purchase budget Item and pre-purchase budget asset
-                InsertPPBudget(prePurchaseCaseSetDAO, ppBudgetSet, ppBudgetItemCollection, ppBudgetAssetCollection, ppCaseId);
+                InsertPPBudget(prePurchaseCaseSetDAO, ppBudgetSet, ppBudgetItemCollection, ppBudgetAssetCollection, ppcId);
 
                 prePurchaseCaseSet.ProposedPPBudgetSet = AssignProposedPPBudgetSetHPFAuto(prePurchaseCaseSet.ProposedPPBudgetItems);
-                InsertProposedPPBudget(prePurchaseCaseSetDAO, prePurchaseCaseSet.ProposedPPBudgetSet, prePurchaseCaseSet.ProposedPPBudgetItems, ppCaseId);
+                InsertProposedPPBudget(prePurchaseCaseSetDAO, prePurchaseCaseSet.ProposedPPBudgetSet, prePurchaseCaseSet.ProposedPPBudgetItems, ppcId);
                 
                 CompleteTransaction();
             }
@@ -348,7 +348,7 @@ namespace HPF.FutureState.BusinessLogic
                 RollbackTransaction();
                 throw;
             }
-            return ppCaseId;
+            return ppcId;
         }
 
         /// <summary>
@@ -366,14 +366,14 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert PPBudget
         /// </summary>
-        private void InsertPPBudget(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PPBudgetSetDTO ppBudgetSet, PPBudgetItemDTOCollection ppBudgetItemCollection, PPBudgetAssetDTOCollection ppBudgetAssetCollection, int? ppCaseId)
+        private void InsertPPBudget(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PPBudgetSetDTO ppBudgetSet, PPBudgetItemDTOCollection ppBudgetItemCollection, PPBudgetAssetDTOCollection ppBudgetAssetCollection, int? ppcId)
         {
             bool isInsertBudget = IsInsertPPBudgetSet(PPCaseSetFromDB.PPBudgetItems, ppBudgetItemCollection, PPCaseSetFromDB.PPBudgetAssets, ppBudgetAssetCollection);
             if (isInsertBudget)
             {
                 //Insert Pre-Purchase Budget Set Table
                 //Return PPBudgetSetId
-                int? ppBudgetSetId = InsertPPBudgetSet(prePurchaseCaseSetDAO, ppBudgetSet, ppCaseId);
+                int? ppBudgetSetId = InsertPPBudgetSet(prePurchaseCaseSetDAO, ppBudgetSet, ppcId);
                 //Insert Pre-Purchase Budget Item Table
                 InsertPPBudgetItem(prePurchaseCaseSetDAO, ppBudgetItemCollection, ppBudgetSetId);
                 //Insert Pre-Purchase Budget Asset Table
@@ -381,14 +381,14 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
-        private void InsertProposedPPBudget(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PPPBudgetSetDTO proposedPPBudgetSet, PPPBudgetItemDTOCollection proposedPPBudgetItemCollection, int? ppCaseId)
+        private void InsertProposedPPBudget(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PPPBudgetSetDTO proposedPPBudgetSet, PPPBudgetItemDTOCollection proposedPPBudgetItemCollection, int? ppcId)
         {
             bool isInsertBudget = IsInsertPPBudgetSet(PPCaseSetFromDB.ProposedPPBudgetItems, proposedPPBudgetItemCollection);
             if (isInsertBudget && proposedPPBudgetItemCollection != null && proposedPPBudgetItemCollection.Count > 0)
             {
                 //Insert Proposed Pre-Purchase Budget Set table
                 //Return Proposed Pre-Purchase Budget Set Id
-                int? proposedPPBudgetSetId = InsertProposedPPBudgetSet(prePurchaseCaseSetDAO, proposedPPBudgetSet, ppCaseId);
+                int? proposedPPBudgetSetId = InsertProposedPPBudgetSet(prePurchaseCaseSetDAO, proposedPPBudgetSet, ppcId);
                 //Insert Proposed Pre-Purchase Budget Item
                 InsertProposedPPBudgetItem(prePurchaseCaseSetDAO, proposedPPBudgetItemCollection, proposedPPBudgetSetId);
             }
@@ -441,13 +441,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Pre-Purchase Budget Set
         /// </summary>
-        private int? InsertPPBudgetSet(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PPBudgetSetDTO ppBudgetSet, int? ppCaseId)
+        private int? InsertPPBudgetSet(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PPBudgetSetDTO ppBudgetSet, int? ppcId)
         {
             int? ppBudgetSetId = null;
             if (ppBudgetSet != null)
             {
                 ppBudgetSet.SetInsertTrackingInformation(_workingUserId);
-                ppBudgetSetId = prePurchaseCaseSetDAO.InsertPPBudgetSet(ppBudgetSet, ppCaseId);
+                ppBudgetSetId = prePurchaseCaseSetDAO.InsertPPBudgetSet(ppBudgetSet, ppcId);
             }
             return ppBudgetSetId;
         }
@@ -455,13 +455,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Proposed Pre-Purchase Budget Set
         /// </summary>
-        private int? InsertProposedPPBudgetSet(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PPPBudgetSetDTO proposedPPBudgetSet, int? ppCaseId)
+        private int? InsertProposedPPBudgetSet(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PPPBudgetSetDTO proposedPPBudgetSet, int? ppcId)
         {
             int? proposedPPBudgetSetId = null;
             if (proposedPPBudgetSet != null)
             {
                 proposedPPBudgetSet.SetInsertTrackingInformation(_workingUserId);
-                proposedPPBudgetSetId = prePurchaseCaseSetDAO.InsertProposedPPBudgetSet(proposedPPBudgetSet, ppCaseId);
+                proposedPPBudgetSetId = prePurchaseCaseSetDAO.InsertProposedPPBudgetSet(proposedPPBudgetSet, ppcId);
             }
             return proposedPPBudgetSetId;
         }
@@ -471,13 +471,13 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private int? InsertPrePurchaseCase(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, PrePurchaseCaseDTO prePurchaseCase)
         {
-            int? ppCaseId = null;
+            int? ppcId = null;
             if (prePurchaseCase != null)
             {
                 prePurchaseCase.SetInsertTrackingInformation(_workingUserId);
-                ppCaseId = prePurchaseCaseSetDAO.InsertPrePurchaseCase(prePurchaseCase);
+                ppcId = prePurchaseCaseSetDAO.InsertPrePurchaseCase(prePurchaseCase);
             }
-            return ppCaseId;
+            return ppcId;
         }
         #endregion
 
@@ -674,17 +674,26 @@ namespace HPF.FutureState.BusinessLogic
         {
             GeoCodeRefDTOCollection geoCodeRefCollection = GeoCodeRefDAO.Instance.GetGeoCodeRef();
             ExceptionMessageCollection msgPPCaseSet = new ExceptionMessageCollection();
-            bool newMailValid = false;
+            bool mailValid = false;
+            bool propertyValid = false;
             if (geoCodeRefCollection == null || geoCodeRefCollection.Count < 1)
                 return null;
             foreach (GeoCodeRefDTO item in geoCodeRefCollection)
             {
-                newMailValid = CombinationNewEmailValid(prePurchaseCase, item);
-                if (newMailValid == true)
+                mailValid = CombinationEmailValid(prePurchaseCase, item);
+                if (mailValid == true)
                     break;
             }
-            if (newMailValid == false)
+            foreach (GeoCodeRefDTO item in geoCodeRefCollection)
+            {
+                propertyValid = CombinationPropertyValid(prePurchaseCase, item);
+                if (propertyValid == true)
+                    break;
+            } 
+            if (mailValid == false)
                 msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR1171, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1171));
+            if (propertyValid == false)
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0260, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0260));
             return msgPPCaseSet;
         }
         /// <summary>
@@ -692,11 +701,22 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>PrePurchaseCaseDTO</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CombinationNewEmailValid(PrePurchaseCaseDTO prePurchaseCase, GeoCodeRefDTO item)
+        private bool CombinationEmailValid(PrePurchaseCaseDTO prePurchaseCase, GeoCodeRefDTO item)
         {
-            if (string.IsNullOrEmpty(prePurchaseCase.NewMailZip) && string.IsNullOrEmpty(prePurchaseCase.NewMailStateCd))
+            if (string.IsNullOrEmpty(prePurchaseCase.MailZip) && string.IsNullOrEmpty(prePurchaseCase.MailStateCd))
                 return true;
-            return (ConvertStringToUpper(prePurchaseCase.NewMailZip) == ConvertStringToUpper(item.ZipCode) && ConvertStringToUpper(prePurchaseCase.NewMailStateCd) == ConvertStringToUpper(item.StateAbbr));
+            return (ConvertStringToUpper(prePurchaseCase.MailZip) == ConvertStringToUpper(item.ZipCode) && ConvertStringToUpper(prePurchaseCase.MailStateCd) == ConvertStringToUpper(item.StateAbbr));
+        }
+        /// <summary>
+        /// Check valid combination property state_code and property zip code
+        /// <input>PrePurchaseCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CombinationPropertyValid(PrePurchaseCaseDTO prePurchaseCase, GeoCodeRefDTO item)
+        {
+            if (string.IsNullOrEmpty(prePurchaseCase.PropZip) && string.IsNullOrEmpty(prePurchaseCase.PropStateCd))
+                return true;
+            return (ConvertStringToUpper(prePurchaseCase.PropZip) == ConvertStringToUpper(item.ZipCode) && ConvertStringToUpper(prePurchaseCase.PropStateCd) == ConvertStringToUpper(item.StateAbbr));
         }
         /// <summary>
         /// Check valid zipcode
@@ -706,8 +726,10 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidZipCode(PrePurchaseCaseDTO prePurchaseCase)
         {
             ExceptionMessageCollection msgPPCaseSet = new ExceptionMessageCollection();
-            if ((!string.IsNullOrEmpty(prePurchaseCase.NewMailZip) && prePurchaseCase.NewMailZip.Length != 5) || !ConvertStringtoInt(prePurchaseCase.NewMailZip))
-                msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR1172, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0257));
+            if ((!string.IsNullOrEmpty(prePurchaseCase.MailZip) && prePurchaseCase.MailZip.Length != 5) || !ConvertStringtoInt(prePurchaseCase.MailZip))
+                msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR1172, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1172));
+            if ((!string.IsNullOrEmpty(prePurchaseCase.PropZip) && prePurchaseCase.PropZip.Length != 5) || !ConvertStringtoInt(prePurchaseCase.PropZip))
+                msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR0258, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0258));
             return msgPPCaseSet;
         }
         /// <summary>
@@ -1027,9 +1049,9 @@ namespace HPF.FutureState.BusinessLogic
         }
         #endregion
         #endregion
-        private PrePurchaseCaseDTO GetPrePurchaseCase(int? ppCaseId)
+        private PrePurchaseCaseDTO GetPrePurchaseCase(int? ppcId)
         {
-            return prePurchaseCaseSetDAO.GetPrePurchaseCase(ppCaseId);
+            return prePurchaseCaseSetDAO.GetPrePurchaseCase(ppcId);
         }
     }
 }

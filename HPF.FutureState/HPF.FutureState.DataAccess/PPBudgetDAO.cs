@@ -78,17 +78,17 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
-        /// Get latest pre-purchase budget set by ppCaseId
+        /// Get latest pre-purchase budget set by ppcId
         /// </summary>
         /// <param name=""></param>
         /// <returns>PPBudgetSetDTO</returns>
-        public PPBudgetSetDTO GetPPBudgetSet(int? ppCaseId)
+        public PPBudgetSetDTO GetPPBudgetSet(int? ppcId)
         {
             PPBudgetSetDTO ppBudgetSet = null;
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_pp_budget_set_get", dbConnection);
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_pp_case_id", ppCaseId);
+            sqlParam[0] = new SqlParameter("@pi_ppc_id", ppcId);
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
             try
@@ -123,17 +123,17 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
-        /// Get latest pre-purchase budget set by ppCaseId
+        /// Get latest pre-purchase budget set by ppcId
         /// </summary>
         /// <param name=""></param>
         /// <returns>PPBudgetSetDTO</returns>
-        public PPPBudgetSetDTO GetProposedPPBudgetSet(int? ppCaseId)
+        public PPPBudgetSetDTO GetProposedPPBudgetSet(int? ppcId)
         {
             PPPBudgetSetDTO ppBudgetSet = null;
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_ppp_budget_set_get", dbConnection);
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_pp_case_id", ppCaseId);
+            sqlParam[0] = new SqlParameter("@pi_ppc_id", ppcId);
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
             try
@@ -171,16 +171,16 @@ namespace HPF.FutureState.DataAccess
         /// Select a Pre-Purchase BudgetAsset from database.
         /// Where Max PP_BudgetSet_ID and pp_case_id
         /// </summary>
-        /// <param name="ppCaseId">ppCaseId</param>
+        /// <param name="ppcId">ppcId</param>
         /// <returns></returns>
-        public PPBudgetAssetDTOCollection GetPPBudgetAssetSet(int? ppCaseId)
+        public PPBudgetAssetDTOCollection GetPPBudgetAssetSet(int? ppcId)
         {
             PPBudgetAssetDTOCollection results = null;
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_pp_budget_asset_get", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_pp_case_id", ppCaseId);
+            sqlParam[0] = new SqlParameter("@pi_ppc_id", ppcId);
             try
             {
                 //</Parameter>
@@ -218,18 +218,18 @@ namespace HPF.FutureState.DataAccess
 
         /// <summary>
         /// Select Pre-Purchase Budget Items from database.
-        /// Where Max PP_BudgetSet_ID and PP_Case_ID
+        /// Where Max PP_BudgetSet_ID and Ppc_ID
         /// </summary>
-        /// <param name="ppCaseId">ppCaseId</param>
+        /// <param name="ppcId">ppcId</param>
         /// <returns></returns>
-        public PPBudgetItemDTOCollection GetPPBudgetItemSet(int? ppCaseId)
+        public PPBudgetItemDTOCollection GetPPBudgetItemSet(int? ppcId)
         {
             PPBudgetItemDTOCollection results = null;
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_pp_budget_item_get", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_pp_case_id", ppCaseId);
+            sqlParam[0] = new SqlParameter("@pi_ppc_id", ppcId);
             try
             {
                 //</Parameter>
@@ -269,16 +269,16 @@ namespace HPF.FutureState.DataAccess
         /// Select Proposed Pre-Purchase Budget Items from database.
         /// Where Max PPP_BudgetSet_ID and PP_Case_ID
         /// </summary>
-        /// <param name="ppCaseId">ppCaseId</param>
+        /// <param name="ppcId">ppcId</param>
         /// <returns></returns>
-        public PPPBudgetItemDTOCollection GetProposedPPBudgetItemSet(int? ppCaseId)
+        public PPPBudgetItemDTOCollection GetProposedPPBudgetItemSet(int? ppcId)
         {
             PPPBudgetItemDTOCollection results = null;
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_ppp_budget_item_get", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_pp_case_id", ppCaseId);
+            sqlParam[0] = new SqlParameter("@pi_ppc_id", ppcId);
             try
             {
                 //</Parameter>

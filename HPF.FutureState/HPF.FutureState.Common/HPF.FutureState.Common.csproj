@@ -82,6 +82,7 @@
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="BusinessLogicInterface\IMenuSecurityBL.cs" />
     <Compile Include="DataTransferObjects\AdminTaskLogDTO.cs" />
+    <Compile Include="DataTransferObjects\ApplicantDTO.cs" />
     <Compile Include="DataTransferObjects\AppSummariesToServicerCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobLogDTO.cs" />
@@ -137,7 +138,6 @@
     <Compile Include="DataTransferObjects\PPBudgetSetDTO.cs" />
     <Compile Include="DataTransferObjects\PPPBudgetItemDTO.cs" />
     <Compile Include="DataTransferObjects\PPPBudgetSetDTO.cs" />
-    <Compile Include="DataTransferObjects\PrePurchaseBorrowerDTO.cs" />
     <Compile Include="DataTransferObjects\PrePurchaseCaseDTO.cs" />
     <Compile Include="DataTransferObjects\PrePurchaseCaseSetDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSearchCriteriaDTO.cs" />
@@ -147,6 +147,7 @@
     <Compile Include="DataTransferObjects\ScamDTOCollection.cs" />
     <Compile Include="DataTransferObjects\SendSummaryServicerCollectionDTO.cs" />
     <Compile Include="DataTransferObjects\SendSummaryServicerDTO.cs" />
+    <Compile Include="DataTransferObjects\ServicerApplicantDTO.cs" />
     <Compile Include="DataTransferObjects\SponsorDTO.cs" />
     <Compile Include="DataTransferObjects\SponsorDTOCollection.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchRequest.cs" />
