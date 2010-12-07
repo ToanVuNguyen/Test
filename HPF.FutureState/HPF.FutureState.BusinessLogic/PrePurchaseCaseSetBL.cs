@@ -693,7 +693,7 @@ namespace HPF.FutureState.BusinessLogic
             if (mailValid == false)
                 msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR1171, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1171));
             if (propertyValid == false)
-                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0260, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0260));
+                msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR0260, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0260));
             return msgPPCaseSet;
         }
         /// <summary>
