@@ -61,7 +61,7 @@
             <table>
                 <tr>
                     <td align="center" class="sidelinks">
-                        PPCaseId: <asp:TextBox runat="server" ID="txtPPCaseIdInput"/>
+                        PpcId: <asp:TextBox runat="server" ID="txtPpcIdInput"/>
                     </td>
                     <td>
                         <asp:Button id="btnRetrieve" Text="Retrieve" runat="server" Width="105px" Enabled="false"/>
@@ -82,10 +82,10 @@
     <table >
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label1" runat="server" Text="PPCaseId"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label1" runat="server" Text="PpcId"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtPPCaseId" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtPpcId" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>            
@@ -106,156 +106,128 @@
         
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label6" runat="server" Text="PPBorrower id"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label6" runat="server" Text="ApplicantId"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtPPBorrowerId" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtApplicantId" runat="server"></asp:TextBox>
             </td>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label3" runat="server" Text="Program id"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label3" runat="server" Text="MortgageProgramCd"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtProgramId" runat="server"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label9" runat="server" Text="GroupCd"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtGroupCd" runat="server"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label10" runat="server" Text="AssignedToGroupDt"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtAssignedToGroupDt" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtMortgageProgramCd" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label11" runat="server" Text="SurveyorId"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label9" runat="server" Text="AcctNum"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtSurveyorId" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtAcctNum" runat="server"></asp:TextBox>
             </td>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label12" runat="server" Text="SentToSurveyorDt"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label10" runat="server" Text="BorrowerFName"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtSentToSurveyorDt" runat="server"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label13" runat="server" Text="RightPartyContactInd"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtRightPartyContactInd" runat="server"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label14" runat="server" Text="RpcMostRecentDt"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtRpcMostRecentDt" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtBorrowerFName" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label15" runat="server" Text="NoRpcReason"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label11" runat="server" Text="BorrowerLName"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtNoRpcReason" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtBorrowerLName" runat="server"></asp:TextBox>
             </td>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label16" runat="server" Text="CounselingAcceptedDt"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label12" runat="server" Text="CoBorrowerFName"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtCounselingAcceptedDt" runat="server"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label17" runat="server" Text="CounselingScheduledDt"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtCounselingScheduledDt" runat="server"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label18" runat="server" Text="CounselingCompletedDt"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtCounselingCompletedDt" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtCoBorrowerFName" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label19" runat="server" Text="CounselingRefusedDt"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label13" runat="server" Text="CoBorrowerLName"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtCounselingRefusedDt" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtCoBorrowerLName" runat="server"></asp:TextBox>
             </td>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label20" runat="server" Text="FirstCounseledDt"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label14" runat="server" Text="PropAddr1"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtFirstCounseledDt" runat="server"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label21" runat="server" Text="SecondCounseledDt"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtSecondCounseledDt" runat="server"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label22" runat="server" Text="InboundCallToNumDt"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtInboundCallToNumDt" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtPropAddr1" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label23" runat="server" Text="InboundCallToNumReason"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label15" runat="server" Text="PropAddr2"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtInboundCallToNumReason" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtPropAddr2" runat="server"></asp:TextBox>
             </td>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label24" runat="server" Text="NewMailAddr1"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label16" runat="server" Text="PropCity"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtNewMailAddr1" runat="server"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label25" runat="server" Text="NewMailAddr2"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtNewMailAddr2" runat="server"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label26" runat="server" Text="NewMailCity"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtNewMailCity" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtPropCity" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label27" runat="server" Text="NewMailStateCd"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label17" runat="server" Text="PropStateCd"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtNewMailStateCd" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtPropStateCd" runat="server"></asp:TextBox>
             </td>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label28" runat="server" Text="NewMailZip"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label18" runat="server" Text="PropZip"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtNewMailZip" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtPropZip" runat="server"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label CssClass = "sidelinks" ID="Label19" runat="server" Text="MailAddr1"></asp:Label>             
+            </td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtMailAddr1" runat="server"></asp:TextBox>
+            </td>
+            <td>
+                <asp:Label CssClass = "sidelinks" ID="Label20" runat="server" Text="MailAddr2"></asp:Label>             
+            </td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtMailAddr2" runat="server"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label CssClass = "sidelinks" ID="Label21" runat="server" Text="MailCity"></asp:Label>             
+            </td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtMailCity" runat="server"></asp:TextBox>
+            </td>
+            <td>
+                <asp:Label CssClass = "sidelinks" ID="Label22" runat="server" Text="MailStateCd"></asp:Label>             
+            </td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtMailStateCd" runat="server"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label CssClass = "sidelinks" ID="Label23" runat="server" Text="MailZip"></asp:Label>             
+            </td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtMailZip" runat="server"></asp:TextBox>
+            </td>
+            <td>
+                
+            </td>
+            <td>
+                
             </td>
         </tr>
         <tr>

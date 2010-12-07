@@ -1,31 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PrePurchaseCaseSet>
   <PrePurchaseCase>
+    <ApplicantId>1</ApplicantId>
     <AgencyId>4</AgencyId>
-    <PPBorrowerId>1</PPBorrowerId>
-    <ProgramId>2001</ProgramId>
     <AgencyCaseNum>123456</AgencyCaseNum>
-    <GroupCd>1</GroupCd>
-    <AssignedToGroupDt>10/10/2010</AssignedToGroupDt>
-    <SurveyorId>1</SurveyorId>
-    <SentToSurveyorDt>10/10/2010</SentToSurveyorDt>
-    <RightPartyContactInd>Y</RightPartyContactInd>
-    <RpcMostRecentDt>10/10/2010</RpcMostRecentDt>
-    <NoRpcReason></NoRpcReason>
-    <CounselingAcceptedDt>10/10/2010</CounselingAcceptedDt>
-    <CounselingScheduledDt>10/10/2010</CounselingScheduledDt>
-    <CounselingCompletedDt>10/10/2010</CounselingCompletedDt>
-    <CounselingRefusedDt>10/10/2010</CounselingRefusedDt>
-    <FirstCounseledDt>10/10/2010</FirstCounseledDt>
-    <SecondCounseledDt>10/10/2010</SecondCounseledDt>
-    <InboundCallToNumDt>10/10/2010</InboundCallToNumDt>
-    <InboundCallToNumReason></InboundCallToNumReason>
-    <AgencyCaseNum>123456</AgencyCaseNum>
-    <NewMailAddr1>newmail@csc.com</NewMailAddr1>
-    <NewMailAddr2>newmail@csc.com</NewMailAddr2>
-    <NewMailCity>New York</NewMailCity>
-    <NewMailStateCd>NY</NewMailStateCd>
-    <NewMailZip>00501</NewMailZip>
+    <AcctNum>123456</AcctNum>
+    <MortgageProgramCd>12</MortgageProgramCd>
+    <BorrowerFName>BorrowerFName</BorrowerFName>
+    <BorrowerLName>BorrowerLName</BorrowerLName>
+    <CoBorrowerFName>CoBorrowerFName</CoBorrowerFName>
+    <CoBorrowerLName>CoBorrowerLName</CoBorrowerLName>
+    <PropAddr1>PropAddr1</PropAddr1>
+    <PropAddr2>PropAddr2</PropAddr2>
+    <PropCity>New York</PropCity>
+    <PropStateCd>NY</PropStateCd>
+    <PropZip>00501</PropZip>
+    <MailAddr1>newmail@csc.com</MailAddr1>
+    <MailAddr2>newmail@csc.com</MailAddr2>
+    <MailCity>New York</MailCity>
+    <MailStateCd>NY</MailStateCd>
+    <MailZip>00501</MailZip>
     <BorrowerAuthorizationInd>Y</BorrowerAuthorizationInd>
     <MotherMaidenLName>MotherMaiden</MotherMaidenLName>
     <PrimaryContactNo>1</PrimaryContactNo>

@@ -63,11 +63,30 @@ namespace HPF.FutureState.WebService.Test.Web
         private PrePurchaseCaseDTO FormToPrePurchaseCase()
         {
             PrePurchaseCaseDTO ppCase = new PrePurchaseCaseDTO();
-
+            ppCase.PpcId = Util.ConvertToInt(txtPpcId.Text.Trim());
+            ppCase.ApplicantId = Util.ConvertToInt(txtApplicantId.Text.Trim());
+            ppCase.AgencyId = Util.ConvertToInt(txtAgencyId.Text.Trim());
             ppCase.AgencyCaseNum = txtAgencyCaseNumber.Text.Trim();
-            ppCase.AgencyId =Util.ConvertToInt(txtAgencyId.Text.Trim());
-            ppCase.AssignedToGroupDt = Util.ConvertToDateTime(txtAssignedToGroupDt.Text.Trim());
+            ppCase.AcctNum = txtAcctNum.Text.Trim();
+            ppCase.MortgageProgramCd = txtMortgageProgramCd.Text.Trim();
+            ppCase.BorrowerFName = txtBorrowerFName.Text.Trim();
+            ppCase.BorrowerLName = txtBorrowerLName.Text.Trim();
+            ppCase.CoBorrowerFName = txtCoBorrowerFName.Text.Trim();
+            ppCase.CoBorrowerLName = txtCoBorrowerLName.Text.Trim();
+            ppCase.PropAddr1 = txtPropAddr1.Text.Trim();
+            ppCase.PropAddr2 = txtPropAddr2.Text.Trim();
+            ppCase.PropCity = txtPropCity.Text.Trim();
+            ppCase.PropStateCd = txtPropStateCd.Text.Trim();
+            ppCase.PropZip = txtPropZip.Text.Trim();
+            ppCase.MailAddr1 = txtMailAddr1.Text.Trim();
+            ppCase.MailAddr2 = txtMailAddr2.Text.Trim();
+            ppCase.MailCity = txtMailCity.Text.Trim();
+            ppCase.MailStateCd = txtMailStateCd.Text.Trim();
+            ppCase.MailZip = txtMailZip.Text.Trim();
             ppCase.BorrowerAuthorizationInd = txtBorrowerAuthorizationInd.Text.Trim();
+            ppCase.MotherMaidenLName = txtMotherMaidenLName.Text.Trim();
+            ppCase.PrimaryContactNo = txtPrimaryContactNo.Text.Trim();
+            ppCase.SecondaryContactNo = txtSecondaryContactNo.Text.Trim();
             ppCase.BorrowerEmployerName = txtBorrowerEmployerName.Text.Trim();
             ppCase.BorrowerJobTitle = txtBorrowerJobTitle.Text.Trim();
             ppCase.BorrowerSelfEmployedInd = txtBorrowerSelfEmployedInd.Text.Trim();
@@ -76,38 +95,14 @@ namespace HPF.FutureState.WebService.Test.Web
             ppCase.CoBorrowerJobTitle = txtCoBorrowerJobTitle.Text.Trim();
             ppCase.CoBorrowerSelfEmployedInd = txtCoBorrowerSelfEmployedInd.Text.Trim();
             ppCase.CoBorrowerYearsEmployed = Util.ConvertToDouble(txtCoBorrowerYearsEmployed.Text.Trim());
-            ppCase.CounselingAcceptedDt = Util.ConvertToDateTime(txtCounselingAcceptedDt.Text.Trim());
-            ppCase.CounselingCompletedDt = Util.ConvertToDateTime(txtCounselingCompletedDt.Text.Trim());
-            ppCase.CounselingDurationMins = Util.ConvertToInt(txtCounselingDurationMins.Text.Trim());
-            ppCase.CounselingRefusedDt = Util.ConvertToDateTime(txtCounselingRefusedDt.Text.Trim());
-            ppCase.CounselingScheduledDt = Util.ConvertToDateTime(txtCounselingScheduledDt.Text.Trim());
-            ppCase.CounselorEmail = txtCounselorEmail.Text.Trim();
-            ppCase.CounselorExt = txtCounselorExt.Text.Trim();
-            ppCase.CounselorFName = txtCounselorFName.Text.Trim();
             ppCase.CounselorIdRef = txtCounselorIdRef.Text.Trim();
+            ppCase.CounselorFName = txtCounselorFName.Text.Trim();
             ppCase.CounselorLName = txtCounselorLName.Text.Trim();
+            ppCase.CounselorEmail = txtCounselorEmail.Text.Trim();
             ppCase.CounselorPhone = txtCounselorPhone.Text.Trim();
-            ppCase.FirstCounseledDt = Util.ConvertToDateTime(txtFirstCounseledDt.Text.Trim());
-            ppCase.GroupCd = txtGroupCd.Text.Trim();
-            ppCase.InboundCallToNumDt = Util.ConvertToDateTime(txtInboundCallToNumDt.Text.Trim());
-            ppCase.InboundCallToNumReason = txtInboundCallToNumReason.Text.Trim();
-            ppCase.MotherMaidenLName = txtMotherMaidenLName.Text.Trim();
-            ppCase.NewMailAddr1 = txtNewMailAddr1.Text.Trim();
-            ppCase.NewMailAddr2 = txtNewMailAddr2.Text.Trim();
-            ppCase.NewMailCity = txtNewMailCity.Text.Trim();
-            ppCase.NewMailStateCd = txtNewMailStateCd.Text.Trim();
-            ppCase.NewMailZip = txtNewMailZip.Text.Trim();
-            ppCase.NoRpcReason = txtNoRpcReason.Text.Trim();
-            ppCase.PPBorrowerId =Util.ConvertToInt(txtPPBorrowerId.Text.Trim());
-            ppCase.PPCaseId = Util.ConvertToInt(txtPPCaseId.Text.Trim());
-            ppCase.PrimaryContactNo = txtPrimaryContactNo.Text.Trim();
-            ppCase.ProgramId = Util.ConvertToInt(txtProgramId.Text.Trim());
-            ppCase.RightPartyContactInd = txtRightPartyContactInd.Text.Trim();
-            ppCase.RpcMostRecentDt = Util.ConvertToDateTime(txtRpcMostRecentDt.Text.Trim());
-            ppCase.SecondaryContactNo = txtSecondaryContactNo.Text.Trim();
-            ppCase.SecondCounseledDt = Util.ConvertToDateTime(txtSecondCounseledDt.Text.Trim());
-            ppCase.SentToSurveyorDt = Util.ConvertToDateTime(txtSentToSurveyorDt.Text.Trim());
-            ppCase.SurveyorId = Util.ConvertToInt(txtSurveyorId.Text.Trim());
+            ppCase.CounselorExt = txtCounselorExt.Text.Trim();
+            ppCase.CounselingDurationMins = Util.ConvertToInt(txtCounselingDurationMins.Text.Trim());
+            ppCase.ChgLstUserId = txtWorkingUserID.Text;
 
             return ppCase;
         }
@@ -115,12 +110,31 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             if (ppCase != null)
             {
-                if (ppCase.PPCaseId.HasValue)
-                    txtPPCaseId.Text = ppCase.PPCaseId.Value.ToString();
-                txtAgencyCaseNumber.Text = ppCase.AgencyCaseNum;
+                if (ppCase.PpcId.HasValue)
+                    txtPpcId.Text = ppCase.PpcId.Value.ToString();
+                txtApplicantId.Text = ppCase.ApplicantId.Value.ToString();
                 txtAgencyId.Text= ppCase.AgencyId.Value.ToString();
-                txtAssignedToGroupDt.Text = Util.ConvertToString(ppCase.AssignedToGroupDt);
+                txtAgencyCaseNumber.Text = ppCase.AgencyCaseNum;
+                txtAcctNum.Text = ppCase.AcctNum;
+                txtMortgageProgramCd.Text = ppCase.MortgageProgramCd;
+                txtBorrowerFName.Text = ppCase.BorrowerFName;
+                txtBorrowerLName.Text = ppCase.BorrowerLName;
+                txtCoBorrowerFName.Text = ppCase.CoBorrowerFName;
+                txtCoBorrowerLName.Text = ppCase.CoBorrowerLName;
+                txtPropAddr1.Text = ppCase.PropAddr1;
+                txtPropAddr2.Text = ppCase.PropAddr2;
+                txtPropCity.Text = ppCase.PropCity;
+                txtPropStateCd.Text = ppCase.PropStateCd;
+                txtPropZip.Text = ppCase.PropZip;
+                txtMailAddr1.Text = ppCase.MailAddr1;
+                txtMailAddr2.Text = ppCase.MailAddr2;
+                txtMailCity.Text = ppCase.MailCity;
+                txtMailStateCd.Text = ppCase.MailStateCd;
+                txtMailZip.Text = ppCase.MailZip;
                 txtBorrowerAuthorizationInd.Text = ppCase.BorrowerAuthorizationInd;
+                txtMotherMaidenLName.Text = ppCase.MotherMaidenLName;
+                txtPrimaryContactNo.Text = ppCase.PrimaryContactNo;
+                txtSecondaryContactNo.Text = ppCase.SecondaryContactNo;
                 txtBorrowerEmployerName.Text = ppCase.BorrowerEmployerName;
                 txtBorrowerJobTitle.Text =  ppCase.BorrowerJobTitle;
                 txtBorrowerSelfEmployedInd.Text = ppCase.BorrowerSelfEmployedInd;
@@ -128,38 +142,13 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtCoBorrowerEmployerName.Text = ppCase.CoBorrowerEmployerName;
                 txtCoBorrowerJobTitle.Text = ppCase.CoBorrowerJobTitle;
                 txtCoBorrowerSelfEmployedInd.Text = ppCase.CoBorrowerSelfEmployedInd;
-                txtCoBorrowerYearsEmployed.Text = ppCase.CoBorrowerYearsEmployed.ToString();
-                txtCounselingAcceptedDt.Text =Util.ConvertToString(ppCase.CounselingAcceptedDt);
-                txtCounselingCompletedDt.Text =Util.ConvertToString(ppCase.CounselingCompletedDt);
-                txtCounselingDurationMins.Text = ppCase.CounselingDurationMins.Value.ToString();
-                txtCounselingRefusedDt.Text =Util.ConvertToString(ppCase.CounselingRefusedDt);
-                txtCounselingScheduledDt.Text =Util.ConvertToString(ppCase.CounselingScheduledDt);
-                txtCounselorEmail.Text = ppCase.CounselorEmail;
-                txtCounselorExt.Text = ppCase.CounselorExt;
-                txtCounselorFName.Text = ppCase.CounselorFName;
                 txtCounselorIdRef.Text = ppCase.CounselorIdRef;
+                txtCounselorFName.Text = ppCase.CounselorFName;
                 txtCounselorLName.Text = ppCase.CounselorLName;
+                txtCounselorEmail.Text = ppCase.CounselorEmail;
                 txtCounselorPhone.Text = ppCase.CounselorPhone;
-                txtFirstCounseledDt.Text =Util.ConvertToString(ppCase.FirstCounseledDt);
-                txtGroupCd.Text = ppCase.GroupCd;
-                txtInboundCallToNumDt.Text =Util.ConvertToString(ppCase.InboundCallToNumDt);
-                txtInboundCallToNumReason.Text = ppCase.InboundCallToNumReason;
-                txtMotherMaidenLName.Text = ppCase.MotherMaidenLName;
-                txtNewMailAddr1.Text = ppCase.NewMailAddr1;
-                txtNewMailAddr2.Text = ppCase.NewMailAddr2;
-                txtNewMailCity.Text = ppCase.NewMailCity;
-                txtNewMailStateCd.Text = ppCase.NewMailStateCd;
-                txtNewMailZip.Text = ppCase.NewMailZip;
-                txtNoRpcReason.Text = ppCase.NoRpcReason;
-                txtPPBorrowerId.Text = ppCase.PPBorrowerId.Value.ToString();
-                txtPrimaryContactNo.Text = ppCase.PrimaryContactNo;
-                txtProgramId.Text =  ppCase.ProgramId.Value.ToString();
-                txtRightPartyContactInd.Text = ppCase.RightPartyContactInd;
-                txtRpcMostRecentDt.Text =Util.ConvertToString(ppCase.RpcMostRecentDt);
-                txtSecondaryContactNo.Text = ppCase.SecondaryContactNo;
-                txtSecondCounseledDt.Text =Util.ConvertToString(ppCase.SecondCounseledDt);
-                txtSentToSurveyorDt.Text=Util.ConvertToString(ppCase.SentToSurveyorDt);
-                txtSurveyorId.Text =ppCase.SurveyorId.Value.ToString();
+                txtCounselorExt.Text = ppCase.CounselorExt;
+                txtCounselingDurationMins.Text = ppCase.CounselingDurationMins.Value.ToString();
                 txtWorkingUserID.Text = ppCase.ChgLstUserId.ToString();
             }
         }
@@ -637,7 +626,7 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 if (response.Status == ResponseStatus.Warning)
                 {
-                    lblMessage.Text = "Congratulation - PPId is " + response.PPCaseId;
+                    lblMessage.Text = "Congratulation - PpcId is " + response.PpcId;
                 }
                 else
                     lblMessage.Text = "Error Message: ";
@@ -648,7 +637,7 @@ namespace HPF.FutureState.WebService.Test.Web
             else
             {
                 grdvMessages.Visible = false;
-                lblMessage.Text = "Congratulation - PPId is " + response.PPCaseId;
+                lblMessage.Text = "Congratulation - PpcId is " + response.PpcId;
             }
         }
         private PrePurchaseCaseSaveRequest CreatePrePurchaseCaseSaveRequest()

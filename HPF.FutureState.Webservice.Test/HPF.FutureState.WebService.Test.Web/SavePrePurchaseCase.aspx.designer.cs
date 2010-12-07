@@ -68,13 +68,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Button UploadBtn;
         
         /// <summary>
-        /// txtPPCaseIdInput control.
+        /// txtPpcIdInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPPCaseIdInput;
+        protected global::System.Web.UI.WebControls.TextBox txtPpcIdInput;
         
         /// <summary>
         /// btnRetrieve control.
@@ -104,13 +104,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// txtPPCaseId control.
+        /// txtPpcId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPPCaseId;
+        protected global::System.Web.UI.WebControls.TextBox txtPpcId;
         
         /// <summary>
         /// Label5 control.
@@ -158,13 +158,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
-        /// txtPPBorrowerId control.
+        /// txtApplicantId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPPBorrowerId;
+        protected global::System.Web.UI.WebControls.TextBox txtApplicantId;
         
         /// <summary>
         /// Label3 control.
@@ -176,13 +176,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// txtProgramId control.
+        /// txtMortgageProgramCd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProgramId;
+        protected global::System.Web.UI.WebControls.TextBox txtMortgageProgramCd;
         
         /// <summary>
         /// Label9 control.
@@ -194,13 +194,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label9;
         
         /// <summary>
-        /// txtGroupCd control.
+        /// txtAcctNum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGroupCd;
+        protected global::System.Web.UI.WebControls.TextBox txtAcctNum;
         
         /// <summary>
         /// Label10 control.
@@ -212,13 +212,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label10;
         
         /// <summary>
-        /// txtAssignedToGroupDt control.
+        /// txtBorrowerFName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAssignedToGroupDt;
+        protected global::System.Web.UI.WebControls.TextBox txtBorrowerFName;
         
         /// <summary>
         /// Label11 control.
@@ -230,13 +230,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label11;
         
         /// <summary>
-        /// txtSurveyorId control.
+        /// txtBorrowerLName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSurveyorId;
+        protected global::System.Web.UI.WebControls.TextBox txtBorrowerLName;
         
         /// <summary>
         /// Label12 control.
@@ -248,13 +248,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label12;
         
         /// <summary>
-        /// txtSentToSurveyorDt control.
+        /// txtCoBorrowerFName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSentToSurveyorDt;
+        protected global::System.Web.UI.WebControls.TextBox txtCoBorrowerFName;
         
         /// <summary>
         /// Label13 control.
@@ -266,13 +266,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label13;
         
         /// <summary>
-        /// txtRightPartyContactInd control.
+        /// txtCoBorrowerLName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRightPartyContactInd;
+        protected global::System.Web.UI.WebControls.TextBox txtCoBorrowerLName;
         
         /// <summary>
         /// Label14 control.
@@ -284,13 +284,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label14;
         
         /// <summary>
-        /// txtRpcMostRecentDt control.
+        /// txtPropAddr1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRpcMostRecentDt;
+        protected global::System.Web.UI.WebControls.TextBox txtPropAddr1;
         
         /// <summary>
         /// Label15 control.
@@ -302,13 +302,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label15;
         
         /// <summary>
-        /// txtNoRpcReason control.
+        /// txtPropAddr2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNoRpcReason;
+        protected global::System.Web.UI.WebControls.TextBox txtPropAddr2;
         
         /// <summary>
         /// Label16 control.
@@ -320,13 +320,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label16;
         
         /// <summary>
-        /// txtCounselingAcceptedDt control.
+        /// txtPropCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCounselingAcceptedDt;
+        protected global::System.Web.UI.WebControls.TextBox txtPropCity;
         
         /// <summary>
         /// Label17 control.
@@ -338,13 +338,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label17;
         
         /// <summary>
-        /// txtCounselingScheduledDt control.
+        /// txtPropStateCd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCounselingScheduledDt;
+        protected global::System.Web.UI.WebControls.TextBox txtPropStateCd;
         
         /// <summary>
         /// Label18 control.
@@ -356,13 +356,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label18;
         
         /// <summary>
-        /// txtCounselingCompletedDt control.
+        /// txtPropZip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCounselingCompletedDt;
+        protected global::System.Web.UI.WebControls.TextBox txtPropZip;
         
         /// <summary>
         /// Label19 control.
@@ -374,13 +374,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label19;
         
         /// <summary>
-        /// txtCounselingRefusedDt control.
+        /// txtMailAddr1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCounselingRefusedDt;
+        protected global::System.Web.UI.WebControls.TextBox txtMailAddr1;
         
         /// <summary>
         /// Label20 control.
@@ -392,13 +392,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label20;
         
         /// <summary>
-        /// txtFirstCounseledDt control.
+        /// txtMailAddr2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFirstCounseledDt;
+        protected global::System.Web.UI.WebControls.TextBox txtMailAddr2;
         
         /// <summary>
         /// Label21 control.
@@ -410,13 +410,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label21;
         
         /// <summary>
-        /// txtSecondCounseledDt control.
+        /// txtMailCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSecondCounseledDt;
+        protected global::System.Web.UI.WebControls.TextBox txtMailCity;
         
         /// <summary>
         /// Label22 control.
@@ -428,13 +428,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label22;
         
         /// <summary>
-        /// txtInboundCallToNumDt control.
+        /// txtMailStateCd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInboundCallToNumDt;
+        protected global::System.Web.UI.WebControls.TextBox txtMailStateCd;
         
         /// <summary>
         /// Label23 control.
@@ -446,103 +446,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label23;
         
         /// <summary>
-        /// txtInboundCallToNumReason control.
+        /// txtMailZip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInboundCallToNumReason;
-        
-        /// <summary>
-        /// Label24 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label24;
-        
-        /// <summary>
-        /// txtNewMailAddr1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewMailAddr1;
-        
-        /// <summary>
-        /// Label25 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label25;
-        
-        /// <summary>
-        /// txtNewMailAddr2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewMailAddr2;
-        
-        /// <summary>
-        /// Label26 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label26;
-        
-        /// <summary>
-        /// txtNewMailCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewMailCity;
-        
-        /// <summary>
-        /// Label27 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label27;
-        
-        /// <summary>
-        /// txtNewMailStateCd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewMailStateCd;
-        
-        /// <summary>
-        /// Label28 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label28;
-        
-        /// <summary>
-        /// txtNewMailZip control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewMailZip;
+        protected global::System.Web.UI.WebControls.TextBox txtMailZip;
         
         /// <summary>
         /// Label29 control.

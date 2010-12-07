@@ -19,7 +19,8 @@ using System.Configuration;
 // 
 namespace HPF.Webservice.Agency {
     
-
+    
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1979,55 +1980,45 @@ namespace HPF.Webservice.Agency {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://www.homeownershopenetwork.org")]
     public partial class PrePurchaseCaseDTO : BaseDTO {
         
-        private System.Nullable<int> pPCaseIdField;
+        private System.Nullable<int> ppcIdField;
         
-        private System.Nullable<int> pPBorrowerIdField;
-        
-        private System.Nullable<int> programIdField;
-        
-        private string groupCdField;
-        
-        private System.Nullable<System.DateTime> assignedToGroupDtField;
+        private System.Nullable<int> applicantIdField;
         
         private System.Nullable<int> agencyIdField;
         
-        private System.Nullable<int> surveyorIdField;
-        
-        private System.Nullable<System.DateTime> sentToSurveyorDtField;
-        
-        private string rightPartyContactIndField;
-        
-        private System.Nullable<System.DateTime> rpcMostRecentDtField;
-        
-        private string noRpcReasonField;
-        
-        private System.Nullable<System.DateTime> counselingAcceptedDtField;
-        
-        private System.Nullable<System.DateTime> counselingScheduledDtField;
-        
-        private System.Nullable<System.DateTime> counselingCompletedDtField;
-        
-        private System.Nullable<System.DateTime> counselingRefusedDtField;
-        
-        private System.Nullable<System.DateTime> firstCounseledDtField;
-        
-        private System.Nullable<System.DateTime> secondCounseledDtField;
-        
-        private System.Nullable<System.DateTime> inboundCallToNumDtField;
-        
-        private string inboundCallToNumReasonField;
-        
         private string agencyCaseNumField;
         
-        private string newMailAddr1Field;
+        private string acctNumField;
         
-        private string newMailAddr2Field;
+        private string mortgageProgramCdField;
         
-        private string newMailCityField;
+        private string borrowerFNameField;
         
-        private string newMailStateCdField;
+        private string borrowerLNameField;
         
-        private string newMailZipField;
+        private string coBorrowerFNameField;
+        
+        private string coBorrowerLNameField;
+        
+        private string propAddr1Field;
+        
+        private string propAddr2Field;
+        
+        private string propCityField;
+        
+        private string propStateCdField;
+        
+        private string propZipField;
+        
+        private string mailAddr1Field;
+        
+        private string mailAddr2Field;
+        
+        private string mailCityField;
+        
+        private string mailStateCdField;
+        
+        private string mailZipField;
         
         private string borrowerAuthorizationIndField;
         
@@ -2071,55 +2062,23 @@ namespace HPF.Webservice.Agency {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<int> PPCaseId {
+        public System.Nullable<int> PpcId {
             get {
-                return this.pPCaseIdField;
+                return this.ppcIdField;
             }
             set {
-                this.pPCaseIdField = value;
+                this.ppcIdField = value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<int> PPBorrowerId {
+        public System.Nullable<int> ApplicantId {
             get {
-                return this.pPBorrowerIdField;
+                return this.applicantIdField;
             }
             set {
-                this.pPBorrowerIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<int> ProgramId {
-            get {
-                return this.programIdField;
-            }
-            set {
-                this.programIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string GroupCd {
-            get {
-                return this.groupCdField;
-            }
-            set {
-                this.groupCdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> AssignedToGroupDt {
-            get {
-                return this.assignedToGroupDtField;
-            }
-            set {
-                this.assignedToGroupDtField = value;
+                this.applicantIdField = value;
             }
         }
         
@@ -2135,146 +2094,6 @@ namespace HPF.Webservice.Agency {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<int> SurveyorId {
-            get {
-                return this.surveyorIdField;
-            }
-            set {
-                this.surveyorIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> SentToSurveyorDt {
-            get {
-                return this.sentToSurveyorDtField;
-            }
-            set {
-                this.sentToSurveyorDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string RightPartyContactInd {
-            get {
-                return this.rightPartyContactIndField;
-            }
-            set {
-                this.rightPartyContactIndField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> RpcMostRecentDt {
-            get {
-                return this.rpcMostRecentDtField;
-            }
-            set {
-                this.rpcMostRecentDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string NoRpcReason {
-            get {
-                return this.noRpcReasonField;
-            }
-            set {
-                this.noRpcReasonField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> CounselingAcceptedDt {
-            get {
-                return this.counselingAcceptedDtField;
-            }
-            set {
-                this.counselingAcceptedDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> CounselingScheduledDt {
-            get {
-                return this.counselingScheduledDtField;
-            }
-            set {
-                this.counselingScheduledDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> CounselingCompletedDt {
-            get {
-                return this.counselingCompletedDtField;
-            }
-            set {
-                this.counselingCompletedDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> CounselingRefusedDt {
-            get {
-                return this.counselingRefusedDtField;
-            }
-            set {
-                this.counselingRefusedDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> FirstCounseledDt {
-            get {
-                return this.firstCounseledDtField;
-            }
-            set {
-                this.firstCounseledDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> SecondCounseledDt {
-            get {
-                return this.secondCounseledDtField;
-            }
-            set {
-                this.secondCounseledDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> InboundCallToNumDt {
-            get {
-                return this.inboundCallToNumDtField;
-            }
-            set {
-                this.inboundCallToNumDtField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string InboundCallToNumReason {
-            get {
-                return this.inboundCallToNumReasonField;
-            }
-            set {
-                this.inboundCallToNumReasonField = value;
-            }
-        }
-        
-        /// <remarks/>
         public string AgencyCaseNum {
             get {
                 return this.agencyCaseNumField;
@@ -2285,52 +2104,162 @@ namespace HPF.Webservice.Agency {
         }
         
         /// <remarks/>
-        public string NewMailAddr1 {
+        public string AcctNum {
             get {
-                return this.newMailAddr1Field;
+                return this.acctNumField;
             }
             set {
-                this.newMailAddr1Field = value;
+                this.acctNumField = value;
             }
         }
         
         /// <remarks/>
-        public string NewMailAddr2 {
+        public string MortgageProgramCd {
             get {
-                return this.newMailAddr2Field;
+                return this.mortgageProgramCdField;
             }
             set {
-                this.newMailAddr2Field = value;
+                this.mortgageProgramCdField = value;
             }
         }
         
         /// <remarks/>
-        public string NewMailCity {
+        public string BorrowerFName {
             get {
-                return this.newMailCityField;
+                return this.borrowerFNameField;
             }
             set {
-                this.newMailCityField = value;
+                this.borrowerFNameField = value;
             }
         }
         
         /// <remarks/>
-        public string NewMailStateCd {
+        public string BorrowerLName {
             get {
-                return this.newMailStateCdField;
+                return this.borrowerLNameField;
             }
             set {
-                this.newMailStateCdField = value;
+                this.borrowerLNameField = value;
             }
         }
         
         /// <remarks/>
-        public string NewMailZip {
+        public string CoBorrowerFName {
             get {
-                return this.newMailZipField;
+                return this.coBorrowerFNameField;
             }
             set {
-                this.newMailZipField = value;
+                this.coBorrowerFNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CoBorrowerLName {
+            get {
+                return this.coBorrowerLNameField;
+            }
+            set {
+                this.coBorrowerLNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PropAddr1 {
+            get {
+                return this.propAddr1Field;
+            }
+            set {
+                this.propAddr1Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PropAddr2 {
+            get {
+                return this.propAddr2Field;
+            }
+            set {
+                this.propAddr2Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PropCity {
+            get {
+                return this.propCityField;
+            }
+            set {
+                this.propCityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PropStateCd {
+            get {
+                return this.propStateCdField;
+            }
+            set {
+                this.propStateCdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PropZip {
+            get {
+                return this.propZipField;
+            }
+            set {
+                this.propZipField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MailAddr1 {
+            get {
+                return this.mailAddr1Field;
+            }
+            set {
+                this.mailAddr1Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MailAddr2 {
+            get {
+                return this.mailAddr2Field;
+            }
+            set {
+                this.mailAddr2Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MailCity {
+            get {
+                return this.mailCityField;
+            }
+            set {
+                this.mailCityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MailStateCd {
+            get {
+                return this.mailStateCdField;
+            }
+            set {
+                this.mailStateCdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MailZip {
+            get {
+                return this.mailZipField;
+            }
+            set {
+                this.mailZipField = value;
             }
         }
         
@@ -4557,9 +4486,9 @@ namespace HPF.Webservice.Agency {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://www.homeownershopenetwork.org")]
     public partial class PrePurchaseCaseSaveResponse : BaseResponse {
         
-        private System.Nullable<int> pPCaseIdField;
+        private System.Nullable<int> ppcIdField;
         
-        private System.Nullable<int> pPBorrowerIdField;
+        private System.Nullable<int> applicantIdField;
         
         private System.DateTime uploadDtField;
         
@@ -4567,23 +4496,23 @@ namespace HPF.Webservice.Agency {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<int> PPCaseId {
+        public System.Nullable<int> PpcId {
             get {
-                return this.pPCaseIdField;
+                return this.ppcIdField;
             }
             set {
-                this.pPCaseIdField = value;
+                this.ppcIdField = value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<int> PPBorrowerId {
+        public System.Nullable<int> ApplicantId {
             get {
-                return this.pPBorrowerIdField;
+                return this.applicantIdField;
             }
             set {
-                this.pPBorrowerIdField = value;
+                this.applicantIdField = value;
             }
         }
         
