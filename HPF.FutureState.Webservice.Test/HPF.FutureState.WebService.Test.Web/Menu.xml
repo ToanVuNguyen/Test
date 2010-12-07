@@ -15,6 +15,9 @@
     <MenuItem Id="getFcCase" Title="Retriece Summary" Url="RetrieveSummary.aspx" Enabled="True"/>
     <MenuItem Id="SendSummary" Title="Send Summary" Url="SendSummary.aspx" Enabled="True"/>
   </Menu>
+  <Menu Id="PPCase" Title="PP Case" Url="" Enabled="true">
+    <MenuItem Id="savePPCase" Title="Save PPCase" Url="SavePrePurchaseCase.aspx" Enabled="True"/>
+  </Menu>
   <Menu Id="inFor" Title="System" Url="" Enabled="true">
     <MenuItem Id="retrieceRefCodes" Title="Retrieve Ref Codes" Url="RetieveRefCodes.aspx" Enabled="True"/>
     <MenuItem Id="retrieveServicerList" Title="Retrieve Servicer List" Url="RetrieveServicerList.aspx" Enabled="True"/>
