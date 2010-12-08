@@ -66,7 +66,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             HyperLink hl = new HyperLink();
             hl.Attributes.Add("style", "Text");
             StringBuilder navigateUrl = new StringBuilder();
-            navigateUrl.AppendFormat("http://{0}{1}/{2}{3}{4}", Request.ServerVariables["HTTP_HOST"],Request.ApplicationPath, HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH, filePath, fileName);
+            navigateUrl.AppendFormat("{0}://{1}{2}/{3}{4}{5}",Request.Url.Scheme, Request.ServerVariables["HTTP_HOST"],Request.ApplicationPath, HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH, filePath, fileName);
             hl.NavigateUrl = navigateUrl.ToString();
             hl.Text = fileName;
             hl.Target = "_blank";
