@@ -31,6 +31,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string BankruptcyInd { get; set; }
         public string FcNoticeReceivedInd { get; set; }
         public string AgencyCaseNum { get; set; }
+        public string AgencyClientNum { get; set; }
 
         public string AgencyName { get; set; }
         public string Counseled { get; set; }

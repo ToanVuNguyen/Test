@@ -288,6 +288,7 @@ namespace HPF.FutureState.DataAccess
                         ForeclosureCaseWSDTO item = new ForeclosureCaseWSDTO();
                         //item.Counseled = ConvertToString(reader["counseled"]);
                         item.FcId = ConvertToInt(reader["fc_id"]);
+                        item.AgencyClientNum = ConvertToString(reader["agency_client_num"]);
                         item.IntakeDt = ConvertToDateTime(reader["intake_dt"]);
                         item.BorrowerFname = ConvertToString(reader["borrower_fname"]);
                         item.BorrowerLname = ConvertToString(reader["borrower_lname"]);
