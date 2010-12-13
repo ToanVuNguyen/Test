@@ -668,7 +668,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0084, "CounselorContactedSrvcrInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0085, "NumberOfUnits must be a valid whole number, greater than Zero and less than or equal to 999.");
                 errorMessageDict.Add(ERR0086, "VacantOrCondemedInd must be either a Y, N or a blank.");
-                errorMessageDict.Add(ERR0087, "MortgagePmtRatio must be a valid number with 1 decimal place.");
+                errorMessageDict.Add(ERR0087, "MortgagePmtRatio must be a valid number with 1 decimal place, no larger than 999,999.99");
                 errorMessageDict.Add(ERR0088, "ArmLockDuration must be a valid whole number, greater than Zero and less than or equal to 99.");
                 errorMessageDict.Add(ERR0089, "30DaysLatePastYrInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0090, "PmtMissLessOneYrLoanInd must be either a Y, N or a blank.");
