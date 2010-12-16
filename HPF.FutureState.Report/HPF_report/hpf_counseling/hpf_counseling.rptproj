@@ -19,6 +19,10 @@
       <MimeType>image/gif</MimeType>
     </ResourceProjectItem>
     <ProjectItem>
+      <Name>rpt_AgencyQualityDetail.rdl</Name>
+      <FullPath>rpt_AgencyQualityDetail.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_Arundel_Street_Data_Report.rdl</Name>
       <FullPath>rpt_Arundel_Street_Data_Report.rdl</FullPath>
     </ProjectItem>
@@ -145,9 +149,9 @@
       <Name>Production</Name>
       <Platform>Win32</Platform>
       <Options>
-        <TargetServerURL>http://hpf-04:8088/</TargetServerURL>
-        <TargetFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/Reports/Counseling</TargetFolder>
-        <TargetDataSourceFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
+        <TargetServerURL>http://hpf-01:6060/</TargetServerURL>
+        <TargetFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/Reports/Counseling</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
       </Options>
     </Configuration>
   </Configurations>

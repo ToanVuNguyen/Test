@@ -25,12 +25,16 @@
       <FullPath>rpt_MHA_Escalation_Handle_Time_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_MHA_Escalation_To_HSC_Report.rdl</Name>
-      <FullPath>rpt_MHA_Escalation_To_HSC_Report.rdl</FullPath>
+      <Name>rpt_MHA_Escalation_To_Fannie_Report.rdl</Name>
+      <FullPath>rpt_MHA_Escalation_To_Fannie_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_MHA_Escalation_To_Freddie_Report.rdl</Name>
       <FullPath>rpt_MHA_Escalation_To_Freddie_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_MHA_Escalation_To_HSC_Report.rdl</Name>
+      <FullPath>rpt_MHA_Escalation_To_HSC_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_MHA_Help_Handle_Time_Report.rdl</Name>
@@ -60,10 +64,6 @@
       <Name>rpt_Zipcode_Outreach_Report.rdl</Name>
       <FullPath>rpt_Zipcode_Outreach_Report.rdl</FullPath>
     </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_MHA_Escalation_To_Fannie_Report.rdl</Name>
-      <FullPath>rpt_MHA_Escalation_To_Fannie_Report.rdl</FullPath>
-    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
@@ -78,9 +78,9 @@
       <Name>DebugLocal</Name>
       <Platform>Win32</Platform>
       <Options>
-        <TargetServerURL>http://hpf-04:8088/</TargetServerURL>
-        <TargetFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/Reports/MHA</TargetFolder>
-        <TargetDataSourceFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
+        <TargetServerURL>http://hpf-01:6060/</TargetServerURL>
+        <TargetFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/Reports/MHA</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
       </Options>
     </Configuration>
     <Configuration>

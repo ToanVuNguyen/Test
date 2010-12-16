@@ -14,8 +14,20 @@
       <MimeType>image/gif</MimeType>
     </ResourceProjectItem>
     <ProjectItem>
+      <Name>rpt_Agency_NonPayable_Detail_Report.rdl</Name>
+      <FullPath>rpt_Agency_NonPayable_Detail_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_Agency_NonPayable_Report.rdl</Name>
+      <FullPath>rpt_Agency_NonPayable_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_AgencyPaymentCheck.rdl</Name>
       <FullPath>rpt_AgencyPaymentCheck.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_Servicer_Invoiced_Report.rdl</Name>
+      <FullPath>rpt_Servicer_Invoiced_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_Servicer_NonBillable_Cases_Report.rdl</Name>
@@ -32,18 +44,6 @@
     <ProjectItem>
       <Name>rpt_UnpaidCaseReport.rdl</Name>
       <FullPath>rpt_UnpaidCaseReport.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_Servicer_Invoiced_Report.rdl</Name>
-      <FullPath>rpt_Servicer_Invoiced_Report.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_Agency_NonPayable_Report.rdl</Name>
-      <FullPath>rpt_Agency_NonPayable_Report.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_Agency_NonPayable_Detail_Report.rdl</Name>
-      <FullPath>rpt_Agency_NonPayable_Detail_Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
@@ -68,9 +68,9 @@
       <Name>Production</Name>
       <Platform>Win32</Platform>
       <Options>
-        <TargetServerURL>http://hpf-04:8088/</TargetServerURL>
-        <TargetFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/Reports/Accounting</TargetFolder>
-        <TargetDataSourceFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
+        <TargetServerURL>http://hpf-01:6060/</TargetServerURL>
+        <TargetFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/Reports/Accounting</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
       </Options>
     </Configuration>
   </Configurations>

@@ -33,6 +33,10 @@
       <Name>rpt_ServicerRejectReport.rdl</Name>
       <FullPath>rpt_ServicerRejectReport.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_AgencyQualityDetail.rdl</Name>
+      <FullPath>rpt_AgencyQualityDetail.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>

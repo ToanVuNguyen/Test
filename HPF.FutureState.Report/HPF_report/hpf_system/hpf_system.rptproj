@@ -14,6 +14,10 @@
       <MimeType>image/gif</MimeType>
     </ResourceProjectItem>
     <ProjectItem>
+      <Name>rpt_AuditCaseReportIndividual.rdl</Name>
+      <FullPath>rpt_AuditCaseReportIndividual.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_CounselingSummary.rdl</Name>
       <FullPath>rpt_CounselingSummary.rdl</FullPath>
     </ProjectItem>
@@ -46,12 +50,29 @@
       <FullPath>rpt_InvoiceSummary.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_PayableSummary.rdl</Name>
-      <FullPath>rpt_PayableSummary.rdl</FullPath>
+      <Name>rpt_MonthlyCalibrationSummaryReport.rdl</Name>
+      <FullPath>rpt_MonthlyCalibrationSummaryReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_AnnualOnsiteSummaryDetailResultReport.rdl</Name>
+      <FullPath>rpt_AnnualOnsiteSummaryDetailResultReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_PayableExportFile.rdl</Name>
       <FullPath>rpt_PayableExportFile.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_PayableSummary.rdl</Name>
+      <FullPath>rpt_PayableSummary.rdl</FullPath>
+    </ProjectItem>
+    <ResourceProjectItem>
+      <Name>888_995_HOPE.jpg</Name>
+      <FullPath>888_995_HOPE.jpg</FullPath>
+      <MimeType>image/jpeg</MimeType>
+    </ResourceProjectItem>
+    <ProjectItem>
+      <Name>rpt_MonthlySummaryDetailResultReport.rdl</Name>
+      <FullPath>rpt_MonthlySummaryDetailResultReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
@@ -77,9 +98,9 @@
       <Name>Production</Name>
       <Platform>Win32</Platform>
       <Options>
-        <TargetServerURL>http://hpf-04:8088/</TargetServerURL>
-        <TargetFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/Reports/System</TargetFolder>
-        <TargetDataSourceFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
+        <TargetServerURL>http://hpf-01:6060/</TargetServerURL>
+        <TargetFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/Reports/System</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
         <OverwriteDataSources>true</OverwriteDataSources>
       </Options>
     </Configuration>

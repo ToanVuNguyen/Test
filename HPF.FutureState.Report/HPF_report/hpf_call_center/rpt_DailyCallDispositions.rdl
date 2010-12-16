@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="ds_HPF">
+      <rd:DataSourceID>20c8b92c-4c4d-4ad4-a014-d97d97ad7cb0</rd:DataSourceID>
+      <DataSourceReference>ds_HPF</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="pi_from_dt">
+      <DataType>DateTime</DataType>
+      <Prompt>From Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pi_to_dt">
+      <DataType>DateTime</DataType>
+      <Prompt>To Date</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>1in</RightMargin>
+  <LeftMargin>1in</LeftMargin>
+  <PageHeader>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <Height>0.25in</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageHeader>
+  <BottomMargin>1in</BottomMargin>
+  <rd:ReportID>d674d1be-8c8a-40d8-a1a6-c4843ff572af</rd:ReportID>
+  <DataSets>
+    <DataSet Name="dst_rpt_DailyCallDispositions">
+      <Fields>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="final_dispo_cd">
+          <DataField>final_dispo_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cnt">
+          <DataField>Cnt</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>hpf_rpt_DailyCallDispositions</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@pi_from_dt">
+            <Value>=Parameters!pi_from_dt.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_to_dt">
+            <Value>=Parameters!pi_to_dt.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Width>5.875in</Width>
+  <Body>
+    <ReportItems>
+      <Matrix Name="matrix1">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <ZIndex>3</ZIndex>
+        <DataSetName>dst_rpt_DailyCallDispositions</DataSetName>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1.875in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix1_final_dispo_cd">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!final_dispo_cd.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="final_dispo_cd">
+                  <rd:DefaultName>final_dispo_cd</rd:DefaultName>
+                  <Style>
+                    <BackgroundColor>=IIF(Fields!final_dispo_cd.Value = "zDaily Total", "Orange", "Transparent")</BackgroundColor>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <FontSize>9pt</FontSize>
+                    <TextAlign>=IIF(Fields!final_dispo_cd.Value = "zDaily Total", "Right", "Left")</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>1</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=IIF(Fields!final_dispo_cd.Value = "zDaily Total", "Daily Total", Fields!final_dispo_cd.Value)</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <Top>0.90625in</Top>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <Height>0.25in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix1_Date">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Date.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="Date">
+                  <rd:DefaultName>Date</rd:DefaultName>
+                  <Style>
+                    <Color>White</Color>
+                    <BackgroundColor>Navy</BackgroundColor>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <FontSize>9pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>2</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Date.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <Width>2.875in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox4">
+              <rd:DefaultName>textbox4</rd:DefaultName>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+              <ZIndex>3</ZIndex>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.25in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="Cnt">
+                    <rd:DefaultName>Cnt</rd:DefaultName>
+                    <Style>
+                      <BackgroundColor>=IIF(Fields!final_dispo_cd.Value = "zDaily Total", "Orange", "Transparent")</BackgroundColor>
+                      <BorderStyle>
+                        <Default>Solid</Default>
+                      </BorderStyle>
+                      <FontSize>9pt</FontSize>
+                      <Format>N0</Format>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=IIF(len(Fields!Cnt.Value) = 0, 0, Fields!Cnt.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+      </Matrix>
+      <Textbox Name="textbox3">
+        <Top>0.64583in</Top>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>= "From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " - To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+      </Textbox>
+      <Textbox Name="textbox2">
+        <rd:DefaultName>textbox2</rd:DefaultName>
+        <Top>0.38542in</Top>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>= "Report Date " &amp; CStr(Today)</Value>
+      </Textbox>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <Style>
+          <Color>Navy</Color>
+          <FontSize>16pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>Daily Call Dispositions</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>1.40625in</Height>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>

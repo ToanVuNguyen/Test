@@ -9,12 +9,12 @@
   </DataSources>
   <Reports>
     <ProjectItem>
-      <Name>rpt_OtherServicerName.rdl</Name>
-      <FullPath>rpt_OtherServicerName.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>rpt_IncompleteSessionsDetail.rdl</Name>
       <FullPath>rpt_IncompleteSessionsDetail.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_OtherServicerName.rdl</Name>
+      <FullPath>rpt_OtherServicerName.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
@@ -30,9 +30,9 @@
       <Name>DebugLocal</Name>
       <Platform>Win32</Platform>
       <Options>
-        <TargetServerURL>http://hpf-04:8088/</TargetServerURL>
-        <TargetFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/Reports/QualityControl</TargetFolder>
-        <TargetDataSourceFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
+        <TargetServerURL>http://hpf-01:6060/</TargetServerURL>
+        <TargetFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/Reports/QualityControl</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-01:6060/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
       </Options>
     </Configuration>
     <Configuration>
