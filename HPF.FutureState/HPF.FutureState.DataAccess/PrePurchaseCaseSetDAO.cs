@@ -377,6 +377,51 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
+        /// Update Applicant
+        /// </summary>
+        /// <param name="prePurchaseCase">ApplicantDTO</param>
+        public void UpdateApplicant(ApplicantDTO applicant)
+        {
+            var command = CreateSPCommand("hpf_applicant_update", this.dbConnection);
+            try
+            {
+                var sqlParam = new SqlParameter[17];
+
+                sqlParam[0] = new SqlParameter("@pi_applicant_id", applicant.ApplicantId);
+                sqlParam[1] = new SqlParameter("@right_party_contact_ind",NullableString(applicant.RightPartyContactInd));
+                sqlParam[2] = new SqlParameter("@rpc_most_recent_dt", applicant.RpcMostRecentDt);
+                sqlParam[3] = new SqlParameter("@no_rpc_reason", NullableString(applicant.NoRpcReason));
+                sqlParam[4] = new SqlParameter("@counseling_accepted_dt", applicant.CounselingAcceptedDt);
+                sqlParam[5] = new SqlParameter("@counseling_scheduled_dt", applicant.CounselingScheduledDt);
+                sqlParam[6] = new SqlParameter("@counseling_completed_dt", applicant.CounselingCompletedDt);
+                sqlParam[7] = new SqlParameter("@counseling_refused_dt", applicant.CounselingRefusedDt);
+                sqlParam[8] = new SqlParameter("@first_counseled_dt", applicant.FirstCounseledDt);
+                sqlParam[9] = new SqlParameter("@second_counseled_dt", applicant.SecondCounseledDt);
+                sqlParam[10] = new SqlParameter("@ed_module_completed_dt", applicant.EdModuleCompletedDt);
+                sqlParam[11] = new SqlParameter("@inbound_call_to_num_dt", applicant.InboundCallToNumDt);
+                sqlParam[12] = new SqlParameter("@inbound_call_to_num_reason", NullableString(applicant.InboundCallToNumReason));
+                sqlParam[13] = new SqlParameter("@actual_close_dt", applicant.ActualCloseDt);
+
+                sqlParam[14] = new SqlParameter("@pi_chg_lst_dt", applicant.ChangeLastDate);
+                sqlParam[15] = new SqlParameter("@pi_chg_lst_user_id", applicant.ChangeLastUserId);
+                sqlParam[16] = new SqlParameter("@pi_chg_lst_app_name", applicant.ChangeLastAppName);
+                //</Parameter> 
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                command.Dispose();
+            }
+        }
+
+        /// <summary>
         /// Insert a Pre-Purchase BudgetAsset to database.
         /// </summary>
         /// <param name="budgetItem">PPBudgetAssetDTO</param>
@@ -413,6 +458,43 @@ namespace HPF.FutureState.DataAccess
             {
                 command.Dispose();
             }
+        }
+        public ApplicantDTO GetExistingApplicantId(int? applicant_id)
+        {
+            ApplicantDTO returnObject = null;
+            var dbConnection = CreateConnection();
+            SqlCommand command = base.CreateCommand("hpf_applicant_get_by_id", dbConnection);
+            try
+            {
+                //<Parameter>
+                var sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_applicant_id", applicant_id);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        returnObject = new ApplicantDTO();
+                        returnObject.ApplicantId = ConvertToInt(reader["applicant_id"]);
+                        returnObject.SentToAgencyId = ConvertToInt(reader["sent_to_agency_id"]);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                command.Dispose();
+                dbConnection.Close();
+            }
+            return returnObject;
         }
 
         public bool CheckExistingAgencyIdAndCaseNumber(int? agency_id, string agency_case_number)
@@ -452,7 +534,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="PpcId">id of a Pre-Purchase Case</param>
         /// <returns>PrePurchaseCase if exists, otherwise: null</returns>
-        public PrePurchaseCaseDTO GetPrePurchaseCase(int? ppcId)
+        public PrePurchaseCaseDTO GetPrePurchaseCase(int? applicantId)
         {
             PrePurchaseCaseDTO returnObject = null;
             SqlConnection dbConnection = base.CreateConnection();
@@ -461,7 +543,7 @@ namespace HPF.FutureState.DataAccess
             {
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];
-                sqlParam[0] = new SqlParameter("@pi_ppc_id", ppcId);
+                sqlParam[0] = new SqlParameter("@pi_applicant_id", applicantId);
 
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);

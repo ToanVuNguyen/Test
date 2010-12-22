@@ -11,16 +11,17 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class ApplicantDTO:BaseDTO
     {
-        [XmlElement(IsNullable = true)]
+        [XmlIgnore]
         public int? ApplicantId { get; set; }
 
-        [XmlElement(IsNullable=true)]
+        [XmlIgnore]
         public int? ServicerApplicantId { get; set; }
 
-        [XmlElement(IsNullable = true)]
+        [XmlIgnore]
         public int? ProgramId { get; set; }
 
         private string _groupCd;
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 15, "Group Code", Ruleset = Constant.RULESET_LENGTH)]
         public string GroupCd
         {
@@ -32,12 +33,18 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
+        [XmlIgnore]
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "AssignedToGroupDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? AssignedToGroupDt { get; set; }
 
+        [XmlIgnore]
+        public int? SentToAgencyId{get;set;}
+
+        [XmlIgnore]
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "SentToAgencyDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? SentToAgencyDt { get; set; }
 
+        [XmlIgnore]
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "SentToSurveyorDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? SentToSurveyorDt { get; set; }
 

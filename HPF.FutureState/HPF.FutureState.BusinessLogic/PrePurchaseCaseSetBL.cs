@@ -51,6 +51,7 @@ namespace HPF.FutureState.BusinessLogic
             int? ppcId;
             if (prePurchaseCaseSet == null || prePurchaseCaseSet.PrePurchaseCase == null)
                 throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1165));
+            
             var exceptionList = CheckRequireForPartial(prePurchaseCaseSet);
 
             _workingUserId = prePurchaseCaseSet.PrePurchaseCase.ChgLstUserId;
@@ -58,14 +59,29 @@ namespace HPF.FutureState.BusinessLogic
             var formatDataException = CheckInvalidFormatData(prePurchaseCaseSet);
             exceptionList.Add(formatDataException);
             exceptionList.Add(CheckValidCode(prePurchaseCaseSet));
+            exceptionList.Add(CheckCrossFields(prePurchaseCaseSet));
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
+
+            ApplicantDTO applicant = GetExistingApplicantId(prePurchaseCaseSet.PrePurchaseCase.ApplicantId);
+            if (applicant == null)
+                throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1178));
+            else if (prePurchaseCaseSet.PrePurchaseCase.AgencyId !=applicant.SentToAgencyId)
+                throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1179));
+
             PrePurchaseCaseDTO ppCase = prePurchaseCaseSet.PrePurchaseCase;
-            LoadPrePurchaseCaseFromDB(ppCase.PpcId);
-            if (ppCase.PpcId.HasValue)
-                ppcId = ProcessInsertUpdateWithPrePurchaseCaseId(prePurchaseCaseSet);
+            LoadPrePurchaseCaseFromDB(ppCase.ApplicantId);
+            if (IsPrePurchaseCaseInserted)
+            {
+                if (CheckExistingAgencyIdAndCaseNumber(ppCase.AgencyId, ppCase.AgencyCaseNum))
+                    ThrowDataValidationException(ErrorMessages.ERR1173);
+                ppcId = ProcessInsertPrePurchaseCaseSet(prePurchaseCaseSet);
+            }
             else
-                ppcId = ProcessInsertUpdateWithoutPrePurchaseCaseId(prePurchaseCaseSet);
+            {
+                prePurchaseCaseSet.PrePurchaseCase.PpcId = PPCaseSetFromDB.PrePurchaseCase.PpcId;
+                ppcId = ProcessUpdatePrePurchaseCaseSet(prePurchaseCaseSet);
+            }
             prePurchaseCaseSet.PrePurchaseCase.PpcId = ppcId;
             return prePurchaseCaseSet.PrePurchaseCase;
         }
@@ -73,40 +89,15 @@ namespace HPF.FutureState.BusinessLogic
 
         #region Functions to save PrePurchaseCaseSet
 
-        private int? ProcessInsertUpdateWithoutPrePurchaseCaseId(PrePurchaseCaseSetDTO prePurchaseCaseSet)
-        {
-            PrePurchaseCaseDTO ppCase = prePurchaseCaseSet.PrePurchaseCase;
-            if (CheckExistingAgencyIdAndCaseNumber(ppCase.AgencyId, ppCase.AgencyCaseNum))
-                ThrowDataValidationException(ErrorMessages.ERR1173);
-            return ProcessInsertPrePurchaseCaseSet(prePurchaseCaseSet);
-        }
-        private int? ProcessInsertUpdateWithPrePurchaseCaseId(PrePurchaseCaseSetDTO prePurchaseCaseSet)
-        {
-            PrePurchaseCaseDTO ppCase = prePurchaseCaseSet.PrePurchaseCase;
-
-            //check valid ppCase for Agency
-            if (PPCaseSetFromDB.PrePurchaseCase.AgencyId != ppCase.AgencyId)
-                ThrowDataValidationException(ErrorMessages.ERR1174);
-
-            if (IsPrePurchaseCaseInserted)
-                return ProcessInsertPrePurchaseCaseSet(prePurchaseCaseSet);
-            else
-                return ProcessUpdatePrePurchaseCaseSet(prePurchaseCaseSet);
-        }
-
-        private void LoadPrePurchaseCaseFromDB(int? ppcId)
+        private void LoadPrePurchaseCaseFromDB(int? applicantId)
         {
             IsPrePurchaseCaseInserted = true;
-            if (!ppcId.HasValue) return;
-
-            IsPrePurchaseCaseInserted = false;
-            //check ppcId in db or not
-            PPCaseSetFromDB.PrePurchaseCase = GetPrePurchaseCase(ppcId);
-
-            if (PPCaseSetFromDB.PrePurchaseCase == null)
-                ThrowDataValidationException(ErrorMessages.ERR1175);
-            else
-            {   
+            //check PrePurchase case in db or not
+            PPCaseSetFromDB.PrePurchaseCase = GetPrePurchaseCase(applicantId);
+            if (PPCaseSetFromDB.PrePurchaseCase != null)
+            {
+                int? ppcId = PPCaseSetFromDB.PrePurchaseCase.PpcId;
+                IsPrePurchaseCaseInserted = false;
                 //User this data to check data changed or not in Update function
                 PPCaseSetFromDB.PPBudgetSet = PPBudgetBL.Instance.GetPPBudgetSet(ppcId);
                 PPCaseSetFromDB.ProposedPPBudgetSet = PPBudgetBL.Instance.GetProposedPPBudgetSet(ppcId);
@@ -118,6 +109,9 @@ namespace HPF.FutureState.BusinessLogic
 
         private int? ProcessUpdatePrePurchaseCaseSet(PrePurchaseCaseSetDTO prePurchaseCaseSet)
         {
+            //check valid ppCase for Agency
+            if (PPCaseSetFromDB.PrePurchaseCase.AgencyId !=prePurchaseCaseSet.PrePurchaseCase.AgencyId)
+                ThrowDataValidationException(ErrorMessages.ERR1174);
             return UpdatePrePurchaseCaseSet(prePurchaseCaseSet);
         }
         private int? ProcessInsertPrePurchaseCaseSet(PrePurchaseCaseSetDTO prePurchaseCaseSet)
@@ -126,6 +120,13 @@ namespace HPF.FutureState.BusinessLogic
             return InsertPrePurchaseCaseSet(prePurchaseCaseSet);
         }
 
+        /// <summary>
+        /// Get existed Applicant by ApplicantId
+        /// </summary>
+        ApplicantDTO GetExistingApplicantId(int? applicantId)
+        {
+            return prePurchaseCaseSetDAO.GetExistingApplicantId(applicantId);
+        }
         /// <summary>
         /// Check existed AgencyId and Case number
         /// </summary>
@@ -207,6 +208,16 @@ namespace HPF.FutureState.BusinessLogic
         }
         #endregion
 
+        #region Check Cross Fields
+        private ExceptionMessageCollection CheckCrossFields(PrePurchaseCaseSetDTO ppCaseSet)
+        {
+            ExceptionMessageCollection msgPPCaseSet = new ExceptionMessageCollection();
+            ApplicantDTO applicant = ppCaseSet.Applicant;
+            if (string.Compare(applicant.RightPartyContactInd, Constant.INDICATOR_NO) == 0 && string.IsNullOrEmpty(applicant.NoRpcReason))
+                msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR1180, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1180));
+            return msgPPCaseSet;
+        }
+        #endregion
         #region Check Invalid Format Data
         private ExceptionMessageCollection CheckInvalidFormatData(PrePurchaseCaseSetDTO ppCaseSet)
         {
@@ -277,12 +288,18 @@ namespace HPF.FutureState.BusinessLogic
             PPBudgetItemDTOCollection ppBudgetItemCollection = prePurchaseCaseSet.PPBudgetItems;
             PPBudgetAssetDTOCollection ppBudgetAssetCollection = prePurchaseCaseSet.PPBudgetAssets;
             PrePurchaseCaseDTO prePurchaseCase = prePurchaseCaseSet.PrePurchaseCase;
+            ApplicantDTO applicant = prePurchaseCaseSet.Applicant;
             int? ppcId = 0;
             try
             {
                 InitiateTransaction();
+                //Update Applicant
+                //Set applicantId from PrePurchaseCase
+                applicant.ApplicantId = prePurchaseCase.ApplicantId;
+                UpdateApplicant(prePurchaseCaseSetDAO, applicant);
+
                 //Insert Pre_Purchase_Case table
-                //Return pp_case_id
+                //Return Ppc_id
                 ppcId = InsertPrePurchaseCase(prePurchaseCaseSetDAO, prePurchaseCase);
 
                 //Insert Pre-Purchase Budget Set table
@@ -326,12 +343,17 @@ namespace HPF.FutureState.BusinessLogic
             PPBudgetItemDTOCollection ppBudgetItemCollection = prePurchaseCaseSet.PPBudgetItems;
             PPBudgetAssetDTOCollection ppBudgetAssetCollection = prePurchaseCaseSet.PPBudgetAssets;
             PrePurchaseCaseDTO prePurchaseCase = prePurchaseCaseSet.PrePurchaseCase;
+            ApplicantDTO applicant = prePurchaseCaseSet.Applicant;
             int? ppcId = 0;
             try
             {
                 InitiateTransaction();
+                //Update Applicant
+                //Set applicantId from PrePurchaseCase
+                applicant.ApplicantId = prePurchaseCase.ApplicantId;
+                UpdateApplicant(prePurchaseCaseSetDAO, applicant);
                 //Update Pre-Purchase Case Table
-                //Return Fc_id
+                //Return Ppc_id
                 ppcId = UpdatePrePurchaseCase(prePurchaseCaseSetDAO, prePurchaseCase);
 
                 //check changed from pre-purchase budgetItem and pre-purchase budget asset
@@ -363,6 +385,16 @@ namespace HPF.FutureState.BusinessLogic
         #endregion
 
         #region Functions for Insert and Update tables
+        /// <summary>
+        /// UpdateApplicant
+        /// </summary>
+        /// <param name="prePurchaseCaseSetDAO"></param>
+        /// <param name="applicant"></param>
+        private void UpdateApplicant(PrePurchaseCaseSetDAO prePurchaseCaseSetDAO, ApplicantDTO applicant)
+        {
+            applicant.SetUpdateTrackingInformation(_workingUserId);
+            prePurchaseCaseSetDAO.UpdateApplicant(applicant);
+        }
         /// <summary>
         /// Insert PPBudget
         /// </summary>
@@ -1049,9 +1081,9 @@ namespace HPF.FutureState.BusinessLogic
         }
         #endregion
         #endregion
-        private PrePurchaseCaseDTO GetPrePurchaseCase(int? ppcId)
+        private PrePurchaseCaseDTO GetPrePurchaseCase(int? applicantId)
         {
-            return prePurchaseCaseSetDAO.GetPrePurchaseCase(ppcId);
+            return prePurchaseCaseSetDAO.GetPrePurchaseCase(applicantId);
         }
     }
 }
