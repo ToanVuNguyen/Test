@@ -683,6 +683,9 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgProgramId = CheckValidProgramId(prePurchaseCase);
             if (msgProgramId != null && msgProgramId.Count != 0)
                 msgPPCaseSet.Add(msgProgramId);
+            ExceptionMessageCollection msgMortgageProgramCd = CheckValidMortgageProgramCd(prePurchaseCase);
+            if (msgMortgageProgramCd != null && msgMortgageProgramCd.Count != 0)
+                msgPPCaseSet.Add(msgMortgageProgramCd);
 
             ExceptionMessageCollection msgBudgetSubId = CheckValidPPBudgetSubcategoryId(ppBudgetItems);
             if (msgBudgetSubId != null && msgBudgetSubId.Count != 0)
@@ -692,9 +695,6 @@ namespace HPF.FutureState.BusinessLogic
             if (msgProposedBudgetSubId != null && msgProposedBudgetSubId.Count != 0)
                 msgPPCaseSet.Add(msgProposedBudgetSubId);
 
-            //ExceptionMessageCollection msgCallId = CheckValidCallId(foreclosureCase);
-            //if (msgCallId != null && msgCallId.Count != 0)
-            //    msgPPCaseSet.Add(msgCallId);
             return msgPPCaseSet;
         }
         /// <summary>
@@ -812,6 +812,19 @@ namespace HPF.FutureState.BusinessLogic
                     return null;
             }
             msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261));
+            return msgPPCaseSet;
+        }
+        /// <summary>
+        /// Check Valid MortgageProgramCd
+        /// </summary>
+        /// <param name="prePurchaseCase"></param>
+        /// <returns></returns>
+        private ExceptionMessageCollection CheckValidMortgageProgramCd(PrePurchaseCaseDTO prePurchaseCase)
+        {
+            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
+            ExceptionMessageCollection msgPPCaseSet = new ExceptionMessageCollection();
+            if (!referenceCode.Validate(ReferenceCode.MORTGAGE_PROGRAM_CODE, prePurchaseCase.MortgageProgramCd))
+                msgPPCaseSet.AddExceptionMessage(ErrorMessages.ERR0223, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0223));
             return msgPPCaseSet;
         }
         /// <summary>
