@@ -20,7 +20,7 @@
     <AgencyId>4</AgencyId>
     <AgencyCaseNum>123456</AgencyCaseNum>
     <AcctNum>123456</AcctNum>
-    <MortgageProgramCd>12</MortgageProgramCd>
+    <MortgageProgramCd>FHA</MortgageProgramCd>
     <BorrowerFName>BorrowerFName</BorrowerFName>
     <BorrowerLName>BorrowerLName</BorrowerLName>
     <CoBorrowerFName>CoBorrowerFName</CoBorrowerFName>
