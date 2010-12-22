@@ -1,5 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PrePurchaseCaseSet>
+  <Applicant>
+    <RightPartyContactInd>Y</RightPartyContactInd>
+    <RpcMostrecentDt>12/12/2010</RpcMostrecentDt>
+    <NoRpcReason></NoRpcReason>
+    <CounselingAcceptedDt>12/12/2010</CounselingAcceptedDt>
+    <CounselingScheduledDt>12/12/2010</CounselingScheduledDt>
+    <CounselingCompletedDt>12/12/2010</CounselingCompletedDt>
+    <CounselingRefusedDt>12/12/2010</CounselingRefusedDt>
+    <FirstCounseledDt>12/12/2010</FirstCounseledDt>
+    <SecondCounseledDt></SecondCounseledDt>
+    <EdModuleCompletedDt></EdModuleCompletedDt>
+    <InboundCallToNumDt>12/12/2010</InboundCallToNumDt>
+    <InboundCallToNumReason>Reason</InboundCallToNumReason>
+    <ActualCloseDt></ActualCloseDt>
+  </Applicant>
   <PrePurchaseCase>
     <ApplicantId>1</ApplicantId>
     <AgencyId>4</AgencyId>

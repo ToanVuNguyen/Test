@@ -390,6 +390,35 @@ namespace HPF.FutureState.WebService.Test.Web
             }
 
         }
+        public static ApplicantDTO ParseApplicant(XDocument xdoc)
+        {
+            try
+            {
+                var objs = from obj in xdoc.Descendants("Applicant")
+                           select new ApplicantDTO
+                           {
+                               RightPartyContactInd =Util.ConvertToString(obj.Element("RightPartyContactInd")),
+                               RpcMostRecentDt = Util.ConvertToDateTime(obj.Element("RpcMostRecentDt")),
+                               NoRpcReason = Util.ConvertToString(obj.Element("NoRpcReason")),
+                               CounselingAcceptedDt = Util.ConvertToDateTime(obj.Element("CounselingAcceptedDt")),
+                               CounselingScheduledDt = Util.ConvertToDateTime(obj.Element("CounselingScheduledDt")),
+                               CounselingCompletedDt = Util.ConvertToDateTime(obj.Element("CounselingCompletedDt")),
+                               CounselingRefusedDt = Util.ConvertToDateTime(obj.Element("CounselingRefusedDt")),
+                               FirstCounseledDt = Util.ConvertToDateTime(obj.Element("FirstCounseledDt")),
+                               SecondCounseledDt = Util.ConvertToDateTime(obj.Element("SecondCounseledDt")),
+                               EdModuleCompletedDt = Util.ConvertToDateTime(obj.Element("EdModuleCompletedDt")),
+                               InboundCallToNumDt = Util.ConvertToDateTime(obj.Element("InboundCallToNumDt")),
+                               InboundCallToNumReason = Util.ConvertToString(obj.Element("InboundCallToNumReason")),
+                               ActualCloseDt = Util.ConvertToDateTime(obj.Element("ActualCloseDt"))
+                           };
+                ApplicantDTO applicant = objs.ToList<ApplicantDTO>()[0];
+                return applicant;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+        }
         public static List<PPBudgetAssetDTO_App> ParsePPBudgetAssetDTO(XDocument xdoc)
         {
             try
