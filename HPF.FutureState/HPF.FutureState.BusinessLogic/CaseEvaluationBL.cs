@@ -67,7 +67,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (caseEvalHeader.EvalType == EvaluationType.DESKTOP)
                 {
-                    caseEvalHeader.EvaluationYearMonth = DateTime.Today.ToString("yyyy") + DateTime.Today.AddMonths(-1).ToString("MM");
+                    caseEvalHeader.EvaluationYearMonth = DateTime.Today.AddMonths(-1).ToString("yyyy") + DateTime.Today.AddMonths(-1).ToString("MM");
                     caseEvalHeader.EvalType = EvaluationType.DESKTOP;
                     caseEvalHeader.EvalStatus = EvaluationStatus.AGENCY_INPUT_REQUIRED;
                 }
