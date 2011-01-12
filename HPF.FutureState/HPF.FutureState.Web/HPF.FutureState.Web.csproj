@@ -565,6 +565,7 @@
       <DependentUpon>SearchQCSelectionCase.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security\HPFHttpModule.cs" />
+    <Compile Include="Security\HPFMediaFileHandler.cs" />
     <Compile Include="Security\HPFWebSecurity.cs" />
     <Compile Include="Security\MenuItemSecurity.cs" />
     <Compile Include="Security\MenuItemSecurityCollection.cs" />
