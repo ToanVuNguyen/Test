@@ -203,6 +203,7 @@ namespace HPF.FutureState.Common
         public const string ERR0287 = "ERR0287";
         public const string ERR0288 = "ERR0288";
         public const string ERR0289 = "ERR0289";
+        public const string ERR0290 = "ERR0290";
 
         public const string ERR0350 = "ERR0350";
         public const string ERR0351 = "ERR0351";
@@ -260,8 +261,7 @@ namespace HPF.FutureState.Common
         public const string WARN0280 = "WARN0280";
         public const string WARN0281 = "WARN0281";
         public const string WARN0282 = "WARN0282";
-        public const string WARN0283 = "WARN0283";
-
+        
         public const string WARN0300 = "WARN0300";
         public const string WARN0301 = "WARN0301";
         public const string WARN0302 = "WARN0302";
@@ -786,6 +786,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0287, "A SponsorID is required if a CampaignId is provided.");
                 errorMessageDict.Add(ERR0288, "ProgramId, SponsorId, and CampaignId is not a valid combination.");
                 errorMessageDict.Add(ERR0289, "ProgramId requires a SponsorId and CampaignId.");
+                errorMessageDict.Add(ERR0290, "CounselorContactedSrvcrInd needs to by N if CounselorAttemptedSrvcrContactInd is N");
 
                 errorMessageDict.Add(ERR0350, "A CcCallKey is required to save a call.");
                 errorMessageDict.Add(ERR0351, "A valid StartDt is required to save a call.");
@@ -881,8 +882,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0280, "A SrvcrWorkoutPlanCurrentInd is required to save a complete foreclosure case since HasWorkoutPlanInd = Y.");
                 errorMessageDict.Add(WARN0281, "A HomeSalePrice is required to save a complete foreclosure case since the ForSaleInd = Y.");
                 errorMessageDict.Add(WARN0282, "An ArmResetInd is required on AcctNum: [{0}] to save a complete foreclosure case.");
-                errorMessageDict.Add(WARN0283, "CounselorContactedSrvcrInd needs to by N if CounselorAttemptedSrvcrContactInd is N");
-
+                
                 errorMessageDict.Add(WARN0903, "The CallID provided already exists in a foreclosure case:  Servicer: {0}, Account Number: {1}, Zip Code: {2}. Borrower Name: {3} {4}. The case is currently being worked on by: {5} {6} of {7}. Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} Last Outcome: {12}.");
                 // App foreclosure Case Search
                 errorMessageDict.Add(WARN0500, "* cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");

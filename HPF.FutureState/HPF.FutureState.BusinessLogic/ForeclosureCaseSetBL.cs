@@ -636,11 +636,6 @@ namespace HPF.FutureState.BusinessLogic
                 if (CompareString(foreclosureCase.ForSaleInd, Constant.FORSALE_IND_YES) && 
                     foreclosureCase.HomeSalePrice == null)
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0281, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0281));
-                //-----CounselorContactedSrvcrInd 
-                if (CompareString(foreclosureCase.CounselorAttemptedSrvcrContactInd,Constant.INDICATOR_NO)
-                    && ((CompareString(foreclosureCase.CounselorContactedSrvcrInd,Constant.INDICATOR_YES))
-                    ||CompareString(foreclosureCase.CounselorContactedSrvcrInd,null)))
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0283, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0283));
 
             }
             return msgFcCaseSet;
@@ -2158,7 +2153,12 @@ namespace HPF.FutureState.BusinessLogic
                 else
                     forclosureCase.ProgramId = counseledProgram.ProgramId;
             }
-            
+            //
+            //---Validate CounselorContactedSrvcrInd if CounselorAttemptedSrvcrContactInd is N
+            if (CompareString(forclosureCase.CounselorAttemptedSrvcrContactInd, Constant.INDICATOR_NO)
+                && ((CompareString(forclosureCase.CounselorContactedSrvcrInd, Constant.INDICATOR_YES))
+                || CompareString(forclosureCase.CounselorContactedSrvcrInd, null)))
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0290, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0290));
             return msgFcCaseSet;
         }
 
