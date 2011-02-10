@@ -20,7 +20,6 @@ using System.Configuration;
 namespace HPF.Webservice.Agency {
     
     
-    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3377,6 +3376,16 @@ namespace HPF.Webservice.Agency {
         
         private System.Nullable<int> campaignIdField;
         
+        private string counselorAttemptedSrvcrContactIndField;
+        
+        private System.Nullable<byte> dependentNumField;
+        
+        private string primaryContactNoTypeCdField;
+        
+        private string secondContactNoTypeCdField;
+        
+        private string preferredContactTimeField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public System.Nullable<int> FcId {
@@ -4454,6 +4463,57 @@ namespace HPF.Webservice.Agency {
             }
             set {
                 this.campaignIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CounselorAttemptedSrvcrContactInd {
+            get {
+                return this.counselorAttemptedSrvcrContactIndField;
+            }
+            set {
+                this.counselorAttemptedSrvcrContactIndField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<byte> DependentNum {
+            get {
+                return this.dependentNumField;
+            }
+            set {
+                this.dependentNumField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PrimaryContactNoTypeCd {
+            get {
+                return this.primaryContactNoTypeCdField;
+            }
+            set {
+                this.primaryContactNoTypeCdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string SecondContactNoTypeCd {
+            get {
+                return this.secondContactNoTypeCdField;
+            }
+            set {
+                this.secondContactNoTypeCdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PreferredContactTime {
+            get {
+                return this.preferredContactTimeField;
+            }
+            set {
+                this.preferredContactTimeField = value;
             }
         }
     }

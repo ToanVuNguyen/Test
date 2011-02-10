@@ -321,7 +321,12 @@ namespace HPF.FutureState.WebService.Test.Web
                                CertificateId = Util.ConvertToString(obj.Element("CertificateId")),
                                CampaignId = Util.ConvertToInt(obj.Element("CampaignId")),
                                SponsorId = Util.ConvertToInt(obj.Element("SponsorId")),
-                               ReferralClientNum = Util.ConvertToString(obj.Element("ReferralClientNum"))
+                               ReferralClientNum = Util.ConvertToString(obj.Element("ReferralClientNum")),
+                               DependentNum = Util.ConvertToByte(obj.Element("DependentNum")),
+                               CounselorAttemptedSrvcrContactInd = Util.ConvertToString(obj.Element("CounselorAttemptedSrvcrContactInd")),
+                               PrimaryContactNoTypeCd = Util.ConvertToString(obj.Element("PrimaryContactNoTypeCd")),
+                               SecondContactNoTypeCd = Util.ConvertToString(obj.Element("SecondContactNoTypeCd")),
+                               PreferredContactTime = Util.ConvertToString(obj.Element("PreferredContactTime"))
                            };
                 ForeclosureCaseDTO fcCase = objs.ToList<ForeclosureCaseDTO>()[0];
                 return fcCase;

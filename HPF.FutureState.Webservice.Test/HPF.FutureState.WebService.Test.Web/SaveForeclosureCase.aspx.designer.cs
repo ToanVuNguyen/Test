@@ -1904,6 +1904,51 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TextBox txtReferralNum;
         
         /// <summary>
+        /// txtCounselorAttemptedSrvcrContactInd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCounselorAttemptedSrvcrContactInd;
+        
+        /// <summary>
+        /// txtDependentNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDependentNum;
+        
+        /// <summary>
+        /// txtPrimaryContactNoTypeCd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrimaryContactNoTypeCd;
+        
+        /// <summary>
+        /// txtSecondContactNoTypeCd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSecondContactNoTypeCd;
+        
+        /// <summary>
+        /// txtPreferredContactTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPreferredContactTime;
+        
+        /// <summary>
         /// btnSave2 control.
         /// </summary>
         /// <remarks>

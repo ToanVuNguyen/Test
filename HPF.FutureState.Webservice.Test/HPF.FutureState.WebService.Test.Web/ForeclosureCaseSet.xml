@@ -3,7 +3,7 @@
   <ForeclosureCase>
     <AgencyId>4</AgencyId>
     <CallId>HPF5</CallId>
-    <ProgramId>2002</ProgramId>
+    <ProgramId>2001</ProgramId>
     <AgencyCaseNum>123456</AgencyCaseNum>
     <AgencyClientNum>AgencyClientNum</AgencyClientNum>
     <IntakeDt>10/10/2008</IntakeDt>
@@ -102,13 +102,18 @@
     <CounseledLanguageCd>ENG</CounseledLanguageCd>
     <ErcpOutcomeCd></ErcpOutcomeCd>
     <CounselorContactedSrvcrInd>N</CounselorContactedSrvcrInd>
-    <NumberOfUnits>0</NumberOfUnits>
+    <NumberOfUnits>1</NumberOfUnits>
     <VacantOrCondemedInd>N</VacantOrCondemedInd>
     <MortgagePmtRatio>1.0</MortgagePmtRatio>
     <CertificateId>12345</CertificateId>
     <ReferralClientNum>123</ReferralClientNum>
     <SponsorId>1</SponsorId>
     <CampaignId>6</CampaignId>
+    <CounselorAttemptedSrvcrContactInd>Y</CounselorAttemptedSrvcrContactInd>
+    <DependentNum>123</DependentNum>
+    <PrimaryContactNoTypeCd>HOME</PrimaryContactNoTypeCd>
+    <SecondContactNoTypeCd>HOME</SecondContactNoTypeCd>
+    <PreferredContactTime>8:00 – noon</PreferredContactTime>
   </ForeclosureCase>
   <CaseLoanSet>
     <CaseLoan>      
@@ -166,7 +171,7 @@
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
       <MortgageProgramCd>va</MortgageProgramCd>
       <ArmRateAdjustDt>1/1/2009</ArmRateAdjustDt>
-      <ArmLockDuration>100</ArmLockDuration>
+      <ArmLockDuration>99</ArmLockDuration>
       <LoanLookupCd>NOTFOUND</LoanLookupCd>
       <ThirtyDaysLatePastYrInd>N</ThirtyDaysLatePastYrInd>
       <PmtMissLessOneYrLoanInd>N</PmtMissLessOneYrLoanInd>

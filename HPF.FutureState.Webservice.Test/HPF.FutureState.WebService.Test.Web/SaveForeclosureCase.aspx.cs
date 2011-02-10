@@ -193,6 +193,11 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.ReferralClientNum = txtReferralNum.Text;
             fcCase.CampaignId = Util.ConvertToInt(txtCampaignId.Text);
             fcCase.SponsorId = Util.ConvertToInt(txtSponsorId.Text);
+            fcCase.CounselorAttemptedSrvcrContactInd = Util.ConvertToString(txtCounselorAttemptedSrvcrContactInd.Text);
+            fcCase.DependentNum = Util.ConvertToByte(txtDependentNum.Text);
+            fcCase.PrimaryContactNoTypeCd = Util.ConvertToString(txtPrimaryContactNoTypeCd.Text);
+            fcCase.SecondContactNoTypeCd = Util.ConvertToString(txtSecondContactNoTypeCd.Text);
+            fcCase.PreferredContactTime = Util.ConvertToString(txtPreferredContactTime.Text);
 
             Session[SessionVariables.FORECLOSURE_CASE] = fcCase;
 
@@ -332,6 +337,11 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSponsorId.Text = Util.ConvertToString(fcCase.SponsorId);
                 txtCampaignId.Text = Util.ConvertToString(fcCase.CampaignId);
                 txtReferralNum.Text = fcCase.ReferralClientNum;
+                txtCounselorAttemptedSrvcrContactInd.Text = fcCase.CounselorAttemptedSrvcrContactInd;
+                txtDependentNum.Text = Util.ConvertToString(fcCase.DependentNum);
+                txtPrimaryContactNoTypeCd.Text = fcCase.PrimaryContactNoTypeCd;
+                txtSecondContactNoTypeCd.Text = fcCase.SecondContactNoTypeCd;
+                txtPreferredContactTime.Text = fcCase.PreferredContactTime;
             }
         }
        

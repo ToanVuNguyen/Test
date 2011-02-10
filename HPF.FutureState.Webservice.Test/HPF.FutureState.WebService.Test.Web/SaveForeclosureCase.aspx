@@ -971,11 +971,27 @@
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtReferralNum" runat="server"></asp:TextBox>
             </td>
+            <td class="sidelinks">Counselor attempted srvcr contact ind</td>
+            <td><asp:TextBox CssClass = "Text" ID="txtCounselorAttemptedSrvcrContactInd" runat="server"></asp:TextBox></td>                      
+        </tr>
+        <tr>
             <td class="sidelinks">
-                &nbsp;</td>
+                Dependent Num</td>
             <td>
-                &nbsp;</td>                      
-        </tr>   
+                <asp:TextBox CssClass = "Text" ID="txtDependentNum" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">Primary contact no type cd</td>
+            <td><asp:TextBox CssClass = "Text" ID="txtPrimaryContactNoTypeCd" runat="server"></asp:TextBox></td>                      
+        </tr>
+        <tr>
+            <td class="sidelinks">
+                Second contact no type cd</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtSecondContactNoTypeCd" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">Preferred contact time</td>
+            <td><asp:TextBox CssClass = "Text" ID="txtPreferredContactTime" runat="server"></asp:TextBox></td>                      
+        </tr>       
         </table>
 
     <br />
