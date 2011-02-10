@@ -636,6 +636,12 @@ namespace HPF.FutureState.BusinessLogic
                 if (CompareString(foreclosureCase.ForSaleInd, Constant.FORSALE_IND_YES) && 
                     foreclosureCase.HomeSalePrice == null)
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0281, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0281));
+                //-----CounselorContactedSrvcrInd 
+                if (CompareString(foreclosureCase.CounselorAttemptedSrvcrContactInd,Constant.INDICATOR_NO)
+                    && ((CompareString(foreclosureCase.CounselorContactedSrvcrInd,Constant.INDICATOR_YES))
+                    ||CompareString(foreclosureCase.CounselorContactedSrvcrInd,null)))
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0283, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0283));
+
             }
             return msgFcCaseSet;
         }
@@ -2085,6 +2091,10 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0225, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0225));
             if (!referenceCode.Validate(ReferenceCode.LANGUAGE_CODE, forclosureCase.CounseledLanguageCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0224, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0224));
+            if (!referenceCode.Validate(ReferenceCode.CONTACT_NO_TYPE_CODE, forclosureCase.PrimaryContactNoTypeCd))
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0228, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0228));
+            if (!referenceCode.Validate(ReferenceCode.CONTACT_NO_TYPE_CODE, forclosureCase.SecondContactNoTypeCd))
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0229, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0229));
 
             //Validate Counseling Program Id
             if (forclosureCase.CounseledProgramId != null)

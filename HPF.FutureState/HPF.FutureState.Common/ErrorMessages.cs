@@ -105,7 +105,8 @@ namespace HPF.FutureState.Common
         public const string ERR0095 = "ERR0095";
         public const string ERR0096 = "ERR0096";
         public const string ERR0097 = "ERR0097";
-        public const string ERR0098 = "ERR0098";        
+        public const string ERR0098 = "ERR0098";
+        public const string ERR0099 = "ERR0099";
 
         public const string ERR0100 = "ERR0100";
         public const string ERR0101 = "ERR0101";
@@ -168,6 +169,8 @@ namespace HPF.FutureState.Common
         public const string ERR0225 = "ERR0225";
         public const string ERR0226 = "ERR0226";
         public const string ERR0227 = "ERR0227";
+        public const string ERR0228 = "ERR0228";
+        public const string ERR0229 = "ERR0229";
 
         public const string ERR0250 = "ERR0250";
         public const string ERR0251 = "ERR0251";
@@ -257,6 +260,7 @@ namespace HPF.FutureState.Common
         public const string WARN0280 = "WARN0280";
         public const string WARN0281 = "WARN0281";
         public const string WARN0282 = "WARN0282";
+        public const string WARN0283 = "WARN0283";
 
         public const string WARN0300 = "WARN0300";
         public const string WARN0301 = "WARN0301";
@@ -288,7 +292,7 @@ namespace HPF.FutureState.Common
         public const string WARN0327 = "WARN0327";
         public const string WARN0328 = "WARN0328";
         public const string WARN0329 = "WARN0329";
-
+        
         public const string WARN0330 = "WARN0330";
         public const string WARN0331 = "WARN0331";
         public const string WARN0332 = "WARN0332";
@@ -680,6 +684,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0096, "PrinBalWithinLimitInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0097, "HampEligibleInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0098, "CertificateId has a maximum length of 10 characters.");
+                errorMessageDict.Add(ERR0099, "CounselorAttemptedSrvcrContactInd must be either a Y, N or a blank.");
 
                 errorMessageDict.Add(ERR0100, "An AgencyId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0101, "A ProgramId is required to save a foreclosure case.");
@@ -742,6 +747,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0225, "An invalid code was provided for ErcpOutcomeCd.");
                 errorMessageDict.Add(ERR0226, "An invalid code was provided for LoanLookupCd.");
                 errorMessageDict.Add(ERR0227, "An invalid code was provided for LossMitStatusCd.");
+                errorMessageDict.Add(ERR0228, "An invalid code was provided for PrimaryContactNoTypeCd.");
+                errorMessageDict.Add(ERR0229, "An invalid code was provided for SecondaryContactNoTypeCd.");
 
                 errorMessageDict.Add(ERR0250, "An invalid AgencyID was provided. ");
                 errorMessageDict.Add(ERR0251, "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
@@ -860,6 +867,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0331, "An ErcpOutcomeCd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0332, "A HarpEligibleInd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0333, "A HampEligibleInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0334, "An CounselorContactedSrvcrInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0335, "An DependentNum is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0375, "{0} cases matched your search criteria, only the first 50 will be presented. To reduce the number of results, please refine your search criteria.");
 
                 errorMessageDict.Add(WARN0450, "Data has been changed. Do you want to save?");
@@ -872,6 +881,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0280, "A SrvcrWorkoutPlanCurrentInd is required to save a complete foreclosure case since HasWorkoutPlanInd = Y.");
                 errorMessageDict.Add(WARN0281, "A HomeSalePrice is required to save a complete foreclosure case since the ForSaleInd = Y.");
                 errorMessageDict.Add(WARN0282, "An ArmResetInd is required on AcctNum: [{0}] to save a complete foreclosure case.");
+                errorMessageDict.Add(WARN0283, "CounselorContactedSrvcrInd needs to by N if CounselorAttemptedSrvcrContactInd is N");
 
                 errorMessageDict.Add(WARN0903, "The CallID provided already exists in a foreclosure case:  Servicer: {0}, Account Number: {1}, Zip Code: {2}. Borrower Name: {3} {4}. The case is currently being worked on by: {5} {6} of {7}. Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} Last Outcome: {12}.");
                 // App foreclosure Case Search

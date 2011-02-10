@@ -926,6 +926,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         string counselorContactedSrvcrInd;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0084)]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0334, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public string CounselorContactedSrvcrInd 
         {
             get { return counselorContactedSrvcrInd; }
@@ -966,5 +967,39 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
         public int? SponsorId { get; set; }
         public int? CampaignId { get; set; }
+
+        string counselorAttemptedSrvcrContactInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0099)]
+        [RequiredObjectValidator(Tag = ErrorMessages.WARN0334, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        public string CounselorAttemptedSrvcrContactInd
+        {
+            get { return counselorAttemptedSrvcrContactInd; }
+            set { counselorAttemptedSrvcrContactInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+
+        [XmlElement(IsNullable = true)]
+        [RequiredObjectValidator(Tag = ErrorMessages.WARN0335, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        public byte? DependentNum { get; set; }
+
+        string primaryContactNoTypeCd;
+        public string PrimaryContactNoTypeCd
+        {
+            get { return primaryContactNoTypeCd; }
+            set { primaryContactNoTypeCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+
+        string secondContactNoTypeCd;
+        public string SecondContactNoTypeCd
+        {
+            get { return secondContactNoTypeCd; }
+            set { secondContactNoTypeCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+
+        string preferredContactTime;
+        public string PreferredContactTime
+        {
+            get { return preferredContactTime; }
+            set { preferredContactTime = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
     }
 }

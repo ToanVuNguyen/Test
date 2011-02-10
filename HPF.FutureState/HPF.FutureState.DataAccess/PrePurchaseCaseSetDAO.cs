@@ -595,7 +595,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.CounselorEmail = ConvertToString(reader["counselor_email"]);
                         returnObject.CounselorPhone = ConvertToString(reader["counselor_phone"]);
                         returnObject.CounselorExt = ConvertToString(reader["counselor_ext"]);
-                        returnObject.CounselingDurationMins = ConvertToInt(reader["counseling_duration_mins"]).Value;
+                        returnObject.CounselingDurationMins = ConvertToInt(reader["counseling_duration_mins"]);
                         returnObject.CreateAppName = ConvertToString(reader["create_app_name"]);
                         returnObject.CreateDate = ConvertToDateTime(reader["create_dt"]);
                         returnObject.CreateUserId = ConvertToString(reader["create_user_id"]);

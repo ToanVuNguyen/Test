@@ -57,5 +57,6 @@ namespace HPF.FutureState.Common
         public const string MHA_ESCALATION_CODE ="mha escalation code";
         public const string MHA_FINAL_RESOLUTION_CODE = "mha final resolution code";
         public const string LOSS_MIT_STATUS_CODE = "loss mit status code";
+        public const string CONTACT_NO_TYPE_CODE = "contact no type code";
     }
 }

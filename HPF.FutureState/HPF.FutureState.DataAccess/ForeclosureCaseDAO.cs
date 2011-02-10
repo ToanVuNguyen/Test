@@ -222,7 +222,11 @@ namespace HPF.FutureState.DataAccess
                         returnObject.HudTerminationDesc = ConvertToString(reader["hud_termination_desc"]);
                         returnObject.HudOutcomeDesc = ConvertToString(reader["hud_outcome_desc"]);
                         returnObject.ProgramName = ConvertToString(reader["program_name"]);
-
+                        returnObject.CounselorAttemptedSrvcrContactInd = ConvertToString(reader["counselor_attempted_srvcr_contact_ind"]);
+                        returnObject.DependentNum = ConvertToByte(reader["dependent_num"]);
+                        returnObject.PrimaryContactNoTypeCd = ConvertToString(reader["primary_contact_no_type_cd"]);
+                        returnObject.SecondContactNoTypeCd = ConvertToString(reader["second_contact_no_type_cd"]);
+                        returnObject.PreferredContactTime = ConvertToString(reader["preferred_contact_time"]);
 
                         #endregion
                     }

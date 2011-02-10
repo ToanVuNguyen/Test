@@ -251,6 +251,12 @@ namespace HPF.FutureState.DataAccess
                         returnObject.ReferralClientNum = ConvertToString(reader["referral_client_num"]);
                         returnObject.SponsorId = ConvertToInt(reader["sponsor_id"]);
                         returnObject.CampaignId = ConvertToInt(reader["campaign_id"]);
+
+                        returnObject.CounselorAttemptedSrvcrContactInd = ConvertToString(reader["counselor_attempted_srvcr_contact_ind"]);
+                        returnObject.DependentNum = ConvertToByte(reader["dependent_num"]);
+                        returnObject.PrimaryContactNoTypeCd = ConvertToString(reader["primary_contact_no_type_cd"]);
+                        returnObject.SecondContactNoTypeCd = ConvertToString(reader["second_contact_no_type_cd"]);
+                        returnObject.PreferredContactTime = ConvertToString(reader["preferred_contact_time"]);
                         #endregion
                     }                    
                 }
@@ -281,7 +287,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[119];
+                var sqlParam = new SqlParameter[124];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -403,13 +409,19 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[116] = new SqlParameter("@pi_sponsor_id", foreclosureCase.SponsorId);
                 sqlParam[117] = new SqlParameter("@pi_campaign_id", foreclosureCase.CampaignId);
 
-                sqlParam[118] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
+                sqlParam[118] = new SqlParameter("@pi_counselor_attempted_srvcr_contact_ind",foreclosureCase.CounselorAttemptedSrvcrContactInd);
+                sqlParam[119] = new SqlParameter("@pi_dependent_num",foreclosureCase.DependentNum);
+                sqlParam[120] = new SqlParameter("@pi_primary_contact_no_type_cd",foreclosureCase.PrimaryContactNoTypeCd);
+                sqlParam[121] = new SqlParameter("@pi_second_contact_no_type_cd",foreclosureCase.SecondContactNoTypeCd);
+                sqlParam[122] = new SqlParameter("@pi_preferred_contact_time",foreclosureCase.PreferredContactTime);
+
+                sqlParam[123] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
                 command.Transaction = this.trans;            
                 command.ExecuteNonQuery();                
-                foreclosureCase.FcId = ConvertToInt(sqlParam[118].Value);
+                foreclosureCase.FcId = ConvertToInt(sqlParam[123].Value);
             }
             catch (Exception Ex)
             {                
@@ -866,7 +878,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[116];
+                var sqlParam = new SqlParameter[121];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -985,7 +997,13 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[113] = new SqlParameter("@pi_sponsor_id", foreclosureCase.SponsorId);
                 sqlParam[114] = new SqlParameter("@pi_campaign_id", foreclosureCase.CampaignId);
 
-                sqlParam[115] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
+                sqlParam[115] = new SqlParameter("@pi_counselor_attempted_srvcr_contact_ind", foreclosureCase.CounselorAttemptedSrvcrContactInd);
+                sqlParam[116] = new SqlParameter("@pi_dependent_num", foreclosureCase.DependentNum);
+                sqlParam[117] = new SqlParameter("@pi_primary_contact_no_type_cd", foreclosureCase.PrimaryContactNoTypeCd);
+                sqlParam[118] = new SqlParameter("@pi_second_contact_no_type_cd", foreclosureCase.SecondContactNoTypeCd);
+                sqlParam[119] = new SqlParameter("@pi_preferred_contact_time", foreclosureCase.PreferredContactTime);
+
+                sqlParam[120] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
