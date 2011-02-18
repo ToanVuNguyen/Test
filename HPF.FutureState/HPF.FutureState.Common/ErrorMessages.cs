@@ -107,6 +107,8 @@ namespace HPF.FutureState.Common
         public const string ERR0097 = "ERR0097";
         public const string ERR0098 = "ERR0098";
         public const string ERR0099 = "ERR0099";
+        public const string ERR0150 = "ERR0150";
+        public const string ERR0151 = "ERR0151";
 
         public const string ERR0100 = "ERR0100";
         public const string ERR0101 = "ERR0101";
@@ -301,6 +303,7 @@ namespace HPF.FutureState.Common
         public const string WARN0335 = "WARN0335";
         public const string WARN0336 = "WARN0336";
         public const string WARN0337 = "WARN0337";
+        
 
         public const string WARN0375 = "WARN0375";
         public const string WARN0450 = "WARN0450";
@@ -684,7 +687,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0096, "PrinBalWithinLimitInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0097, "HampEligibleInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0098, "CertificateId has a maximum length of 10 characters.");
-                errorMessageDict.Add(ERR0099, "CounselorAttemptedSrvcrContactInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0099, "ReferralClientNum has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR0150, "PreferredContactTime has a maximum length of 40 characters.");
+                errorMessageDict.Add(ERR0151, "CounselorAttemptedSrvcrContactInd must be either a Y, N or a blank.");
 
                 errorMessageDict.Add(ERR0100, "An AgencyId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0101, "A ProgramId is required to save a foreclosure case.");
@@ -748,7 +753,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0226, "An invalid code was provided for LoanLookupCd.");
                 errorMessageDict.Add(ERR0227, "An invalid code was provided for LossMitStatusCd.");
                 errorMessageDict.Add(ERR0228, "An invalid code was provided for PrimaryContactNoTypeCd.");
-                errorMessageDict.Add(ERR0229, "An invalid code was provided for SecondaryContactNoTypeCd.");
+                errorMessageDict.Add(ERR0229, "An invalid code was provided for SecondContactNoTypeCd.");
 
                 errorMessageDict.Add(ERR0250, "An invalid AgencyID was provided. ");
                 errorMessageDict.Add(ERR0251, "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
@@ -868,8 +873,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0331, "An ErcpOutcomeCd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0332, "A HarpEligibleInd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0333, "A HampEligibleInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0334, "An CounselorContactedSrvcrInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0335, "An DependentNum is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0334, "A CounselorContactedSrvcrInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0335, "A DependentNum is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0336, "A CounselorAttemptedSrvcrContactInd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0375, "{0} cases matched your search criteria, only the first 50 will be presented. To reduce the number of results, please refine your search criteria.");
 
                 errorMessageDict.Add(WARN0450, "Data has been changed. Do you want to save?");

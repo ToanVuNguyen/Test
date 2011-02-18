@@ -960,6 +960,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? CounseledProgramId { get; set; }
 
         string referralClientNum;
+        [NullableOrStringLengthValidator(true, 30, "Referral Client Num", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0099)]
         public string ReferralClientNum 
         {
             get { return referralClientNum; }
@@ -969,8 +970,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? CampaignId { get; set; }
 
         string counselorAttemptedSrvcrContactInd;
-        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0099)]
-        [RequiredObjectValidator(Tag = ErrorMessages.WARN0334, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0151)]
+        [RequiredObjectValidator(Tag = ErrorMessages.WARN0336, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public string CounselorAttemptedSrvcrContactInd
         {
             get { return counselorAttemptedSrvcrContactInd; }
@@ -996,10 +997,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         string preferredContactTime;
+        [NullableOrStringLengthValidator(true, 40, "Preferred Contact Time", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0150)]
         public string PreferredContactTime
         {
             get { return preferredContactTime; }
-            set { preferredContactTime = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { preferredContactTime = (string.IsNullOrEmpty(value)) ? null : value.Trim(); }
         }
     }
 }
