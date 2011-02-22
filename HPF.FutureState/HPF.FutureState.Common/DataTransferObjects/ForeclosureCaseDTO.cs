@@ -926,7 +926,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         string counselorContactedSrvcrInd;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0084)]
-        [StringRequiredValidator(Tag = ErrorMessages.WARN0334, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        //[StringRequiredValidator(Tag = ErrorMessages.WARN0334, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public string CounselorContactedSrvcrInd 
         {
             get { return counselorContactedSrvcrInd; }
@@ -971,7 +971,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         string counselorAttemptedSrvcrContactInd;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0151)]
-        [RequiredObjectValidator(Tag = ErrorMessages.WARN0336, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        //[RequiredObjectValidator(Tag = ErrorMessages.WARN0336, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public string CounselorAttemptedSrvcrContactInd
         {
             get { return counselorAttemptedSrvcrContactInd; }
@@ -979,7 +979,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [XmlElement(IsNullable = true)]
-        [RequiredObjectValidator(Tag = ErrorMessages.WARN0335, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        //[RequiredObjectValidator(Tag = ErrorMessages.WARN0335, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public byte? DependentNum { get; set; }
 
         string primaryContactNoTypeCd;
