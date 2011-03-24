@@ -235,6 +235,11 @@ namespace HPF.FutureState.BusinessLogic
             foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
+            //Add carriage-returns(\r) to notes, they are dropped by web service when serialize
+            fcCase.LoanDfltReasonNotes = AddCarriageReturn(fcCase.LoanDfltReasonNotes);
+            fcCase.ActionItemsNotes = AddCarriageReturn(fcCase.ActionItemsNotes);
+            fcCase.FollowupNotes = AddCarriageReturn(fcCase.FollowupNotes);
+
             LoadForeclosureCaseFromDB(fcCase.FcId);
             exceptionList.Add(CheckValidCode(foreclosureCaseSet));
             //
@@ -2678,6 +2683,14 @@ namespace HPF.FutureState.BusinessLogic
             if (temp1.ToUpper() == temp2.ToUpper())
                 return true;
             return false;
+        }
+
+        private string AddCarriageReturn(string s)
+        {
+            s = s.Replace("\r\n", "\n");
+            s = s.Replace("\r", "\n");
+            s = s.Replace("\n", "\r\n");
+            return s;
         }
         #endregion
 
