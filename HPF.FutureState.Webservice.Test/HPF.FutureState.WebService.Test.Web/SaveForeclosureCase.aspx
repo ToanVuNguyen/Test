@@ -651,7 +651,7 @@
                 <asp:Label CssClass = "sidelinks" ID="Label77" runat="server" Text="Loan default reason notes"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtLoanDfltReasonNotes" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtLoanDfltReasonNotes" runat="server" Columns="40" Rows="7" TextMode="MultiLine"></asp:TextBox>
             </td>
             <!--
             <td>
@@ -863,7 +863,7 @@
                 <asp:Label CssClass = "sidelinks" ID="Label108" runat="server" Text="Action item notes"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtActionItemsNotes" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtActionItemsNotes" runat="server" Columns="40" Rows="7" TextMode="MultiLine"></asp:TextBox>
             </td>                       
         </tr>   
         <tr>
@@ -871,7 +871,7 @@
                 <asp:Label CssClass = "sidelinks" ID="Label109" runat="server" Text="Follow up notes"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtFollowupNotes" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtFollowupNotes" runat="server" Columns="40" Rows="7" TextMode="MultiLine"></asp:TextBox>
             </td>
             <td>
                 <asp:Label CssClass = "sidelinks" ID="Label110" runat="server" Text="Agency Success Story"></asp:Label>             
