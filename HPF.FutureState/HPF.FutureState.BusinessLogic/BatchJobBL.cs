@@ -71,6 +71,8 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = ImportATTCallingData(job);
                 else if (job.JobName.Equals(Constant.SCAM_IMPORT))
                     rowCount = ImportScamData();
+                else if (job.JobName.Equals(Constant.AD_HOC))
+                    rowCount = AdHoc();
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
 
@@ -297,7 +299,11 @@ namespace HPF.FutureState.BusinessLogic
 
             return auditLogs.Count;
         }
-
+        public int AdHoc()
+        {
+            BatchJobDAO.Instance.AdHoc();
+            return 0;
+        }
         public int SendCompletedCounselingDetailReportToPortal(BatchJobDTO batchjob)
         {            
             DateTime startDate = batchjob.LastJobEndDate.AddDays(1); //new DateTime(batchjob.JobStartDate.Year, batchjob.JobStartDate.Month, 1).AddMonths(-1);            

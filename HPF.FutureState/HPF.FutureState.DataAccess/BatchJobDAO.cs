@@ -660,7 +660,25 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
         }
+        public void AdHoc()
+        {
+            var dbConnection = CreateConnection();
 
+            try
+            {
+                dbConnection.Open();
+                var command = CreateSPCommand("hpf_ad_hoc_batch_job", dbConnection);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
         public Collection<ExcelDataRow> GetCompletedCounselingDetailReportData(string filename, DateTime fromDate, DateTime toDate)
         {            
             Collection<ExcelDataRow> results = new Collection<ExcelDataRow>();
