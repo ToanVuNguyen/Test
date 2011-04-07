@@ -8,14 +8,70 @@
   </DataSources>
   <InteractiveHeight>11in</InteractiveHeight>
   <ReportParameters>
-    <ReportParameter Name="pi_year">
+    <ReportParameter Name="pi_from_month">
+      <DataType>String</DataType>
+      <Prompt>Month from</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>01</Value>
+            <Label>Jan</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>02</Value>
+            <Label>Feb</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>03</Value>
+            <Label>Mar</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>04</Value>
+            <Label>Apr</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>05</Value>
+            <Label>May</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>06</Value>
+            <Label>Jun</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>07</Value>
+            <Label>Jul</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>08</Value>
+            <Label>Aug</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>09</Value>
+            <Label>Sep</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>10</Value>
+            <Label>Oct</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>11</Value>
+            <Label>Nov</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>12</Value>
+            <Label>Dec</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="pi_from_year">
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
           <Value>=CStr(Year(Today))</Value>
         </Values>
       </DefaultValue>
-      <Prompt>Year</Prompt>
+      <Prompt>From Year</Prompt>
       <ValidValues>
         <ParameterValues>
           <ParameterValue>
@@ -47,6 +103,112 @@
           </ParameterValue>
           <ParameterValue>
             <Value>2018</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2019</Value>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="pi_to_month">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>to</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>01</Value>
+            <Label>Jan</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>02</Value>
+            <Label>Feb</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>03</Value>
+            <Label>Mar</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>04</Value>
+            <Label>Apr</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>05</Value>
+            <Label>May</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>06</Value>
+            <Label>Jun</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>07</Value>
+            <Label>Jul</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>08</Value>
+            <Label>Aug</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>09</Value>
+            <Label>Sep</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>10</Value>
+            <Label>Oct</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>11</Value>
+            <Label>Nov</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>12</Value>
+            <Label>Dec</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="pi_to_year">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=CStr(Year(Today))</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>To Year</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>2009</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2010</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2011</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2012</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2013</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2014</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2015</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2016</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2017</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2018</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2019</Value>
           </ParameterValue>
         </ParameterValues>
       </ValidValues>
@@ -147,8 +309,17 @@
         <CommandType>StoredProcedure</CommandType>
         <CommandText>hpf_rpt_ServicerRejectReport</CommandText>
         <QueryParameters>
-          <QueryParameter Name="@pi_year">
-            <Value>=Parameters!pi_year.Value</Value>
+          <QueryParameter Name="@pi_from_year">
+            <Value>=Parameters!pi_from_year.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_to_year">
+            <Value>=Parameters!pi_to_year.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_from_month">
+            <Value>=Parameters!pi_from_month.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_to_month">
+            <Value>=Parameters!pi_to_month.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@pi_agency_id">
             <Value>=Parameters!pi_agency_id.Value</Value>
@@ -208,7 +379,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>47</ZIndex>
+                          <ZIndex>32</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Servicer Reject Report</Value>
                         </Textbox>
@@ -239,7 +410,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>46</ZIndex>
+                          <ZIndex>31</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>= "Report Date " &amp; CStr(Today)</Value>
                         </Textbox>
@@ -265,9 +436,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>45</ZIndex>
+                          <ZIndex>30</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>="Agency " &amp; Fields!agency_name.Value &amp; " - Year " &amp; Parameters!pi_year.Value</Value>
+                          <Value>="Agency " &amp; Fields!agency_name.Value &amp; " (From "&amp; CStr(Parameters!pi_from_month.label) &amp; "-" &amp; CStr(Parameters!pi_from_year.Value) &amp; " to " &amp; CStr(Parameters!pi_to_month.Label) &amp; "-" &amp; CStr(Parameters!pi_to_year.Value) &amp; ")"</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -302,7 +473,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>44</ZIndex>
+                          <ZIndex>29</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Reject Reason</Value>
                         </Textbox>
@@ -332,9 +503,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>43</ZIndex>
+                          <ZIndex>28</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Jan</Value>
+                          <Value>= "Jan-" &amp; IIF(Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value &gt; Parameters!pi_from_year.Value &amp; "01", Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -361,9 +532,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>42</ZIndex>
+                          <ZIndex>27</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Feb</Value>
+                          <Value>= "Feb-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "02"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -390,9 +561,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>41</ZIndex>
+                          <ZIndex>26</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Mar</Value>
+                          <Value>= "Mar-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "03"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -419,9 +590,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>40</ZIndex>
+                          <ZIndex>25</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Apr</Value>
+                          <Value>= "Apr-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "04"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -448,9 +619,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>39</ZIndex>
+                          <ZIndex>24</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>May</Value>
+                          <Value>= "May-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "05"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -477,9 +648,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>38</ZIndex>
+                          <ZIndex>23</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Jun</Value>
+                          <Value>= "Jun-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "06"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -506,9 +677,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>37</ZIndex>
+                          <ZIndex>22</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Jul</Value>
+                          <Value>= "Jul-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "07"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -535,9 +706,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>36</ZIndex>
+                          <ZIndex>21</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Aug</Value>
+                          <Value>= "Aug-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "08"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -564,9 +735,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>35</ZIndex>
+                          <ZIndex>20</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Sep</Value>
+                          <Value>= "Sep-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "09"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -593,9 +764,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>34</ZIndex>
+                          <ZIndex>19</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Oct</Value>
+                          <Value>= "Oct-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "10"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -622,9 +793,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>33</ZIndex>
+                          <ZIndex>18</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Nov</Value>
+                          <Value>="Nov-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "11"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -651,9 +822,9 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>32</ZIndex>
+                          <ZIndex>17</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Dec</Value>
+                          <Value>= "Dec-" &amp; IIF((Parameters!pi_from_year.Value &amp; Parameters!pi_from_month.Value) &gt; (Parameters!pi_from_year.Value &amp; "12"), Parameters!pi_to_year.Value, Parameters!pi_from_year.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -680,7 +851,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>31</ZIndex>
+                          <ZIndex>16</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Total</Value>
                         </Textbox>
@@ -709,7 +880,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>30</ZIndex>
+                          <ZIndex>15</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Percentage</Value>
                         </Textbox>
@@ -720,390 +891,6 @@
                 </TableRow>
               </TableRows>
             </Header>
-            <Footer>
-              <TableRows>
-                <TableRow>
-                  <TableCells>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox22">
-                          <rd:DefaultName>textbox22</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>29</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox23">
-                          <rd:DefaultName>textbox23</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>28</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox24">
-                          <rd:DefaultName>textbox24</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>27</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox25">
-                          <rd:DefaultName>textbox25</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>26</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox26">
-                          <rd:DefaultName>textbox26</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>25</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox27">
-                          <rd:DefaultName>textbox27</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>24</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox28">
-                          <rd:DefaultName>textbox28</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>23</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox29">
-                          <rd:DefaultName>textbox29</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>22</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox30">
-                          <rd:DefaultName>textbox30</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>21</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox31">
-                          <rd:DefaultName>textbox31</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>20</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox32">
-                          <rd:DefaultName>textbox32</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>19</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox33">
-                          <rd:DefaultName>textbox33</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>18</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox34">
-                          <rd:DefaultName>textbox34</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>17</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox35">
-                          <rd:DefaultName>textbox35</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>16</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox36">
-                          <rd:DefaultName>textbox36</rd:DefaultName>
-                          <Style>
-                            <BorderColor>
-                              <Top>Black</Top>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Top>Solid</Top>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Top>1pt</Top>
-                            </BorderWidth>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>15</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                  </TableCells>
-                  <Height>0.25in</Height>
-                </TableRow>
-              </TableRows>
-            </Footer>
           </TableGroup>
         </TableGroups>
         <Details>
@@ -1512,7 +1299,7 @@
         </TableColumns>
       </Table>
     </ReportItems>
-    <Height>1.6in</Height>
+    <Height>1.35in</Height>
   </Body>
   <Language>en-US</Language>
   <TopMargin>1in</TopMargin>

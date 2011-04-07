@@ -14,8 +14,16 @@
       <MimeType>image/gif</MimeType>
     </ResourceProjectItem>
     <ProjectItem>
+      <Name>rpt_AgencyQualityDetail.rdl</Name>
+      <FullPath>rpt_AgencyQualityDetail.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_CaseFundingReport.rdl</Name>
       <FullPath>rpt_CaseFundingReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CompletedCounselingByCounselor.rdl</Name>
+      <FullPath>rpt_CompletedCounselingByCounselor.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_CompletedCounselingDetail.rdl</Name>
@@ -34,8 +42,8 @@
       <FullPath>rpt_ServicerRejectReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_AgencyQualityDetail.rdl</Name>
-      <FullPath>rpt_AgencyQualityDetail.rdl</FullPath>
+      <Name>rpt_AgencyFieldComplianceReport.rdl</Name>
+      <FullPath>rpt_AgencyFieldComplianceReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

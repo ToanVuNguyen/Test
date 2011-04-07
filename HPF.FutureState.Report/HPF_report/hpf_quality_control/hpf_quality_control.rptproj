@@ -16,6 +16,10 @@
       <Name>rpt_OtherServicerName.rdl</Name>
       <FullPath>rpt_OtherServicerName.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_AgencyFieldComplianceReport.rdl</Name>
+      <FullPath>rpt_AgencyFieldComplianceReport.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>

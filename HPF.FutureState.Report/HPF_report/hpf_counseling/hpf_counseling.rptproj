@@ -47,6 +47,10 @@
       <FullPath>rpt_CompletedCounseling Summary.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_CompletedCounselingByCounselor.rdl</Name>
+      <FullPath>rpt_CompletedCounselingByCounselor.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_CompletedCounselingByServicer.rdl</Name>
       <FullPath>rpt_CompletedCounselingByServicer.rdl</FullPath>
     </ProjectItem>
@@ -125,6 +129,10 @@
     <ProjectItem>
       <Name>rpt_ServicerRejectReport.rdl</Name>
       <FullPath>rpt_ServicerRejectReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CongressionalDistrictReport.rdl</Name>
+      <FullPath>rpt_CongressionalDistrictReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

@@ -8,13 +8,154 @@
   </DataSources>
   <InteractiveHeight>11in</InteractiveHeight>
   <ReportParameters>
-    <ReportParameter Name="pi_year">
+    <ReportParameter Name="pi_from_month">
+      <DataType>String</DataType>
+      <Prompt>From month</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>01</Value>
+            <Label>Jan</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>02</Value>
+            <Label>Feb</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>03</Value>
+            <Label>Mar</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>04</Value>
+            <Label>Apr</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>05</Value>
+            <Label>May</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>06</Value>
+            <Label>Jun</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>07</Value>
+            <Label>Jul</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>08</Value>
+            <Label>Aug</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>09</Value>
+            <Label>Sep</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>10</Value>
+            <Label>Oct</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>11</Value>
+            <Label>Nov</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>12</Value>
+            <Label>Dec</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="pi_from_year">
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
           <Value>=CStr(Year(Today))</Value>
         </Values>
       </DefaultValue>
+      <Prompt>Year</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>2009</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2010</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2011</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2012</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2013</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2014</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2015</Value>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="pi_to_month">
+      <DataType>String</DataType>
+      <Prompt>To month</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>01</Value>
+            <Label>Jan</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>02</Value>
+            <Label>Feb</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>03</Value>
+            <Label>Mar</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>04</Value>
+            <Label>Apr</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>05</Value>
+            <Label>May</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>06</Value>
+            <Label>Jun</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>07</Value>
+            <Label>Jul</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>08</Value>
+            <Label>Aug</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>09</Value>
+            <Label>Sep</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>10</Value>
+            <Label>Oct</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>11</Value>
+            <Label>Nov</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>12</Value>
+            <Label>Dec</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="pi_to_year">
+      <DataType>String</DataType>
       <Prompt>Year</Prompt>
       <ValidValues>
         <ParameterValues>
@@ -77,6 +218,10 @@
           <DataField>month1</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="yy">
+          <DataField>yy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="billed">
           <DataField>billed</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -111,8 +256,17 @@
         <CommandType>StoredProcedure</CommandType>
         <CommandText>hpf_rpt_Servicer_Funding_Report</CommandText>
         <QueryParameters>
-          <QueryParameter Name="@pi_year">
-            <Value>=Parameters!pi_year.Value</Value>
+          <QueryParameter Name="@pi_from_year">
+            <Value>=Parameters!pi_from_year.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_from_month">
+            <Value>=Parameters!pi_from_month.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_to_year">
+            <Value>=Parameters!pi_to_year.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_to_month">
+            <Value>=Parameters!pi_to_month.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@pi_agency_id">
             <Value>=Parameters!pi_agency_id.Value</Value>
@@ -197,7 +351,7 @@
                           </Style>
                           <ZIndex>28</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Month</Value>
+                          <Value>Month/Year</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -846,7 +1000,7 @@
                       </Style>
                       <ZIndex>31</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>="Servicer Funding Report (" &amp; CStr(Parameters!pi_year.Value) &amp; ")"</Value>
+                      <Value>="Servicer Funding Report (From "&amp; CStr(Parameters!pi_from_month.label) &amp; "/" &amp; Parameters!pi_from_year.Value &amp; " to " &amp; CStr(Parameters!pi_to_month.Label) &amp; "/" &amp; CStr(Parameters!pi_to_year.Value) &amp; ")"</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>

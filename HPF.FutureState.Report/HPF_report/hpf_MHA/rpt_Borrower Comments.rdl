@@ -10,6 +10,11 @@
   <ReportParameters>
     <ReportParameter Name="pi_dt">
       <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=DateAdd("d", -1, Today)</Value>
+        </Values>
+      </DefaultValue>
       <Prompt>Report of </Prompt>
     </ReportParameter>
   </ReportParameters>
@@ -87,6 +92,10 @@
           <DataField>program_to_dt</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="year_to_dt">
+          <DataField>year_to_dt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="percentage_last_wk">
           <DataField>percentage_last_wk</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -101,6 +110,10 @@
         </Field>
         <Field Name="percentage_program_to_dt">
           <DataField>percentage_program_to_dt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="percentage_year_to_dt">
+          <DataField>percentage_year_to_dt</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="percentage_program_avg">
@@ -161,7 +174,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.5in</Width>
+  <Width>9.6in</Width>
   <Body>
     <ReportItems>
       <Table Name="table2">
@@ -194,7 +207,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>71</ZIndex>
+                          <ZIndex>84</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>=Fields!parent_servicer_name.Value</Value>
                         </Textbox>
@@ -210,7 +223,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>70</ZIndex>
+                          <ZIndex>83</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -226,7 +239,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>69</ZIndex>
+                          <ZIndex>82</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -242,7 +255,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>68</ZIndex>
+                          <ZIndex>81</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -258,7 +271,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>67</ZIndex>
+                          <ZIndex>80</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -274,7 +287,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>66</ZIndex>
+                          <ZIndex>79</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -290,7 +303,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>65</ZIndex>
+                          <ZIndex>78</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -306,7 +319,39 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>64</ZIndex>
+                          <ZIndex>77</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox50">
+                          <rd:DefaultName>textbox50</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>76</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox66">
+                          <rd:DefaultName>textbox66</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>75</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -322,7 +367,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>63</ZIndex>
+                          <ZIndex>74</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -338,7 +383,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>62</ZIndex>
+                          <ZIndex>73</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -354,7 +399,7 @@
                 <TableRow>
                   <TableCells>
                     <TableCell>
-                      <ColSpan>10</ColSpan>
+                      <ColSpan>12</ColSpan>
                       <ReportItems>
                         <Textbox Name="textbox67">
                           <rd:DefaultName>textbox67</rd:DefaultName>
@@ -377,7 +422,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>20</ZIndex>
+                          <ZIndex>24</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Borrower Comments</Value>
                         </Textbox>
@@ -389,110 +434,10 @@
                 <TableRow>
                   <TableCells>
                     <TableCell>
-                      <ColSpan>10</ColSpan>
+                      <ColSpan>12</ColSpan>
                       <ReportItems>
                         <Textbox Name="textbox11">
                           <rd:DefaultName>textbox11</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>21</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                  </TableCells>
-                  <Height>0.25in</Height>
-                </TableRow>
-                <TableRow>
-                  <TableCells>
-                    <TableCell>
-                      <ColSpan>10</ColSpan>
-                      <ReportItems>
-                        <Textbox Name="textbox39">
-                          <rd:DefaultName>textbox39</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>22</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                  </TableCells>
-                  <Height>0.25in</Height>
-                </TableRow>
-                <TableRow>
-                  <TableCells>
-                    <TableCell>
-                      <ColSpan>10</ColSpan>
-                      <ReportItems>
-                        <Textbox Name="textbox49">
-                          <rd:DefaultName>textbox49</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>23</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                  </TableCells>
-                  <Height>0.25in</Height>
-                </TableRow>
-                <TableRow>
-                  <TableCells>
-                    <TableCell>
-                      <ColSpan>10</ColSpan>
-                      <ReportItems>
-                        <Textbox Name="textbox70">
-                          <rd:DefaultName>textbox70</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>24</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                  </TableCells>
-                  <Height>0.25in</Height>
-                </TableRow>
-                <TableRow>
-                  <TableCells>
-                    <TableCell>
-                      <ColSpan>10</ColSpan>
-                      <ReportItems>
-                        <Textbox Name="textbox10">
-                          <rd:DefaultName>textbox10</rd:DefaultName>
                           <Style>
                             <BorderStyle>
                               <Default>Solid</Default>
@@ -514,7 +459,107 @@
                 <TableRow>
                   <TableCells>
                     <TableCell>
-                      <ColSpan>10</ColSpan>
+                      <ColSpan>12</ColSpan>
+                      <ReportItems>
+                        <Textbox Name="textbox39">
+                          <rd:DefaultName>textbox39</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>26</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                  <Height>0.25in</Height>
+                </TableRow>
+                <TableRow>
+                  <TableCells>
+                    <TableCell>
+                      <ColSpan>12</ColSpan>
+                      <ReportItems>
+                        <Textbox Name="textbox49">
+                          <rd:DefaultName>textbox49</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>27</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                  <Height>0.25in</Height>
+                </TableRow>
+                <TableRow>
+                  <TableCells>
+                    <TableCell>
+                      <ColSpan>12</ColSpan>
+                      <ReportItems>
+                        <Textbox Name="textbox70">
+                          <rd:DefaultName>textbox70</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>28</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                  <Height>0.25in</Height>
+                </TableRow>
+                <TableRow>
+                  <TableCells>
+                    <TableCell>
+                      <ColSpan>12</ColSpan>
+                      <ReportItems>
+                        <Textbox Name="textbox10">
+                          <rd:DefaultName>textbox10</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>29</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                  <Height>0.25in</Height>
+                </TableRow>
+                <TableRow>
+                  <TableCells>
+                    <TableCell>
+                      <ColSpan>12</ColSpan>
                       <ReportItems>
                         <Textbox Name="textbox51">
                           <rd:DefaultName>textbox51</rd:DefaultName>
@@ -527,7 +572,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>26</ZIndex>
+                          <ZIndex>30</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -570,7 +615,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>61</ZIndex>
+                          <ZIndex>72</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -595,7 +640,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>60</ZIndex>
+                          <ZIndex>71</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -620,7 +665,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>59</ZIndex>
+                          <ZIndex>70</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -645,7 +690,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>58</ZIndex>
+                          <ZIndex>69</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -670,7 +715,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>57</ZIndex>
+                          <ZIndex>68</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -696,7 +741,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>56</ZIndex>
+                          <ZIndex>67</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -721,7 +766,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>55</ZIndex>
+                          <ZIndex>66</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -746,7 +791,59 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>54</ZIndex>
+                          <ZIndex>65</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox52">
+                          <rd:DefaultName>textbox52</rd:DefaultName>
+                          <Style>
+                            <BorderColor>
+                              <Bottom>Black</Bottom>
+                            </BorderColor>
+                            <BorderStyle>
+                              <Top>None</Top>
+                              <Bottom>Solid</Bottom>
+                            </BorderStyle>
+                            <BorderWidth>
+                              <Bottom>1pt</Bottom>
+                            </BorderWidth>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>64</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox69">
+                          <rd:DefaultName>textbox69</rd:DefaultName>
+                          <Style>
+                            <BorderColor>
+                              <Bottom>Black</Bottom>
+                            </BorderColor>
+                            <BorderStyle>
+                              <Top>None</Top>
+                              <Bottom>Solid</Bottom>
+                            </BorderStyle>
+                            <BorderWidth>
+                              <Bottom>1pt</Bottom>
+                            </BorderWidth>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>63</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -771,7 +868,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>53</ZIndex>
+                          <ZIndex>62</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -796,7 +893,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>52</ZIndex>
+                          <ZIndex>61</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -823,7 +920,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>51</ZIndex>
+                          <ZIndex>60</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>=Fields!group_name.Value</Value>
                         </Textbox>
@@ -847,7 +944,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>50</ZIndex>
+                          <ZIndex>59</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>=First(Fields!parent_servicer_name.Value, "dst_get_title")</Value>
                         </Textbox>
@@ -871,7 +968,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>49</ZIndex>
+                          <ZIndex>58</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>=First(Fields!item_name.Value, "dst_get_title")</Value>
                         </Textbox>
@@ -894,9 +991,33 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>48</ZIndex>
+                          <ZIndex>57</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Mon To Date (MTD)</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ColSpan>2</ColSpan>
+                      <ReportItems>
+                        <Textbox Name="textbox53">
+                          <rd:DefaultName>textbox53</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LightSkyBlue</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontSize>7.5pt</FontSize>
+                            <FontWeight>900</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>56</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>Year To Date (YTD)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -917,7 +1038,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>47</ZIndex>
+                          <ZIndex>55</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Program To Date (PTD)</Value>
                         </Textbox>
@@ -943,7 +1064,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>46</ZIndex>
+                          <ZIndex>54</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -966,7 +1087,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>45</ZIndex>
+                          <ZIndex>53</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Count</Value>
                         </Textbox>
@@ -989,7 +1110,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>44</ZIndex>
+                          <ZIndex>52</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>%</Value>
                         </Textbox>
@@ -1012,7 +1133,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>43</ZIndex>
+                          <ZIndex>51</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Count</Value>
                         </Textbox>
@@ -1035,7 +1156,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>42</ZIndex>
+                          <ZIndex>50</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>%</Value>
                         </Textbox>
@@ -1058,7 +1179,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>41</ZIndex>
+                          <ZIndex>49</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>=IIF(Fields!group_name.Value="Types of Comments (unsolicited data capture during triage)", "Program Avg.%", Nothing)</Value>
                         </Textbox>
@@ -1081,7 +1202,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>40</ZIndex>
+                          <ZIndex>48</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Count</Value>
                         </Textbox>
@@ -1104,7 +1225,53 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>39</ZIndex>
+                          <ZIndex>47</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>%</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox54">
+                          <rd:DefaultName>textbox54</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LightSkyBlue</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>700</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>46</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>Count</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox72">
+                          <rd:DefaultName>textbox72</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LightSkyBlue</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>700</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>45</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>%</Value>
                         </Textbox>
@@ -1127,7 +1294,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>38</ZIndex>
+                          <ZIndex>44</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Count</Value>
                         </Textbox>
@@ -1150,7 +1317,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>37</ZIndex>
+                          <ZIndex>43</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>%</Value>
                         </Textbox>
@@ -1184,7 +1351,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>19</ZIndex>
+                          <ZIndex>23</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1209,7 +1376,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>18</ZIndex>
+                          <ZIndex>22</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1234,7 +1401,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>17</ZIndex>
+                          <ZIndex>21</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1259,7 +1426,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>16</ZIndex>
+                          <ZIndex>20</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1284,7 +1451,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>15</ZIndex>
+                          <ZIndex>19</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1309,7 +1476,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>14</ZIndex>
+                          <ZIndex>18</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1334,7 +1501,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>13</ZIndex>
+                          <ZIndex>17</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1359,7 +1526,57 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>12</ZIndex>
+                          <ZIndex>16</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox56">
+                          <rd:DefaultName>textbox56</rd:DefaultName>
+                          <Style>
+                            <BorderColor>
+                              <Bottom>Black</Bottom>
+                            </BorderColor>
+                            <BorderStyle>
+                              <Bottom>Solid</Bottom>
+                            </BorderStyle>
+                            <BorderWidth>
+                              <Bottom>1pt</Bottom>
+                            </BorderWidth>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>15</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox74">
+                          <rd:DefaultName>textbox74</rd:DefaultName>
+                          <Style>
+                            <BorderColor>
+                              <Bottom>Black</Bottom>
+                            </BorderColor>
+                            <BorderStyle>
+                              <Bottom>Solid</Bottom>
+                            </BorderStyle>
+                            <BorderWidth>
+                              <Bottom>1pt</Bottom>
+                            </BorderWidth>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>14</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1384,7 +1601,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>11</ZIndex>
+                          <ZIndex>13</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1409,7 +1626,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>10</ZIndex>
+                          <ZIndex>12</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1442,7 +1659,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>9</ZIndex>
+                      <ZIndex>11</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!item_name.Value</Value>
                     </Textbox>
@@ -1464,7 +1681,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>8</ZIndex>
+                      <ZIndex>10</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!last_wk.Value</Value>
                     </Textbox>
@@ -1486,7 +1703,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>7</ZIndex>
+                      <ZIndex>9</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!percentage_last_wk.Value</Value>
                     </Textbox>
@@ -1508,7 +1725,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>6</ZIndex>
+                      <ZIndex>8</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!this_wk.Value</Value>
                     </Textbox>
@@ -1530,7 +1747,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>5</ZIndex>
+                      <ZIndex>7</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!percentage_this_wk.Value</Value>
                     </Textbox>
@@ -1552,7 +1769,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>4</ZIndex>
+                      <ZIndex>6</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!percentage_program_avg.Value</Value>
                     </Textbox>
@@ -1574,7 +1791,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>3</ZIndex>
+                      <ZIndex>5</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!mon_to_dt.Value</Value>
                     </Textbox>
@@ -1596,9 +1813,53 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>2</ZIndex>
+                      <ZIndex>4</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!percentage_mon_to_dt.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox55">
+                      <rd:DefaultName>textbox55</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontSize>8pt</FontSize>
+                        <FontWeight>= IIF(Fields!item_name.Value="TOTAL","Bold", "Normal")</FontWeight>
+                        <Format>N0</Format>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>3</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!year_to_dt.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox73">
+                      <rd:DefaultName>textbox73</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontSize>8pt</FontSize>
+                        <FontWeight>= IIF(Fields!item_name.Value="TOTAL","Bold", "Normal")</FontWeight>
+                        <Format>P1</Format>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>2</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!percentage_year_to_dt.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1676,6 +1937,12 @@
             <Width>0.55in</Width>
           </TableColumn>
           <TableColumn>
+            <Width>0.55in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>0.55in</Width>
+          </TableColumn>
+          <TableColumn>
             <Width>0.6in</Width>
           </TableColumn>
           <TableColumn>
@@ -1705,7 +1972,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>36</ZIndex>
+                      <ZIndex>42</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1730,7 +1997,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>35</ZIndex>
+                      <ZIndex>41</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1755,7 +2022,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>34</ZIndex>
+                      <ZIndex>40</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1780,7 +2047,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>33</ZIndex>
+                      <ZIndex>39</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1805,7 +2072,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>32</ZIndex>
+                      <ZIndex>38</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1830,7 +2097,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>31</ZIndex>
+                      <ZIndex>37</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1855,7 +2122,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>30</ZIndex>
+                      <ZIndex>36</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1880,7 +2147,57 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>29</ZIndex>
+                      <ZIndex>35</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox65">
+                      <rd:DefaultName>textbox65</rd:DefaultName>
+                      <Style>
+                        <BorderColor>
+                          <Top>Black</Top>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <BorderWidth>
+                          <Top>1pt</Top>
+                        </BorderWidth>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>34</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox75">
+                      <rd:DefaultName>textbox75</rd:DefaultName>
+                      <Style>
+                        <BorderColor>
+                          <Top>Black</Top>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <BorderWidth>
+                          <Top>1pt</Top>
+                        </BorderWidth>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>33</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1905,7 +2222,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>28</ZIndex>
+                      <ZIndex>32</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1930,7 +2247,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>27</ZIndex>
+                      <ZIndex>31</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
