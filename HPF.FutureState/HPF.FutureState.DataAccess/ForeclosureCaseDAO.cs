@@ -421,7 +421,7 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_search_app_dynamic", dbConnection);
             string whereclause = AppGenerateWhereClause(searchCriteria);
-            var sqlParam = new SqlParameter[14];
+            var sqlParam = new SqlParameter[16];
             sqlParam[0] = new SqlParameter("@pi_last4SSN", searchCriteria.Last4SSN);
             sqlParam[1] = new SqlParameter("@pi_fname", searchCriteria.FirstName);
             sqlParam[2] = new SqlParameter("@pi_lname", searchCriteria.LastName);
@@ -433,11 +433,13 @@ namespace HPF.FutureState.DataAccess
             sqlParam[8] = new SqlParameter("@pi_duplicate", searchCriteria.Duplicates);
             sqlParam[9] = new SqlParameter("@pi_agencyid", searchCriteria.Agency);
             sqlParam[10] = new SqlParameter("@pi_programid ", searchCriteria.Program);
+            sqlParam[11] = new SqlParameter("@pi_cfname", searchCriteria.CounselorFirstName);
+            sqlParam[12] = new SqlParameter("@pi_clname", searchCriteria.CounselorLastName);
             //sqlParam[11] = new SqlParameter("@pi_pagesize", searchCriteria.PageSize);
             //sqlParam[12] = new SqlParameter("@pi_pagenum", searchCriteria.PageNum);
-            sqlParam[11] = new SqlParameter("@po_totalrownum", searchCriteria.TotalRowNum) { Direction = ParameterDirection.Output };
-            sqlParam[12] = new SqlParameter("@whereclause", whereclause);
-            sqlParam[13] = new SqlParameter("@pi_servicer", searchCriteria.Servicer);
+            sqlParam[13] = new SqlParameter("@po_totalrownum", searchCriteria.TotalRowNum) { Direction = ParameterDirection.Output };
+            sqlParam[14] = new SqlParameter("@whereclause", whereclause);
+            sqlParam[15] = new SqlParameter("@pi_servicer", searchCriteria.Servicer);
             command.Parameters.AddRange(sqlParam);
             //command.CommandType = CommandType.StoredProcedure;
             try
@@ -476,7 +478,7 @@ namespace HPF.FutureState.DataAccess
                         results.Add(item);
                     }
                     reader.Close();
-                    results.SearchResultCount = Convert.ToDouble(sqlParam[11].Value);
+                    results.SearchResultCount = Convert.ToDouble(sqlParam[13].Value);
                 }
             }
             catch (Exception ex)
@@ -576,6 +578,8 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append((searchCriteria.Last4SSN == null) ? "" : " AND(borrower_last4_SSN = @pi_last4SSN  OR co_borrower_last4_SSN = @pi_last4SSN)");
             whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_fname ESCAPE '/'  OR co_borrower_fname like @pi_fname ESCAPE '/')");
             whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_lname ESCAPE '/'  OR co_borrower_lname like @pi_lname ESCAPE '/')");
+            whereClause.Append((searchCriteria.CounselorFirstName == null) ? "" : " AND (counselor_fname like @pi_cfname ESCAPE '/')");
+            whereClause.Append((searchCriteria.CounselorLastName == null) ? "" : " AND (counselor_lname like @pi_clname ESCAPE '/')");
             whereClause.Append((searchCriteria.ForeclosureCaseID == -1) ? "" : "AND ( f.fc_id = @pi_fc_id)");
             whereClause.Append((searchCriteria.LoanNumber == null) ? "" : "AND(replace(ltrim(rtrim(l.acct_num)), '-', '') = @pi_loannum)");
             whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND( f.prop_zip = @pi_propzip)");

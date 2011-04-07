@@ -21,7 +21,7 @@ namespace HPF.FutureState.BusinessLogic
 {
     public class ForeclosureCaseBL : BaseBusinessLogic
     {
-        const int NUMBER_OF_ERROR_APP_SEARCH_CRITERIA = 12;
+        const int NUMBER_OF_ERROR_APP_SEARCH_CRITERIA = 14;
         private static readonly ForeclosureCaseBL instance = new ForeclosureCaseBL();
         /// <summary>
         /// Singleton

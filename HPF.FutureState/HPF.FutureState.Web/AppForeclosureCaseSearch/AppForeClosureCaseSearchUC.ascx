@@ -43,22 +43,18 @@
                         Duplicate:
                     </td>
                     <td class="Control">
-                        <table width="100%">
-                            <tr>
-                                <td>
                         <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text" Width="60px" 
                             TabIndex="9">
                             <asp:ListItem Selected="True" Value=''></asp:ListItem>
                             <asp:ListItem Value='Y'>Yes</asp:ListItem>
                             <asp:ListItem Value='N'>No</asp:ListItem>
                         </asp:DropDownList>
-                                </td>
-                                <td align="right">
-                    <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"
-                CssClass="MyButton" TabIndex="12" />
-                                </td>
-                            </tr>
-                        </table>
+                    </td>
+                    <td align="right" class="sidelinks">
+                    </td>
+                    <td class="Control" align="right">
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"
+                CssClass="MyButton" TabIndex="15" />
                     </td>
                 </tr>
                 <tr>
@@ -84,6 +80,10 @@
                             Height="16px" TabIndex="10">
                         </asp:DropDownList>
                     </td>
+                    <td align="right" class="sidelinks">&nbsp;
+                    </td>
+                    <td align="right" class="Control">&nbsp;
+                    </td>
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
@@ -108,6 +108,14 @@
                             TabIndex="11">
                         </asp:DropDownList>
                     </td>
+                    <td align="right" class="sidelinks">
+                        Counselor FName:
+                    </td>
+                    <td class="Control" width="110 px">
+                        <asp:TextBox ID="txtCounselorFirstName" runat="server" MaxLength="30" CssClass="Text" 
+                            Width="110px" TabIndex="13"></asp:TextBox>
+                    </td>
+                    
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
@@ -133,7 +141,17 @@
                             TabIndex="12">
                         </asp:DropDownList>
                     </td>
-                    </table>
+                    <td align="right" class="sidelinks">
+                        Counselor LName:
+                    </td>
+                    <td class="Control" width="110 px">
+                        <asp:TextBox ID="txtCounselorLastName" runat="server" MaxLength="30" CssClass="Text" 
+                            Width="110px" TabIndex="14"></asp:TextBox>
+                    </td>
+                    
+                </tr>    
+              
+                </table>
         </td>
     </tr>
     <tr>

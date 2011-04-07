@@ -24,6 +24,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
         public string LastName { get; set; }
+
+        [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
+        public string CounselorFirstName { get; set; }
+
+        [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
+        public string CounselorLastName { get; set; }
         
         [NullableOrInRangeNumberValidator(true, "-1", "9999999999999", Ruleset = Constant.RULESET_CRITERIAVALID, Tag = ErrorMessages.ERR0503)]
         [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_APPSEARCH)]

@@ -246,17 +246,29 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             
             string textchangeFirstName = "";
             string textchangeLastName = "";
+            string textchangeCounselorFirstName = "";
+            string textchangeCounselorLastName = "";
 
-            //replace * by % to search like in fristname
+            //replace * by % to search like in firstname
             if (txtFirstName.Text != string.Empty)           
                 textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
             
-            //replace * by % to search like in fristname
+            //replace * by % to search like in lastname
             if (txtLastName.Text != string.Empty)           
                 textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
+
+            //replace * by % to search like in counselorfirstname
+            if (txtCounselorFirstName.Text != string.Empty)
+                textchangeCounselorFirstName = Replace1Char(txtCounselorFirstName.Text, "*", "%");
+
+            //replace * by % to search like in counselorlastname
+            if (txtCounselorLastName.Text != string.Empty)
+                textchangeCounselorLastName = Replace1Char(txtCounselorLastName.Text, "*", "%");
             
             appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeLastName.Trim());
-            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeFirstName.Trim());            
+            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeFirstName.Trim());
+            appForeclosureCaseSearchCriteriaDTO.CounselorLastName = txtCounselorLastName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeCounselorLastName.Trim());
+            appForeclosureCaseSearchCriteriaDTO.CounselorFirstName = txtCounselorFirstName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeCounselorFirstName.Trim());            
             int temp = -1;
             if (txtForeclosureCaseID.Text.Trim() != string.Empty)
                 int.TryParse(txtForeclosureCaseID.Text.Trim(), out temp);
