@@ -127,7 +127,7 @@ namespace HPF.FutureState.DataAccess
         }
         public HPFUserDTOCollection GetHpfUsersByAgencyId(int agencyId)
         {
-            HPFUserDTOCollection hpfUsers = null;
+            HPFUserDTOCollection hpfUsers = new HPFUserDTOCollection();
             var dbConnection = CreateConnection();
             var command = CreateCommand("hpf_hpf_user_get_by_agency_id", dbConnection);
             command.Parameters.Add(new SqlParameter("@pi_agency_id", agencyId));
@@ -138,7 +138,6 @@ namespace HPF.FutureState.DataAccess
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    hpfUsers = new HPFUserDTOCollection();
                     while (reader.Read())
                     {
                         hpfUsers.Add(new HPFUserDTO()

@@ -46,7 +46,7 @@ namespace HPF.FutureState.DataAccess
             UserDTO user = GetWebUser(userName);
             if (user == null)
                 return false;
-            if (user.UserName.ToLower() == userName.ToLower() && user.Password == password)
+            if (user.UserName.ToLower() == userName.ToLower() && user.Password == password && user.IsActivate == Constant.INDICATOR_YES[0])
                 return true;
 
             return false;
