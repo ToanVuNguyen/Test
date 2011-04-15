@@ -339,6 +339,7 @@ namespace HPF.FutureState.BusinessLogic
                 else
                 {
                     UserDTO user = SecurityBL.Instance.GetWebUser(prevAuditorId);
+                    if (user == null) return;
                     string toEmail = user.Email;
                     string personName = user.FirstName + " " + user.LastName;
                     StringBuilder content = new StringBuilder();

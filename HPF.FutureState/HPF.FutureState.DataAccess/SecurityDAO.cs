@@ -46,7 +46,7 @@ namespace HPF.FutureState.DataAccess
             UserDTO user = GetWebUser(userName);
             if (user == null)
                 return false;
-            if (user.UserName.ToLower() == userName.ToLower() && user.Password == password && user.IsActivate == Constant.INDICATOR_YES[0])
+            if (user.UserName.ToLower() == userName.ToLower() && user.Password == password)
                 return true;
 
             return false;
@@ -136,7 +136,7 @@ namespace HPF.FutureState.DataAccess
         /// get Web user from table CCRC_User
         /// </summary>
         /// <param name="userName">Username to login</param>
-        /// <returns>UserDTO object if user exists in database, null for non-exists</returns>
+        /// <returns>UserDTO object if user exists in database, null for non-exists or invalid</returns>
         public UserDTO GetWebUser(string userName)
         {
             UserDTO webUser = null;
