@@ -39,6 +39,11 @@ namespace HPF.FutureState.BatchManager
                     {
                         BatchJobBL.Instance.ImportATTCallingData(args[1]);
                     }
+                    else if (args[0] == "-ScamImport")
+                    {
+                        int count = BatchJobBL.Instance.ImportScamData();
+                        Console.WriteLine("Success " + count);
+                    }
                     return;
                 }
 

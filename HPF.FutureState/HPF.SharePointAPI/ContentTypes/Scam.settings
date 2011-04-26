@@ -12,7 +12,7 @@
       <Value Profile="(Default)">Information sharing consent</Value>
     </Setting>
     <Setting Name="MortgageModificationOffer" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Did anyone offer to help modify your mortgage?</Value>
+      <Value Profile="(Default)">Did any 3rd party (excluding lender) offer to help modify your mortgage?</Value>
     </Setting>
     <Setting Name="ListOfWereYous" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Were you</Value>
@@ -48,7 +48,7 @@
       <Value Profile="(Default)">Age Range</Value>
     </Setting>
     <Setting Name="BorrowerEmail" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Primary Email</Value>
+      <Value Profile="(Default)">Primary Email Address</Value>
     </Setting>
     <Setting Name="BorrowerRace" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Race/Ethnicity</Value>
@@ -63,7 +63,7 @@
       <Value Profile="(Default)">Did you pay a fee?</Value>
     </Setting>
     <Setting Name="TotalAmountPaid" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Scam Total Amount Paid</Value>
+      <Value Profile="(Default)">How much was paid?</Value>
     </Setting>
     <Setting Name="ContractServicesPerfomed" Type="System.String" Scope="Application">
       <Value Profile="(Default)">If you signed a contract, did the person perform the services agreed to in the contract?</Value>
@@ -75,7 +75,7 @@
       <Value Profile="(Default)">Main Contact</Value>
     </Setting>
     <Setting Name="ScamOrgAddress" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Scam Org Address</Value>
+      <Value Profile="(Default)">Scam Organization Address</Value>
     </Setting>
     <Setting Name="ScamOrgCity" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Scam Org City</Value>
@@ -90,16 +90,16 @@
       <Value Profile="(Default)">Scam Org Phone</Value>
     </Setting>
     <Setting Name="ScamOrgURL" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Scam Org URL</Value>
+      <Value Profile="(Default)">Scam Org Web Address</Value>
     </Setting>
     <Setting Name="ScamOrgEmail" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Scam Org Email</Value>
+      <Value Profile="(Default)">Scam Org Email Address</Value>
     </Setting>
     <Setting Name="FindOutAboutDate" Type="System.String" Scope="Application">
       <Value Profile="(Default)">When did you find out about the company or individual?</Value>
     </Setting>
     <Setting Name="LastContactDate" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Date of last contact with scam organization</Value>
+      <Value Profile="(Default)">When was the last date of contact with Scam Organization?</Value>
     </Setting>
     <Setting Name="Summary" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Summary</Value>
@@ -133,6 +133,72 @@
     </Setting>
     <Setting Name="ItemModifiedUser" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Modified By</Value>
+    </Setting>
+    <Setting Name="VoiceMailOnlyInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Voicemail Only</Value>
+    </Setting>
+    <Setting Name="HotlineSource" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">How did you hear about the 995HOPE hotline?</Value>
+    </Setting>
+    <Setting Name="PaymentType" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">How was payment made to alleged scam agency?</Value>
+    </Setting>
+    <Setting Name="ScamOrgFax" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Scam Fax number</Value>
+    </Setting>
+    <Setting Name="ScamOrgStatus" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Alleged Scam Organization</Value>
+    </Setting>
+    <Setting Name="CurrentLoanStatus" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Current Loan Status</Value>
+    </Setting>
+    <Setting Name="PriorLoanStatus" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Loan Status prior to scam</Value>
+    </Setting>
+    <Setting Name="AgenciesContacted" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Agencies contacted for assistance</Value>
+    </Setting>
+    <Setting Name="OptionsOfferedByLender" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Lender offered options prior to scam</Value>
+    </Setting>
+    <Setting Name="MultiScammerContactInfo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Multiple Scammers Contact Info</Value>
+    </Setting>
+    <Setting Name="ScamOrgAddtlContact" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Additional contact at alleged scam organization</Value>
+    </Setting>
+    <Setting Name="ServicerContactSinceScamInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Has the homeowner been in contact with servicer after contact with the alleged scam organization?</Value>
+    </Setting>
+    <Setting Name="GovernmentAffiliatedInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Did the alleged scam organization represent their services as "Government Approved" or "Official Government" loan modifications?</Value>
+    </Setting>
+    <Setting Name="ServicerAffiliatedInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Did the alleged scam organization represent themselves to "contract for" or "work with" mortgage servicer?</Value>
+    </Setting>
+    <Setting Name="BorrowerReferredOthersInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Did the homeowner refer anyone to the alleged scam organization prior to recognizing scam?</Value>
+    </Setting>
+    <Setting Name="WillingToShareStoryInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Is the homeowner willing to share his/her story?</Value>
+    </Setting>
+    <Setting Name="WillingToSendInfoInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Is the homeowner willing to send/fax/email his/her package of information?</Value>
+    </Setting>
+    <Setting Name="ReferredToCounselingInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Was the homeowner referred to counselling?</Value>
+    </Setting>
+    <Setting Name="HpfMediaCandidateInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Is the homeowner a good candidate for media opportunities (Likely success, well spoken, willingness)?</Value>
+    </Setting>
+    <Setting Name="HpfSuccessStoryInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Is this case a potential HPF success story?</Value>
+    </Setting>
+    <Setting Name="DeclinedCounselingInd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Homeowner declined counseling</Value>
+    </Setting>
+    <Setting Name="MultiScammerCount" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Worked with multiple scammers</Value>
     </Setting>
   </Settings>
 </SettingsFile>

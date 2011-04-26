@@ -547,7 +547,7 @@ namespace HPF.FutureState.DataAccess
                 foreach (ScamDTO scam in scams)
                 {
                     var InsertCmd = CreateSPCommand("hpf_scam_insert", dbConnection);
-                    var sqlParam = new SqlParameter[46];
+                    var sqlParam = new SqlParameter[68];
                     
                     sqlParam[0] = new SqlParameter("@pi_item_id", scam.ItemId);
                     sqlParam[1] = new SqlParameter("@pi_loan_mod_scam_consent",scam.LoanModificationScamConsent );
@@ -589,15 +589,39 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[37] = new SqlParameter("@pi_agency_case_num", scam.AgencyCaseNum);
                     sqlParam[38] = new SqlParameter("@pi_acct_num", scam.LoanNumber);
                     sqlParam[39] = new SqlParameter("@pi_servicer", scam.Servicer);
+
+                    sqlParam[40] = new SqlParameter("@pi_voicemail_only_ind",scam.VoiceMailOnlyInd);
+                    sqlParam[41] = new SqlParameter("@pi_hotline_source",scam.HotlineSource);
+                    sqlParam[42] = new SqlParameter("@pi_payment_type",scam.PaymentType);
+                    sqlParam[43] = new SqlParameter("@pi_scam_org_fax",scam.ScamOrgFax);
+                    sqlParam[44] = new SqlParameter("@pi_scam_org_status",scam.ScamOrgStatus);
+                    sqlParam[45] = new SqlParameter("@pi_current_loan_status",scam.CurrentLoanStatus);
+                    sqlParam[46] = new SqlParameter("@pi_prior_loan_status",scam.PriorLoanStatus);
+                    sqlParam[47] = new SqlParameter("@pi_agencies_contacted",scam.AgenciesContacted);
+                    sqlParam[48] = new SqlParameter("@pi_options_offered_by_lender",scam.OptionsOfferedByLender);
+                    sqlParam[49] = new SqlParameter("@pi_multi_scammer_count",scam.MultiScammerCount);
+                    sqlParam[50] = new SqlParameter("@pi_multi_scammer_contact_info",scam.MultiScammerContactInfo);
+                    sqlParam[51] = new SqlParameter("@pi_scam_org_addtl_contact",scam.ScamOrgAddtlContact);
+                    sqlParam[52] = new SqlParameter("@pi_srvcr_contact_since_scam_ind",scam.ServicerContactSinceScamInd);
+                    sqlParam[53] = new SqlParameter("@pi_government_affiliated_ind",scam.GovernmentAffiliatedInd);
+                    sqlParam[54] = new SqlParameter("@pi_servicer_affiliated_ind",scam.ServicerAffiliatedInd);
+                    sqlParam[55] = new SqlParameter("@pi_borrower_referred_others_ind",scam.BorrowerReferredOthersInd);
+                    sqlParam[56] = new SqlParameter("@pi_willing_to_share_story_ind",scam.WillingToShareStoryInd);
+                    sqlParam[57] = new SqlParameter("@pi_willing_to_send_info_ind",scam.WillingToSendInfoInd);
+                    sqlParam[58] = new SqlParameter("@pi_referred_to_counseling_ind",scam.ReferredToCounselingInd);
+                    sqlParam[59] = new SqlParameter("@pi_hpf_media_candidate_ind",scam.HpfMediaCandidateInd);
+                    sqlParam[60] = new SqlParameter("@pi_hpf_success_story_ind",scam.HpfSuccessStoryInd);
+                    sqlParam[61] = new SqlParameter("@pi_declined_counseling_ind",scam.DeclinedCounselingInd);
+                                        
+                    sqlParam[62] = new SqlParameter("@pi_item_created_dt", scam.ItemCreatedDt);
+                    sqlParam[63] = new SqlParameter("@pi_item_created_user", scam.ItemCreatedUser);
+                    sqlParam[64] = new SqlParameter("@pi_item_modified_dt", scam.ItemModifiedDt);
+                    sqlParam[65] = new SqlParameter("@pi_item_modified_user", scam.ItemModifiedUser);
                     
-                    sqlParam[40] = new SqlParameter("@pi_item_created_dt", scam.ItemCreatedDt);
-                    sqlParam[41] = new SqlParameter("@pi_item_created_user", scam.ItemCreatedUser);
-                    sqlParam[42] = new SqlParameter("@pi_item_modified_dt", scam.ItemModifiedDt);
-                    sqlParam[43] = new SqlParameter("@pi_item_modified_user", scam.ItemModifiedUser);
+                    sqlParam[66] = new SqlParameter("@pi_created_user_id", scam.CreateUserId);
+                    sqlParam[67] = new SqlParameter("@pi_created_app_name", scam.CreateAppName);
                     
-                    sqlParam[44] = new SqlParameter("@pi_created_user_id", scam.CreateUserId);
-                    sqlParam[45] = new SqlParameter("@pi_created_app_name", scam.CreateAppName);
-                    
+
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);
                     InsertCmd.Transaction = trans;
