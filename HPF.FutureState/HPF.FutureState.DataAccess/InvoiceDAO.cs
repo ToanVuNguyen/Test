@@ -697,5 +697,67 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
         }
+        public int? GetInvoiceCaseIdRejected(int fcId)
+        {
+            int?  icId = -1;
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_invoice_case_rejected_get", dbConnection);
+            command.Connection = dbConnection;
+            SqlParameter[] sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    //read Invoice
+                    reader.Read();
+                    icId = ConvertToInt(reader["invoice_case_id"]);
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return icId;
+        }
+        public int MarkRebillableInvoceCases(string icIdList, string updateUser)
+        {
+            int rowCount = 0;
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_invoice_case_mark_rebillabe", dbConnection);
+            var sqlParam = new SqlParameter[4];
+
+            sqlParam[0] = new SqlParameter("@pi_ic_id_list", icIdList);
+            sqlParam[1] = new SqlParameter("@pi_change_app_name", HPFConfigurationSettings.HPF_APPLICATION_NAME);
+            sqlParam[2] = new SqlParameter("@pi_change_user_id", updateUser);
+            sqlParam[3] = new SqlParameter("@po_row_count", SqlDbType.Int) { Direction = ParameterDirection.Output };
+
+            try
+            {
+                command.Parameters.AddRange(sqlParam);
+                dbConnection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+                rowCount = ConvertToInt(sqlParam[3].Value).Value;
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return rowCount;
+        }
     }
 }

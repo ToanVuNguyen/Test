@@ -280,6 +280,20 @@
     <Compile Include="MarkDuplicateCases\MarkDuplicateCases.ascx.designer.cs">
       <DependentUpon>MarkDuplicateCases.ascx</DependentUpon>
     </Compile>
+    <Compile Include="MarkRebillables.aspx.cs">
+      <DependentUpon>MarkRebillables.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarkRebillables.aspx.designer.cs">
+      <DependentUpon>MarkRebillables.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MarkRebillables\MarkRebillables.ascx.cs">
+      <DependentUpon>MarkRebillables.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarkRebillables\MarkRebillables.ascx.designer.cs">
+      <DependentUpon>MarkRebillables.ascx</DependentUpon>
+    </Compile>
     <Compile Include="NewPayableSelection.aspx.cs">
       <DependentUpon>NewPayableSelection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -655,6 +669,8 @@
     <Content Include="ManageUser.aspx" />
     <Content Include="ManageUserPermission.aspx" />
     <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
+    <Content Include="MarkRebillables.aspx" />
+    <Content Include="MarkRebillables\MarkRebillables.ascx" />
     <Content Include="NewPayableSelection.aspx" />
     <Content Include="PrintQCReport.aspx" />
     <Content Include="PrintQCReport\PrintQCReportUC.ascx" />

@@ -35,6 +35,7 @@ namespace HPF.FutureState.BusinessLogic
         protected InvoiceBL()
         {            
         }
+        public ExceptionMessageCollection WarningMessage { get; private set; }
         private InvoiceDAO invoiceDAO;
         private void RollbackTransaction()
         {
@@ -618,6 +619,83 @@ namespace HPF.FutureState.BusinessLogic
             return null;
         }
         #endregion
+        /// <summary>
+        /// Mark Rebillable 
+        /// </summary>
+        /// <param name="excelStream"></param>
+        /// <param name="updateUser"></param>
+        /// <returns></returns>
+        public int MarkRebillableInvoceCases(Stream excelStream, string updateUser)
+        {
+            string IcIdList = "";
+            string FcIdList = "";
+            string FcIdInvalidList = "";
+            int count = 0;
+            DataValidationException dataVaidEx = new DataValidationException();
 
+            if (excelStream == null || excelStream.Length == 0)
+            {
+                dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR", "An Excel file containing fc ids is required to process.");
+                throw dataVaidEx;
+            }
+            //TODO: Mark Duplicate cases
+            DataSet dataSet = ExcelFileReader.Read(excelStream, Constant.EXCEL_REBILLABLE_FC_TAB_NAME);
+            DataTable fileContent = dataSet.Tables[0];
+            invoiceDAO = InvoiceDAO.CreateInstance();
+            foreach (DataRow row in fileContent.Rows)
+            {
+                int fcId;
+                int? icId;
+                if (!int.TryParse(row[0].ToString(), out fcId))
+                {
+                    dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR", "Invalid fc id in row " + (count + 1));
+                    throw dataVaidEx;
+                }
+                icId = invoiceDAO.GetInvoiceCaseIdRejected(fcId);
+                if (icId > -1)
+                {
+                    if (FcIdList.Length == 0)
+                    {
+                        FcIdList += fcId.ToString();
+                        IcIdList += icId.ToString();
+                    }
+                    else
+                    {
+                        FcIdList += ("," + fcId.ToString());
+                        IcIdList += ("," + icId.ToString());
+                    }
+                }
+                else
+                {
+                    if (FcIdInvalidList.Length == 0)
+                        FcIdInvalidList += fcId.ToString();
+                    else
+                        FcIdInvalidList+=(","+fcId.ToString());
+                }
+            }
+            if (FcIdInvalidList.Length > 0)
+            {
+                WarningMessage = new ExceptionMessageCollection();
+                WarningMessage.AddExceptionMessage("WARNING", String.Format("List of fcIds can not find a rejected invoice case : {0}", FcIdInvalidList));
+            }
+            if (IcIdList == "")
+            {
+                dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR", "The selected file does not contain any valid fcIds.");
+                throw dataVaidEx;
+            }
+            count = invoiceDAO.MarkRebillableInvoceCases(IcIdList, updateUser);
+
+            //TODDO: insert info into log table            
+            AdminTaskLogDTO adminLog = new AdminTaskLogDTO();
+            adminLog.SetInsertTrackingInformation(updateUser);
+            adminLog.TaskName = Constant.ADMIN_TASK_MARK_DUPLICATES;
+
+            adminLog.RecordCount = count;
+            adminLog.FcIdList = FcIdList;
+
+            AdminTaskLogDAO.Instance.InsertAdminTaskLog(adminLog);
+
+            return count;
+        }
     }
 }

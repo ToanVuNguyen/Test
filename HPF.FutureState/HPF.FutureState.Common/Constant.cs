@@ -67,6 +67,7 @@ namespace HPF.FutureState.Common
         public const string MENU_ITEM_TARGET_APP_CODE_MAINTENTANCE = "CodeMaintenance.aspx";
         public const string MENU_ITEM_TARGET_APP_MARKDUPLICATE_CASES = "MarkDuplicateCases.aspx";
         public const string MENU_ITEM_TARGET_APP_SEND_SUMMARY_TO_SERVICER = "SendSummaryToServicer.aspx";
+        public const string MENU_ITEM_TARGET_APP_MARKREBILLABLE_INVOCE_CASES = "MarkRebillables.aspx";
         //
         public const string HPF_CACHE_REF_CODE_ITEM = "refCodeItem";
         public const string HPF_CACHE_FUNDING_SOURCE = "FUNDING_SOURCE";
@@ -139,9 +140,11 @@ namespace HPF.FutureState.Common
         public const string EXCEL_FILE_TAB_NAME = "Reconciliation";
         public const string EXCEL_DUPLICATE_FC_TAB_NAME = "DuplicateFC";
         public const string EXCEL_SEND_SUMMARIES_FC_TAB_NAME = "SendSummariesFC";
+        public const string EXCEL_REBILLABLE_FC_TAB_NAME = "RebillFC";    
 
         public const string ADMIN_TASK_SEND_SUMMARIES = "SendSummary";
         public const string ADMIN_TASK_MARK_DUPLICATES = "MarkDuplicates";
+        public const string ADMIN_TASK_MARK_REBILLABLES = "MarkRebillables";
 
         public const string SERVICER_DAILY_SUMMARY = "Servicer Daily Summary";
         public const string FANNIE_MAE_WEEKLY_REPORT = "Fannie Mae Weekly Report";
