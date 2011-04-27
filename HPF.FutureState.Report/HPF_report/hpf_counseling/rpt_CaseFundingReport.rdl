@@ -19,6 +19,17 @@
         </DataSetReference>
       </ValidValues>
     </ReportParameter>
+    <ReportParameter Name="pi_funding_source_id">
+      <DataType>Integer</DataType>
+      <Prompt>Funding Source</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>dst_GetFundingSource</DataSetName>
+          <ValueField>funding_source_id</ValueField>
+          <LabelField>funding_source_name</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
     <ReportParameter Name="pi_from_dt">
       <DataType>DateTime</DataType>
       <Prompt>From Date</Prompt>
@@ -120,7 +131,30 @@
           <QueryParameter Name="@pi_to_dt">
             <Value>=Parameters!pi_to_dt.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="@pi_funding_source_id">
+            <Value>=Parameters!pi_funding_source_id.Value</Value>
+          </QueryParameter>
         </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="dst_GetFundingSource">
+      <Fields>
+        <Field Name="funding_source_id">
+          <DataField>funding_source_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="funding_source_name">
+          <DataField>funding_source_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandText>Select -1 as funding_source_id, 'All' as funding_source_name
+UNION
+select funding_source_id, funding_source_name from funding_source
+ORder by funding_source_name</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
     </DataSet>
   </DataSets>

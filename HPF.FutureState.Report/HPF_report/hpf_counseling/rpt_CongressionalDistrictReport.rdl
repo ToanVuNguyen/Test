@@ -29,6 +29,8 @@
     </ReportParameter>
     <ReportParameter Name="pi_district">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>District</Prompt>
       <ValidValues>
         <DataSetReference>
@@ -70,6 +72,9 @@
         <Field Name="Col_3">
           <DataField>Col_3</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Legentname">
+          <Value>=Fields!Col_2.Value &amp; "-"&amp; Fields!Col_1.Value</Value>
         </Field>
       </Fields>
       <Query>
@@ -126,10 +131,12 @@
       </Fields>
       <Query>
         <DataSourceName>ds_HPF</DataSourceName>
-        <CommandText>select distinct cc.congress_dist
+        <CommandText>select NULL as congress_dist
+UNION
+select distinct cc.congress_dist
 from   geocode_ref gg INNER JOIN congress_dist_ref cc On cc.state_fips = gg.state_fips 
 WHERE  gg.state_abbr = @pi_state
-Order by cc.congress_dist</CommandText>
+Order by congress_dist</CommandText>
         <QueryParameters>
           <QueryParameter Name="@pi_state">
             <Value>=Parameters!pi_state.Value</Value>
@@ -294,10 +301,659 @@ Order by cc.congress_dist</CommandText>
   <Width>11in</Width>
   <Body>
     <ReportItems>
+      <Chart Name="chart5">
+        <Legend>
+          <Visible>true</Visible>
+          <Style>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+          <Position>BottomLeft</Position>
+        </Legend>
+        <CategoryAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Visible>true</Visible>
+          </Axis>
+        </CategoryAxis>
+        <ZIndex>19</ZIndex>
+        <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet5</DataSetName>
+        <PlotArea>
+          <Style>
+            <BackgroundColor>LightGrey</BackgroundColor>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+        </PlotArea>
+        <ThreeDProperties>
+          <Rotation>30</Rotation>
+          <Inclination>30</Inclination>
+          <Shading>Simple</Shading>
+          <WallThickness>50</WallThickness>
+        </ThreeDProperties>
+        <PointWidth>0</PointWidth>
+        <SeriesGroupings>
+          <SeriesGrouping>
+            <DynamicSeries>
+              <Grouping Name="chart5_SeriesGroup1">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Col_1.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Label>=Fields!Col_1.Value</Label>
+            </DynamicSeries>
+          </SeriesGrouping>
+          <SeriesGrouping>
+            <StaticSeries>
+              <StaticMember>
+                <Label>=Fields!Col_1.Value</Label>
+              </StaticMember>
+            </StaticSeries>
+          </SeriesGrouping>
+        </SeriesGroupings>
+        <Top>18.64583in</Top>
+        <Subtype>Plain</Subtype>
+        <ValueAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <ShowGridLines>true</ShowGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Margin>true</Margin>
+            <Visible>true</Visible>
+            <Scalar>true</Scalar>
+          </Axis>
+        </ValueAxis>
+        <Type>Pie</Type>
+        <Width>5.75in</Width>
+        <Palette>Default</Palette>
+        <ChartData>
+          <ChartSeries>
+            <DataPoints>
+              <DataPoint>
+                <DataValues>
+                  <DataValue>
+                    <Value>=Sum(Fields!Col_2.Value)</Value>
+                  </DataValue>
+                </DataValues>
+                <DataLabel>
+                  <Style>
+                    <Format>N0</Format>
+                  </Style>
+                  <Value>=Fields!Col_2.Value</Value>
+                  <Visible>true</Visible>
+                </DataLabel>
+                <Marker>
+                  <Size>6pt</Size>
+                </Marker>
+              </DataPoint>
+            </DataPoints>
+          </ChartSeries>
+        </ChartData>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+        </Style>
+        <Title>
+          <Caption>Mortgate Loan Type Graph</Caption>
+        </Title>
+        <PageBreakAtStart>true</PageBreakAtStart>
+      </Chart>
+      <Chart Name="chart4">
+        <Legend>
+          <Visible>true</Visible>
+          <Style>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+          <Position>BottomLeft</Position>
+          <Layout>Table</Layout>
+        </Legend>
+        <CategoryAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Visible>true</Visible>
+          </Axis>
+        </CategoryAxis>
+        <ZIndex>18</ZIndex>
+        <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet4</DataSetName>
+        <PlotArea>
+          <Style>
+            <BackgroundColor>LightGrey</BackgroundColor>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+        </PlotArea>
+        <ThreeDProperties>
+          <Rotation>30</Rotation>
+          <Inclination>30</Inclination>
+          <Shading>Simple</Shading>
+          <WallThickness>50</WallThickness>
+        </ThreeDProperties>
+        <PointWidth>0</PointWidth>
+        <SeriesGroupings>
+          <SeriesGrouping>
+            <DynamicSeries>
+              <Grouping Name="chart4_SeriesGroup1">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Col_1.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Label>=Fields!Col_1.Value</Label>
+            </DynamicSeries>
+          </SeriesGrouping>
+        </SeriesGroupings>
+        <Top>14.61458in</Top>
+        <Subtype>Plain</Subtype>
+        <ValueAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <ShowGridLines>true</ShowGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Margin>true</Margin>
+            <Visible>true</Visible>
+            <Scalar>true</Scalar>
+          </Axis>
+        </ValueAxis>
+        <PageBreakAtEnd>true</PageBreakAtEnd>
+        <Type>Pie</Type>
+        <Width>5.75in</Width>
+        <Palette>Default</Palette>
+        <ChartData>
+          <ChartSeries>
+            <DataPoints>
+              <DataPoint>
+                <DataValues>
+                  <DataValue>
+                    <Value>=Sum(Fields!Col_2.Value)</Value>
+                  </DataValue>
+                </DataValues>
+                <DataLabel>
+                  <Style>
+                    <Format>N0</Format>
+                  </Style>
+                  <Value>=Sum(Fields!Col_2.Value)</Value>
+                  <Visible>true</Visible>
+                </DataLabel>
+                <Marker>
+                  <Type>Auto</Type>
+                  <Size>6pt</Size>
+                </Marker>
+              </DataPoint>
+            </DataPoints>
+          </ChartSeries>
+        </ChartData>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+        </Style>
+        <Title>
+          <Caption>Gross Household Annual Income Graph</Caption>
+        </Title>
+        <Height>3in</Height>
+      </Chart>
+      <Chart Name="chart3">
+        <Legend>
+          <Visible>true</Visible>
+          <Style>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+          <InsidePlotArea>true</InsidePlotArea>
+        </Legend>
+        <CategoryAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Visible>true</Visible>
+          </Axis>
+        </CategoryAxis>
+        <ZIndex>17</ZIndex>
+        <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet3</DataSetName>
+        <PlotArea>
+          <Style>
+            <BackgroundColor>LightGrey</BackgroundColor>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+        </PlotArea>
+        <ThreeDProperties>
+          <Rotation>30</Rotation>
+          <Inclination>30</Inclination>
+          <Shading>Simple</Shading>
+          <WallThickness>50</WallThickness>
+        </ThreeDProperties>
+        <PointWidth>0</PointWidth>
+        <SeriesGroupings>
+          <SeriesGrouping>
+            <DynamicSeries>
+              <Grouping Name="chart3_SeriesGroup1">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Col_1.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Label>= Fields!Col_1.Value</Label>
+            </DynamicSeries>
+          </SeriesGrouping>
+        </SeriesGroupings>
+        <Top>10.5in</Top>
+        <Subtype>Plain</Subtype>
+        <ValueAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <ShowGridLines>true</ShowGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Margin>true</Margin>
+            <Visible>true</Visible>
+            <Scalar>true</Scalar>
+          </Axis>
+        </ValueAxis>
+        <PageBreakAtEnd>true</PageBreakAtEnd>
+        <Type>Pie</Type>
+        <Width>5.75in</Width>
+        <Palette>Default</Palette>
+        <ChartData>
+          <ChartSeries>
+            <DataPoints>
+              <DataPoint>
+                <DataValues>
+                  <DataValue>
+                    <Value>=Sum(Fields!Col_2.Value)</Value>
+                  </DataValue>
+                </DataValues>
+                <DataLabel>
+                  <Style>
+                    <Format>N0</Format>
+                  </Style>
+                  <Value>=Sum(Fields!Col_2.Value)</Value>
+                  <Visible>true</Visible>
+                </DataLabel>
+                <Marker>
+                  <Size>6pt</Size>
+                </Marker>
+              </DataPoint>
+            </DataPoints>
+          </ChartSeries>
+        </ChartData>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+        </Style>
+        <Title>
+          <Caption>Loan Delinquency Status Graph</Caption>
+        </Title>
+        <Height>3in</Height>
+      </Chart>
+      <Chart Name="chart2">
+        <Legend>
+          <Visible>true</Visible>
+          <Style>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+        </Legend>
+        <CategoryAxis>
+          <Axis>
+            <Title>
+              <Style />
+            </Title>
+            <MajorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Visible>true</Visible>
+          </Axis>
+        </CategoryAxis>
+        <ZIndex>16</ZIndex>
+        <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet2</DataSetName>
+        <PlotArea>
+          <Style>
+            <BackgroundColor>LightGrey</BackgroundColor>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+        </PlotArea>
+        <ThreeDProperties>
+          <Rotation>30</Rotation>
+          <Inclination>30</Inclination>
+          <Shading>Simple</Shading>
+          <WallThickness>50</WallThickness>
+        </ThreeDProperties>
+        <PointWidth>0</PointWidth>
+        <SeriesGroupings>
+          <SeriesGrouping>
+            <StaticSeries>
+              <StaticMember>
+                <Label>Primary Reason For Default</Label>
+              </StaticMember>
+              <StaticMember>
+                <Label>Secondary Reason For Default</Label>
+              </StaticMember>
+            </StaticSeries>
+          </SeriesGrouping>
+        </SeriesGroupings>
+        <Top>6.46875in</Top>
+        <Subtype>Stacked</Subtype>
+        <ValueAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <ShowGridLines>true</ShowGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Margin>true</Margin>
+            <Visible>true</Visible>
+            <Scalar>true</Scalar>
+          </Axis>
+        </ValueAxis>
+        <PageBreakAtEnd>true</PageBreakAtEnd>
+        <Type>Bar</Type>
+        <Width>9.25in</Width>
+        <CategoryGroupings>
+          <CategoryGrouping>
+            <DynamicCategories>
+              <Grouping Name="chart2_CategoryGroup1">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Col_1.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Label>=Fields!Col_1.Value</Label>
+            </DynamicCategories>
+          </CategoryGrouping>
+        </CategoryGroupings>
+        <Palette>Default</Palette>
+        <ChartData>
+          <ChartSeries>
+            <DataPoints>
+              <DataPoint>
+                <DataValues>
+                  <DataValue>
+                    <Value>=Sum(Fields!Col_2.Value)</Value>
+                  </DataValue>
+                </DataValues>
+                <DataLabel />
+                <Marker>
+                  <Size>6pt</Size>
+                </Marker>
+              </DataPoint>
+            </DataPoints>
+          </ChartSeries>
+          <ChartSeries>
+            <DataPoints>
+              <DataPoint>
+                <DataValues>
+                  <DataValue>
+                    <Value>=Sum(Fields!Col_3.Value)</Value>
+                  </DataValue>
+                </DataValues>
+                <DataLabel />
+                <Marker>
+                  <Size>6pt</Size>
+                </Marker>
+              </DataPoint>
+            </DataPoints>
+          </ChartSeries>
+        </ChartData>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+        </Style>
+        <Title>
+          <Caption>Primary &amp; Secondary Reasons for Default</Caption>
+        </Title>
+        <Height>3in</Height>
+      </Chart>
+      <Chart Name="chart1">
+        <Legend>
+          <Visible>true</Visible>
+          <Style>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+          <Position>BottomLeft</Position>
+        </Legend>
+        <CategoryAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Visible>true</Visible>
+          </Axis>
+        </CategoryAxis>
+        <ZIndex>15</ZIndex>
+        <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet1</DataSetName>
+        <PlotArea>
+          <Style>
+            <BackgroundColor>LightGrey</BackgroundColor>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+        </PlotArea>
+        <ThreeDProperties>
+          <Rotation>30</Rotation>
+          <Inclination>30</Inclination>
+          <Shading>Simple</Shading>
+          <WallThickness>50</WallThickness>
+        </ThreeDProperties>
+        <PointWidth>0</PointWidth>
+        <SeriesGroupings>
+          <SeriesGrouping>
+            <StaticSeries>
+              <StaticMember>
+                <Label>Sessions</Label>
+              </StaticMember>
+            </StaticSeries>
+          </SeriesGrouping>
+        </SeriesGroupings>
+        <Top>2.4375in</Top>
+        <Subtype>Plain</Subtype>
+        <ValueAxis>
+          <Axis>
+            <Title />
+            <MajorGridLines>
+              <ShowGridLines>true</ShowGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Margin>true</Margin>
+            <Visible>true</Visible>
+            <Scalar>true</Scalar>
+          </Axis>
+        </ValueAxis>
+        <PageBreakAtEnd>true</PageBreakAtEnd>
+        <Type>Line</Type>
+        <Width>5.75in</Width>
+        <CategoryGroupings>
+          <CategoryGrouping>
+            <DynamicCategories>
+              <Grouping Name="chart1_CategoryGroup1">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Col_1.Value</GroupExpression>
+                  <GroupExpression>=Fields!Col_2.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Label>=Fields!Col_2.Value &amp; "-" &amp; Fields!Col_1.Value</Label>
+            </DynamicCategories>
+          </CategoryGrouping>
+        </CategoryGroupings>
+        <Palette>Default</Palette>
+        <ChartData>
+          <ChartSeries>
+            <DataPoints>
+              <DataPoint>
+                <DataValues>
+                  <DataValue>
+                    <Value>=Fields!Col_3.Value</Value>
+                  </DataValue>
+                </DataValues>
+                <DataLabel />
+                <Marker>
+                  <Size>6pt</Size>
+                </Marker>
+              </DataPoint>
+            </DataPoints>
+          </ChartSeries>
+        </ChartData>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+        </Style>
+        <Title>
+          <Caption>Total Sessions Counseled</Caption>
+        </Title>
+        <Height>3in</Height>
+      </Chart>
       <Table Name="table5">
         <ZIndex>14</ZIndex>
         <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet5</DataSetName>
-        <Top>5.76042in</Top>
+        <Top>17.88542in</Top>
         <Width>5.75in</Width>
         <Details>
           <TableRows>
@@ -361,7 +1017,7 @@ Order by cc.congress_dist</CommandText>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!Col_2.Value/SUM(Fields!Col_2.Value)</Value>
+                      <Value>=Fields!Col_3.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -462,6 +1118,7 @@ Order by cc.congress_dist</CommandText>
             <Width>1.25in</Width>
           </TableColumn>
         </TableColumns>
+        <Height>0.75in</Height>
         <Footer>
           <TableRows>
             <TableRow>
@@ -538,7 +1195,7 @@ Order by cc.congress_dist</CommandText>
         </Footer>
       </Table>
       <Textbox Name="textbox38">
-        <Top>5.5in</Top>
+        <Top>17.625in</Top>
         <Style>
           <FontWeight>700</FontWeight>
           <PaddingLeft>2pt</PaddingLeft>
@@ -554,7 +1211,7 @@ Order by cc.congress_dist</CommandText>
       <Table Name="table4">
         <ZIndex>12</ZIndex>
         <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet4</DataSetName>
-        <Top>4.73958in</Top>
+        <Top>13.85416in</Top>
         <PageBreakAtEnd>true</PageBreakAtEnd>
         <Width>5.75in</Width>
         <Details>
@@ -620,7 +1277,7 @@ Order by cc.congress_dist</CommandText>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!Col_2.Value/ SUM(Fields!Col_2.Value)</Value>
+                      <Value>=Fields!Col_3.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -800,7 +1457,7 @@ Order by cc.congress_dist</CommandText>
       <Table Name="table3">
         <ZIndex>11</ZIndex>
         <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet3</DataSetName>
-        <Top>3.71875in</Top>
+        <Top>9.73958in</Top>
         <PageBreakAtEnd>true</PageBreakAtEnd>
         <Width>5.75in</Width>
         <Details>
@@ -1039,7 +1696,7 @@ Order by cc.congress_dist</CommandText>
         </Footer>
       </Table>
       <Textbox Name="textbox27">
-        <Top>4.47917in</Top>
+        <Top>13.59375in</Top>
         <Style>
           <FontWeight>700</FontWeight>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1053,7 +1710,7 @@ Order by cc.congress_dist</CommandText>
         <Value>Gross Household Annual Income</Value>
       </Textbox>
       <Textbox Name="textbox25">
-        <Top>3.45833in</Top>
+        <Top>9.47916in</Top>
         <Style>
           <FontWeight>700</FontWeight>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1069,7 +1726,7 @@ Order by cc.congress_dist</CommandText>
       <Table Name="table2">
         <ZIndex>8</ZIndex>
         <DataSetName>dst_hpf_rpt_CongressionalDistrictReport_sheet2</DataSetName>
-        <Top>2.69792in</Top>
+        <Top>5.70833in</Top>
         <PageBreakAtEnd>true</PageBreakAtEnd>
         <Width>9.25in</Width>
         <Details>
@@ -1456,7 +2113,7 @@ Order by cc.congress_dist</CommandText>
       </Table>
       <Textbox Name="textbox7">
         <rd:DefaultName>textbox7</rd:DefaultName>
-        <Top>2.4375in</Top>
+        <Top>5.44791in</Top>
         <Style>
           <FontWeight>700</FontWeight>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1799,7 +2456,7 @@ Order by cc.congress_dist</CommandText>
         <Value>Congressional District Report</Value>
       </Textbox>
     </ReportItems>
-    <Height>6.51042in</Height>
+    <Height>21.64583in</Height>
   </Body>
   <Language>en-US</Language>
   <TopMargin>1in</TopMargin>

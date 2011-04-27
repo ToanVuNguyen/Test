@@ -67,6 +67,10 @@
       <FullPath>rpt_Congressional_District_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_CongressionalDistrictReport.rdl</Name>
+      <FullPath>rpt_CongressionalDistrictReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_DailyActivityReport.rdl</Name>
       <FullPath>rpt_DailyActivityReport.rdl</FullPath>
     </ProjectItem>
@@ -125,14 +129,6 @@
     <ProjectItem>
       <Name>rpt_Servicer_Funding_Report.rdl</Name>
       <FullPath>rpt_Servicer_Funding_Report.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_ServicerRejectReport.rdl</Name>
-      <FullPath>rpt_ServicerRejectReport.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_CongressionalDistrictReport.rdl</Name>
-      <FullPath>rpt_CongressionalDistrictReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
