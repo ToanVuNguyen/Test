@@ -593,38 +593,41 @@ namespace HPF.FutureState.BusinessLogic
             {
                 case Constant.RULESET_MIN_REQUIRE_FIELD:
                     break;
-                case Constant.RULESET_COMPLETE: //Bug 556: Turn on warning message to complete cases which have intake_dt >= 5/1/2011 
-                    if (foreclosureCase.IntakeDt >= new DateTime(2011, 05, 01))
+                case Constant.RULESET_COMPLETE: //Bug 556: Turn on warning message to complete cases which complete on or after  5/1/2011 
+                    if (string.IsNullOrEmpty(foreclosureCase.CounselorContactedSrvcrInd))
                     {
-                        if (string.IsNullOrEmpty(foreclosureCase.CounselorContactedSrvcrInd))
+                        bool warn334 = false;
+                        if (IsForeclosureCaseInserted) //insert case --> always add warning
+                            warn334 = true;
+                        else if ((FCaseSetFromDB.ForeclosureCase.CompletedDt != null && FCaseSetFromDB.ForeclosureCase.CompletedDt >= new DateTime(2011, 05, 01))|| FCaseSetFromDB.ForeclosureCase.CompletedDt ==null )
+                            warn334 = true; //update cases have completed date from 5/1/2011 or incomplete cases
+                        if (warn334)
                             msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0334, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0334));
-                        if (!foreclosureCase.DependentNum.HasValue)
+                    }
+                    if (!foreclosureCase.DependentNum.HasValue)
+                    {
+                        bool warn335 = false;
+                        if (IsForeclosureCaseInserted) //insert case --> always add warning
+                            warn335 = true;
+                        else if ((FCaseSetFromDB.ForeclosureCase.CompletedDt != null && FCaseSetFromDB.ForeclosureCase.CompletedDt >= new DateTime(2011, 05, 01)) || FCaseSetFromDB.ForeclosureCase.CompletedDt == null)
+                            warn335 = true; //update cases have completed date from 5/1/2011 or incomplete cases
+                        if (warn335)
                             msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0335, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0335));
-                        if (string.IsNullOrEmpty(foreclosureCase.CounselorAttemptedSrvcrContactInd))
+                    }
+                    if (string.IsNullOrEmpty(foreclosureCase.CounselorAttemptedSrvcrContactInd))
+                    {
+                        bool warn336 = false;
+                        if (IsForeclosureCaseInserted) //insert case --> always add warning
+                            warn336 = true;
+                        else if ((FCaseSetFromDB.ForeclosureCase.CompletedDt != null && FCaseSetFromDB.ForeclosureCase.CompletedDt >= new DateTime(2011, 05, 01)) || FCaseSetFromDB.ForeclosureCase.CompletedDt == null)
+                            warn336 = true; //update cases have completed date from 5/1/2011 or incomplete cases
+                        if (warn336)
                             msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0336, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0336));
                     }
+                    
                     break;
             }
-            /*
-            switch(ruleSet)
-            {
-                case Constant.RULESET_MIN_REQUIRE_FIELD:                    
-                    break;
-                case Constant.RULESET_COMPLETE: //BUG-439: only raise warning message completed case from 1/1/2010 when updating
-                    if (string.IsNullOrEmpty(foreclosureCase.ErcpOutcomeCd))
-                    {
-                        bool warn331 = false;                        
-                        if (IsForeclosureCaseInserted) //insert case --> always add warning
-                            warn331 = true;
-                        else if (FCaseSetFromDB.ForeclosureCase.CompletedDt != null && FCaseSetFromDB.ForeclosureCase.CompletedDt >= new DateTime(2010, 1, 1))
-                            warn331 = true; //update case have completed date from 1/1/2010
-
-                        if(warn331)
-                            msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0331, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0331));
-                    }
-                    break;
-            }*/
-
+            
             return msgFcCaseSet;
         }
 
