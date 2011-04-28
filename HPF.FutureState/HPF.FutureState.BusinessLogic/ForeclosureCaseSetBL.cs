@@ -589,7 +589,22 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection ValidateFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
         {            
             var  msgFcCaseSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet) };
-            
+            switch (ruleSet)
+            {
+                case Constant.RULESET_MIN_REQUIRE_FIELD:
+                    break;
+                case Constant.RULESET_COMPLETE: //Bug 556: Turn on warning message to complete cases which have intake_dt >= 5/1/2011 
+                    if (foreclosureCase.IntakeDt >= new DateTime(2011, 05, 01))
+                    {
+                        if (string.IsNullOrEmpty(foreclosureCase.CounselorContactedSrvcrInd))
+                            msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0334, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0334));
+                        if (!foreclosureCase.DependentNum.HasValue)
+                            msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0335, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0335));
+                        if (string.IsNullOrEmpty(foreclosureCase.CounselorAttemptedSrvcrContactInd))
+                            msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0336, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0336));
+                    }
+                    break;
+            }
             /*
             switch(ruleSet)
             {
