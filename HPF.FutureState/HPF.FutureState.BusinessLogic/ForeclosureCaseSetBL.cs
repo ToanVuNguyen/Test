@@ -2705,9 +2705,12 @@ namespace HPF.FutureState.BusinessLogic
 
         private string AddCarriageReturn(string s)
         {
-            s = s.Replace("\r\n", "\n");
-            s = s.Replace("\r", "\n");
-            s = s.Replace("\n", "\r\n");
+            if (!string.IsNullOrEmpty(s))
+            {
+                s = s.Replace("\r\n", "\n");
+                s = s.Replace("\r", "\n");
+                s = s.Replace("\n", "\r\n");
+            }
             return s;
         }
         #endregion
