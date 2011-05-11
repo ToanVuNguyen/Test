@@ -340,7 +340,8 @@ namespace HPF.SharePointAPI.Controllers
                         scamInfo.ListOfServicesOffered = (string)item[Scam.Default.ListOfServicesOffered]; trackingName = Scam.Default.GuraranteedLoanModification;
                         bool? Ind = (bool?)item[Scam.Default.GuraranteedLoanModification];
                         scamInfo.GuraranteedLoanModification = (Ind.HasValue && Ind.Value == true ? "Y" : "N");trackingName = Scam.Default.FeePaid;
-                        scamInfo.FeePaid = (string)item[Scam.Default.FeePaid]; trackingName = Scam.Default.TotalAmountPaid;
+                        Ind = (bool?)item[Scam.Default.FeePaid];
+                        scamInfo.FeePaid = (Ind.HasValue && Ind.Value == true ? "Y" : "N"); trackingName = Scam.Default.TotalAmountPaid;
                         scamInfo.TotalAmountPaid = ConvertToDouble(item[Scam.Default.TotalAmountPaid]); trackingName = Scam.Default.PaymentType;
                         scamInfo.PaymentType = (string)item[Scam.Default.PaymentType];trackingName = Scam.Default.ContractServicesPerfomed;
                         scamInfo.ContractServicesPerfomed = (string)item[Scam.Default.ContractServicesPerfomed]; trackingName = Scam.Default.MainContact;
