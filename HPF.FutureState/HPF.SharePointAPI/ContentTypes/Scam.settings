@@ -144,7 +144,7 @@
       <Value Profile="(Default)">How was payment made to alleged scam agency?</Value>
     </Setting>
     <Setting Name="ScamOrgFax" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Scam Fax number</Value>
+      <Value Profile="(Default)">Scam Fax Number</Value>
     </Setting>
     <Setting Name="ScamOrgStatus" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Alleged Scam Organization</Value>

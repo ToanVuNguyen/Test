@@ -449,7 +449,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Scam Fax number")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Scam Fax Number")]
         public string ScamOrgFax {
             get {
                 return ((string)(this["ScamOrgFax"]));
