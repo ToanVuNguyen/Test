@@ -56,17 +56,19 @@ namespace HPF.FutureState.BusinessLogic
                 ThrowDataValidationException(ErrorMessages.ERR1215);
             _workingUserID = anEvent.ChgLstUserId;
             //Process insert or update event
-            if (!CheckExistingFcIdAndEventDt(anEvent.FcId, anEvent.EventDt))
+            eventId = CheckExistingFcIdAndEventDt(anEvent.FcId, anEvent.EventDt);
+            if (eventId==0)
             {
                 anEvent.SetInsertTrackingInformation(_workingUserID);
                 eventId = InsertEvent(anEvent);
+                anEvent.EventId = eventId;
             }
             else
             {
                 anEvent.SetUpdateTrackingInformation(_workingUserID);
-                eventId = UpdateEvent(anEvent);
+                anEvent.EventId = eventId;
+                UpdateEvent(anEvent);
             }
-            anEvent.EventId = eventId;
             return anEvent;
         }
         /// <summary>
@@ -102,7 +104,7 @@ namespace HPF.FutureState.BusinessLogic
                 msgEventSet.AddExceptionMessage(ErrorMessages.ERR1212, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1212));
             return msgEventSet;
         }
-        private bool CheckExistingFcIdAndEventDt(int? fcId, DateTime? eventDt)
+        private int? CheckExistingFcIdAndEventDt(int? fcId, DateTime? eventDt)
         {
             return EventDAO.Instance.CheckExistingFcIdAndEventDt(fcId, eventDt);
         }
@@ -124,9 +126,9 @@ namespace HPF.FutureState.BusinessLogic
         {
             return EventDAO.Instance.InsertEvent(anEvent);
         }
-        private int? UpdateEvent(EventDTO anEvent)
+        private void UpdateEvent(EventDTO anEvent)
         {
-            return EventDAO.Instance.UpdateEvent(anEvent);
+            EventDAO.Instance.UpdateEvent(anEvent);
         }
         #region Throw Detail Exception
         private void ThrowDataValidationException(string errorCode)

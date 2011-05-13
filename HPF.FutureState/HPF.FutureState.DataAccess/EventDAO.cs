@@ -83,29 +83,27 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="anEvent">EventDTO</param>
         /// <returns>an eventId</returns>
-        public int? UpdateEvent(EventDTO anEvent)
+        public void UpdateEvent(EventDTO anEvent)
         {
             SqlConnection dbConnection = CreateConnection();
             SqlCommand command = CreateSPCommand("hpf_event_update", dbConnection);
 
             #region parameters
             //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[13];
+            SqlParameter[] sqlParam = new SqlParameter[11];
             sqlParam[0] = new SqlParameter("@pi_event_id", anEvent.EventId);
-            sqlParam[1] = new SqlParameter("@pi_fc_id", anEvent.FcId);
-            sqlParam[2] = new SqlParameter("@pi_program_stage_id", anEvent.ProgramStageId);
-            sqlParam[3] = new SqlParameter("@pi_event_type_cd", anEvent.EventTypeCd);
-            sqlParam[4] = new SqlParameter("@pi_event_dt", NullableDateTime(anEvent.EventDt));
-            sqlParam[5] = new SqlParameter("@pi_rpc_ind", anEvent.RpcInd);
-            sqlParam[6] = new SqlParameter("@pi_event_outcome_cd", anEvent.EventOutcomeCd);
-            sqlParam[7] = new SqlParameter("@pi_completed_ind", anEvent.CompletedInd);
-            sqlParam[8] = new SqlParameter("@pi_counselor_id_ref", anEvent.CounselorIdRef);
-            sqlParam[9] = new SqlParameter("@pi_program_refusal_dt", NullableDateTime(anEvent.ProgramRefusalDt));
+            sqlParam[1] = new SqlParameter("@pi_program_stage_id", anEvent.ProgramStageId);
+            sqlParam[2] = new SqlParameter("@pi_event_type_cd", anEvent.EventTypeCd);
+            sqlParam[3] = new SqlParameter("@pi_rpc_ind", anEvent.RpcInd);
+            sqlParam[4] = new SqlParameter("@pi_event_outcome_cd", anEvent.EventOutcomeCd);
+            sqlParam[5] = new SqlParameter("@pi_completed_ind", anEvent.CompletedInd);
+            sqlParam[6] = new SqlParameter("@pi_counselor_id_ref", anEvent.CounselorIdRef);
+            sqlParam[7] = new SqlParameter("@pi_program_refusal_dt", NullableDateTime(anEvent.ProgramRefusalDt));
 
             
-            sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(anEvent.ChangeLastDate));
-            sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", anEvent.ChangeLastUserId);
-            sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", anEvent.ChangeLastAppName);
+            sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(anEvent.ChangeLastDate));
+            sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", anEvent.ChangeLastUserId);
+            sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", anEvent.ChangeLastAppName);
 
             //</Parameter>
             #endregion
@@ -124,8 +122,7 @@ namespace HPF.FutureState.DataAccess
                 command.Dispose();
                 dbConnection.Close();
             }
-
-            return anEvent.EventId;
+           
         }
 
         public ProgramStageDTO GetProgramStage(int? programStageId)
@@ -175,9 +172,9 @@ namespace HPF.FutureState.DataAccess
             return returnObject;
         }
 
-        public bool CheckExistingFcIdAndEventDt(int? fcId, DateTime? eventDt)
+        public int? CheckExistingFcIdAndEventDt(int? fcId, DateTime? eventDt)
         {
-            bool returnValue = true;
+            int? eventId = 0;
             var dbConnection = CreateConnection();
             try
             {
@@ -191,7 +188,11 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
-                returnValue = reader.HasRows;
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                        eventId = ConvertToInt(reader["event_id"]);
+                }
                 reader.Close();
             }
             catch (Exception Ex)
@@ -202,7 +203,7 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-            return returnValue;
+            return eventId;
         }
     }
 }
