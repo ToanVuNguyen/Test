@@ -70,8 +70,10 @@
     <Compile Include="CaseEvaluationBL.cs" />
     <Compile Include="CaseLoanBL.cs" />
     <Compile Include="CaseFollowUpBL.cs" />
+    <Compile Include="CreditReportBL.cs" />
     <Compile Include="EmailSummaryBL.cs" />
     <Compile Include="EvalTemplateBL.cs" />
+    <Compile Include="EventBL.cs" />
     <Compile Include="ForeclosureCaseBL.cs" />
     <Compile Include="ForeclosureCaseSetBL.cs" />
     <Compile Include="HPFUserBL.cs" />

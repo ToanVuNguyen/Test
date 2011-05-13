@@ -476,7 +476,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Loan Status prior to scam")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Loan status prior to scam")]
         public string PriorLoanStatus {
             get {
                 return ((string)(this["PriorLoanStatus"]));

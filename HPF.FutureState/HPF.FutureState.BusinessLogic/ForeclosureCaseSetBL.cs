@@ -527,6 +527,7 @@ namespace HPF.FutureState.BusinessLogic
                 FCaseSetFromDB.BudgetAssets = BudgetBL.Instance.GetBudgetAssetSet(fcId);
                 FCaseSetFromDB.BudgetItems = BudgetBL.Instance.GetBudgetItemSet(fcId);
                 FCaseSetFromDB.ProposedBudgetItems = BudgetBL.Instance.GetProposedBudgetItemSet(fcId);
+                FCaseSetFromDB.CreditReport = CreditReportBL.Instance.GetCreditReportCollection(fcId);
             }
 
             if (CheckForeclosureCaseDBIsInactiveCase(FCaseSetFromDB.ForeclosureCase))
@@ -554,6 +555,7 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoanItem = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
             BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;           
+            CreditReportDTOCollection creditReportCollection = foreclosureCaseSet.CreditReport;
             
             var msgFcCaseSet = new ExceptionMessageCollection();
             //
@@ -566,6 +568,8 @@ namespace HPF.FutureState.BusinessLogic
             if (ruleSet != Constant.RULESET_MIN_REQUIRE_FIELD)
                 msgFcCaseSet.Add(ValidateFieldsBudgetItem(budgetItem, ruleSet));
             //
+            msgFcCaseSet.Add(ValidateFieldsCreditReport(creditReportCollection,ruleSet));
+
             return msgFcCaseSet;
         }
 
@@ -737,6 +741,7 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
+        
         /// <summary>
         /// Min request validate the fore closure case set
         /// 4:  Min request validate of Case Loan Collection
@@ -857,17 +862,7 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
-        //private int? FindServicerIDWithNameIsOther()
-        //{
-        //    var serviers = ServicerBL.Instance.GetServicers();
-        //    foreach(var item in serviers)
-        //    {
-        //        if (ConvertStringToUpper(item.ServicerName) == Constant.SERVICER_OTHER)
-        //            return item.ServicerID;
-        //    }
-        //    return 0;
-        //}
-
+        
         private int? FindOutcomeTypeIdWithNameIsExternalReferral()
         {
             OutcomeTypeDTOCollection outcomeType = OutcomeBL.Instance.GetOutcomeType();
@@ -894,6 +889,35 @@ namespace HPF.FutureState.BusinessLogic
                 }
             }
             return 0;
+        }
+
+        /// <summary>
+        /// Min request validate the fore closure case set
+        /// 5:  Min request validate of Credit Report Collection
+        /// </summary>
+        /// <param name="creditReportCollection">creditReportCollection</param>
+        /// <param name="ruleSet"></param>
+        /// <returns></returns>
+        private ExceptionMessageCollection ValidateFieldsCreditReport(CreditReportDTOCollection creditReportCollection, string ruleSet)
+        {
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if (creditReportCollection == null || creditReportCollection.Count < 1)
+                return msgFcCaseSet;
+            for (int i = 0; i < creditReportCollection.Count; i++)
+            {
+                var item = creditReportCollection[i];
+                var ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
+                if (ex.Count != 0)
+                {
+                    for (int j = 0; j < ex.Count; j++)
+                    {
+                        var exItem = ex[j];
+                        msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " on credit report index " + (i + 1));
+                    }
+                }
+
+            }
+            return msgFcCaseSet;
         }
         #endregion              
 
@@ -1267,6 +1291,9 @@ namespace HPF.FutureState.BusinessLogic
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
 
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+
+            CreditReportDTOCollection creditReportCollection = foreclosureCaseSet.CreditReport;
+
             int? fcId = 0;
             try
             {
@@ -1313,7 +1340,18 @@ namespace HPF.FutureState.BusinessLogic
                 
                 //Insert Case Loan
                 InsertCaseLoan(foreclosureCaseSetDAO, caseLoanInsertCollecion, fcId);
-                                               
+
+                //Get list credit report will be inserted
+                CreditReportDTOCollection creditReportInsertCollection = CheckCreditReportForInsert(creditReportCollection, FCaseSetFromDB.CreditReport);
+
+                //Get list credit report will be updated
+                CreditReportDTOCollection creditReportUpdateCollection = CheckCreditReportForUpdate(creditReportCollection, FCaseSetFromDB.CreditReport,fcId);
+                
+                //Update Credit Report
+                UpdateCreditReport(foreclosureCaseSetDAO, creditReportUpdateCollection);
+
+                //Insert Credit Report
+                InsertCreditReport(foreclosureCaseSetDAO, creditReportInsertCollection, fcId);
 
                 if (foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_ESCALATION_ID
                     && foreclosureCaseSet.ForeclosureCase.AgencyId == Constant.AGENCY_MMI_ID)
@@ -1369,6 +1407,9 @@ namespace HPF.FutureState.BusinessLogic
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
 
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+
+            CreditReportDTOCollection creditReportCollection = foreclosureCaseSet.CreditReport;
+
             int? fcId = 0;
             try
             {
@@ -1382,6 +1423,9 @@ namespace HPF.FutureState.BusinessLogic
 
                 //Insert Table Outcome Item
                 InsertOutcomeItem(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
+
+                //Insert CreditReport
+                InsertCreditReport(foreclosureCaseSetDAO, creditReportCollection, fcId);
 
                 //Insert Table Budget Set
                 //Return Budget Set Id
@@ -1560,6 +1604,24 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
+        /// Insert Credit Report
+        /// </summary>
+        /// <param name="foreClosureCaseSetDAO"></param>
+        /// <param name="creditReportCollection"></param>
+        /// <param name="fcId"></param>
+        private void InsertCreditReport(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CreditReportDTOCollection creditReportCollection, int? fcId)
+        {
+            if (creditReportCollection != null)
+            {
+                foreach (CreditReportDTO creditReport in creditReportCollection)
+                {
+                    creditReport.SetInsertTrackingInformation(_workingUserID);
+                    foreclosureCaseSetDAO.InsertCreditReport(creditReport, fcId);
+                }
+            }
+        }
+
+        /// <summary>
         /// Insert CaseLoan
         /// </summary>
         private void InsertCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int? fcId)
@@ -1616,8 +1678,24 @@ namespace HPF.FutureState.BusinessLogic
                     foreClosureCaseSetDAO.UpdateOutcomeItem(items);
                 }
             }
-        }      
+        }
 
+        /// <summary>
+        /// Update Credit Report
+        /// </summary>
+        /// <param name="foreClosureCaseSetDAO"></param>
+        /// <param name="creditReportCollection"></param>
+        private void UpdateCreditReport(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CreditReportDTOCollection creditReportCollection)
+        {
+            if (creditReportCollection != null)
+            {
+                foreach (CreditReportDTO creditReport in creditReportCollection)
+                {
+                    creditReport.SetUpdateTrackingInformation(_workingUserID);
+                    foreClosureCaseSetDAO.UpdateCreditReport(creditReport);
+                }
+            }
+        }
         #endregion
 
         #region Functions check for insert Budget_*
@@ -1987,7 +2065,99 @@ namespace HPF.FutureState.BusinessLogic
             return caseLoanNew;
         }
         #endregion
+        #region Functions check for update Credit Report
+        /// <summary>
+        /// Check data input with database
+        /// If input not exist in database (use CheckCreditReport() to check)
+        /// add creditReport into newCreditReports to insert
+        /// </summary>
+        /// <param name="creditReportCollection"></param>
+        /// <param name="creditReportCollectionDB"></param>
+        /// <returns></returns>
+        private CreditReportDTOCollection CheckCreditReportForInsert(CreditReportDTOCollection creditReportCollection, CreditReportDTOCollection creditReportCollectionDB)
+        {
+            CreditReportDTOCollection newCreditReports = new CreditReportDTOCollection();
+            bool isNotExisted;
+            if (creditReportCollectionDB != null)
+            {
+                foreach (CreditReportDTO itemInput in creditReportCollection)
+                {
+                    isNotExisted = CheckCreditReport(itemInput, creditReportCollectionDB);
+                    if (!isNotExisted)
+                        newCreditReports.Add(itemInput);
+                }
+            }
+            else
+                newCreditReports = creditReportCollection;
+            return newCreditReports;
+        }
 
+        /// <summary>
+        /// Check data input with database
+        /// If input is changed with database (use CheckCreditReportUpdate() to check)
+        /// add creditReport into updateCreditReports to update
+        /// </summary>
+        /// <param name="creditReportCollection"></param>
+        /// <param name="creditReportCollectionDB"></param>
+        /// <returns></returns>
+        private CreditReportDTOCollection CheckCreditReportForUpdate(CreditReportDTOCollection creditReportCollection, CreditReportDTOCollection creditReportCollectionDB, int? fcId)
+        {
+            CreditReportDTOCollection updateCreditReports = new CreditReportDTOCollection();
+            bool isChanged;
+            if (creditReportCollectionDB == null || creditReportCollectionDB.Count < 1)
+                return null;
+            foreach (CreditReportDTO item in creditReportCollection)
+            {
+                isChanged = CheckCreditReportUpdate(item, creditReportCollectionDB);
+                if (isChanged)
+                {
+                    item.FcId = fcId;
+                    updateCreditReports.Add(item);
+                }
+            }
+            return updateCreditReports;
+        }
+
+        /// <summary>      
+        /// Check exist of a credit report
+        /// base on creditPullDt
+        /// If exist return true; vs return false
+        /// </summary>
+        /// <param name>CaseLoanDTO, caseLoanCollection</param>
+        /// <returns>bool</returns>
+        private bool CheckCreditReport(CreditReportDTO creditReport, CreditReportDTOCollection creditReportCollection)
+        {
+            foreach (CreditReportDTO item in creditReportCollection)
+            {
+                if (string.Compare(creditReport.CreditPullDt.Value.ToString("ddMMyyyy"), item.CreditPullDt.Value.ToString("ddMMyyyy")) == 0)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check if creditReport is changed with the value of it in collection
+        /// If is changed return true; vs return false
+        /// </summary>
+        /// <param name="creditReport"></param>
+        /// <param name="creditReportCollection"></param>
+        /// <returns></returns>
+        private bool CheckCreditReportUpdate(CreditReportDTO creditReport, CreditReportDTOCollection creditReportCollection)
+        {
+            foreach (CreditReportDTO item in creditReportCollection)
+            {
+                if (string.Compare(creditReport.CreditPullDt.Value.ToString("ddMMyyyy"), item.CreditPullDt.Value.ToString("ddMMyyyy")) == 0)
+                    if (item.CreditBureauCd != creditReport.CreditBureauCd
+                        || item.CreditScore != creditReport.CreditScore
+                        || item.InstallmentBal != creditReport.InstallmentBal
+                        || item.InstallmentLimitAmt != creditReport.InstallmentLimitAmt
+                        || item.RevolvingBal != creditReport.RevolvingBal
+                        || item.RevolvingLimitAmt != creditReport.RevolvingLimitAmt)
+                        return true;
+            }
+            return false;
+        }
+        #endregion
         #region Functions check valid code
         /// <summary>
         /// Check valid code
@@ -2000,6 +2170,7 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
+            CreditReportDTOCollection creditReportCollection = foreclosureCaseSet.CreditReport;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             ExceptionMessageCollection msgFcCase = CheckValidCodeForForclosureCase(foreclosureCase);
             if (msgFcCase != null && msgFcCase.Count != 0)
@@ -2039,7 +2210,12 @@ namespace HPF.FutureState.BusinessLogic
 
             ExceptionMessageCollection msgCallId = CheckValidCallId(foreclosureCase);
             if (msgCallId != null && msgCallId.Count != 0)
-                msgFcCaseSet.Add(msgCallId);            
+                msgFcCaseSet.Add(msgCallId);     
+       
+            ExceptionMessageCollection msgCreditReport  = CheckValidCodeForCreditReport(creditReportCollection);
+            if (msgCreditReport != null && msgCreditReport.Count != 0)
+                msgFcCaseSet.Add(msgCreditReport);
+
             return msgFcCaseSet;
         }
 
@@ -2482,6 +2658,27 @@ namespace HPF.FutureState.BusinessLogic
             }
             return false;
         }
+        /// <summary>
+        /// Check valid credit bureau code if it has value
+        /// </summary>
+        /// <param name="creditReportCollection"></param>
+        /// <returns></returns>
+        private ExceptionMessageCollection CheckValidCodeForCreditReport(CreditReportDTOCollection creditReportCollection)
+        {
+            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if (creditReportCollection == null || creditReportCollection.Count < 1)
+                return null;
+            
+            for (int i = 0; i < creditReportCollection.Count; i++)
+            {
+                CreditReportDTO creditReport = creditReportCollection[i];
+                if (!string.IsNullOrEmpty(creditReport.CreditBureauCd) && !referenceCode.Validate(ReferenceCode.CREDIT_BURREAU_CODE, creditReport.CreditBureauCd))
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR1217, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1217) + " working on credit report index " + (i + 1));
+            }
+
+            return msgFcCaseSet;
+        }
         #endregion        
 
         #region Funcrions Set HP-Auto
@@ -2733,7 +2930,7 @@ namespace HPF.FutureState.BusinessLogic
             fcs.ProposedBudgetSet = BudgetBL.Instance.GetProposedBudgetSet(fcId);
             fcs.CaseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fcId);
             fcs.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fcId);
-
+            fcs.CreditReport = CreditReportBL.Instance.GetCreditReportCollection(fcId);
             return fcs;
         }
 

@@ -653,6 +653,44 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
+        /// Insert Credit Report
+        /// </summary>
+        /// <param name="creditReport">CreditReportDTO</param>
+        /// <param name="fcId"></param>
+        public void InsertCreditReport(CreditReportDTO creditReport, int? fcId)
+        {
+            var command = CreateCommand("hpf_credit_report_insert", this.dbConnection);
+            //<Parameter>
+            try
+            {
+                var sqlParam = new SqlParameter[14];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                sqlParam[1] = new SqlParameter("@pi_credit_pull_dt", NullableDateTime(creditReport.CreditPullDt));
+                sqlParam[2] = new SqlParameter("@pi_credit_score", NullableString(creditReport.CreditScore));
+                sqlParam[3] = new SqlParameter("@pi_credit_bureau_cd", NullableString(creditReport.CreditBureauCd));
+                sqlParam[4] = new SqlParameter("@pi_revolving_bal", creditReport.RevolvingBal);
+                sqlParam[5] = new SqlParameter("@pi_revolving_limit_amt", creditReport.RevolvingLimitAmt);
+                sqlParam[6] = new SqlParameter("@pi_installment_bal", creditReport.InstallmentBal);
+                sqlParam[7] = new SqlParameter("@pi_installment_limit_amt", creditReport.InstallmentLimitAmt);
+
+                sqlParam[8] = new SqlParameter("@pi_create_dt", NullableDateTime(creditReport.CreateDate));
+                sqlParam[9] = new SqlParameter("@pi_create_user_id", creditReport.CreateUserId);
+                sqlParam[10] = new SqlParameter("@pi_create_app_name", creditReport.CreateAppName);
+                sqlParam[11] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(creditReport.ChangeLastDate));
+                sqlParam[12] = new SqlParameter("@pi_chg_lst_user_id", creditReport.ChangeLastUserId);
+                sqlParam[13] = new SqlParameter("@pi_chg_lst_app_name", creditReport.ChangeLastAppName);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+        }
+        /// <summary>
         /// Insert a BudgetSet to database.
         /// </summary>
         /// <param name="budgetSet">BudgetSetDTO</param>
@@ -1044,8 +1082,43 @@ namespace HPF.FutureState.DataAccess
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-        }        
-      
+        }
+        /// <summary>
+        /// Update Credit Report
+        /// </summary>
+        /// <param name="creditReport">creditReportDTO</param>
+        public void UpdateCreditReport(CreditReportDTO creditReport)
+        {
+            var command = CreateCommand("hpf_credit_report_update", this.dbConnection);
+            //<Parameter>
+            try
+            {
+                var sqlParam = new SqlParameter[11];
+
+                sqlParam[0] = new SqlParameter("@pi_credit_pull_dt",NullableDateTime(creditReport.CreditPullDt));
+                sqlParam[1] = new SqlParameter("@pi_fc_id", creditReport.FcId);
+                sqlParam[2] = new SqlParameter("@pi_credit_score", NullableString(creditReport.CreditScore));
+                sqlParam[3] = new SqlParameter("@pi_credit_bureau_cd", NullableString(creditReport.CreditBureauCd));
+                sqlParam[4] = new SqlParameter("@pi_revolving_bal", creditReport.RevolvingBal);
+                sqlParam[5] = new SqlParameter("@pi_revolving_limit_amt", creditReport.RevolvingLimitAmt);
+                sqlParam[6] = new SqlParameter("@pi_installment_bal", creditReport.InstallmentBal);
+                sqlParam[7] = new SqlParameter("@pi_installment_limit_amt", creditReport.InstallmentLimitAmt);
+
+
+                sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(creditReport.ChangeLastDate));
+                sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", creditReport.ChangeLastUserId);
+                sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", creditReport.ChangeLastAppName);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+        } 
         /// <summary>
         /// Get ID and Name from table Program
         /// </summary>

@@ -172,6 +172,71 @@ namespace HPF.FutureState.WebServices
 
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public EventSaveResponse SaveEvent(EventSaveRequest request)
+        {
+            var response = new EventSaveResponse();
+            EventBL workingInstance = null;
+            try
+            {
+                if (IsAuthenticated())//Authentication checking                
+                {
+                    workingInstance = EventBL.Instance;
+                    EventDTO anEvent = workingInstance.SaveEvent(request.Event);
+                    response.EventId = anEvent.EventId;
+                    if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
+                    {
+                        response.Status = ResponseStatus.Warning;
+                        //response.Messages = workingInstance.WarningMessage;
+                    }
+                    else
+                        response.Status = ResponseStatus.Success;
+                }
+            }
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
+
+                HandleException(Ex, GetFcId(request));
+            }
+            catch (DataValidationException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
+                    response.Messages = Ex.ExceptionMessages;
+                else
+                    response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex, GetFcId(request));
+            }
+            catch (DataAccessException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage("Data access error.");
+                HandleException(Ex, GetFcId(request));
+            }
+            catch (DuplicateException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
+                    response.Messages = Ex.ExceptionMessages;
+                else
+                    response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex, GetFcId(request));
+            }
+            catch (Exception Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex, GetFcId(request));
+            }
+
+            if (workingInstance != null && workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
+                response.Messages.Add(workingInstance.WarningMessage);
+            return response;
+        }
+
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
         public CallLogRetrieveResponse RetrieveCallLog(CallLogRetrieveRequest request)
         {
             var response = new CallLogRetrieveResponse();
@@ -510,6 +575,17 @@ namespace HPF.FutureState.WebServices
                 return request.ForeclosureCaseSet.ForeclosureCase.FcId.Value.ToString();
             }
             catch 
+            {
+                return "";
+            }
+        }
+        private string GetFcId(EventSaveRequest request)
+        {
+            try
+            {
+                return request.Event.FcId.Value.ToString();
+            }
+            catch
             {
                 return "";
             }

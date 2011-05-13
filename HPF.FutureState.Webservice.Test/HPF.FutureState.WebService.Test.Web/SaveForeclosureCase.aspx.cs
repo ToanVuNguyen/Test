@@ -54,9 +54,11 @@ namespace HPF.FutureState.WebService.Test.Web
             Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = AgencyHelper.ParseOutcomeItemDTO(xdoc);
             Session[SessionVariables.FORECLOSURE_CASE] = AgencyHelper.ParseForeclosureCaseDTO(xdoc);
             Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] = AgencyHelper.ParseProposedBudgetItemDTO(xdoc);
+            Session[SessionVariables.CREDIT_REPORT_COLLECTION] = AgencyHelper.ParseCreditReportItemDTO(xdoc);
 
             grdvCaseLoanBinding();
             grdvOutcomeItemBinding();
+            grdvCreditReportBinding();
             grdvBudgetItemBinding();
             grdvProposedBudgetItemBinding();
             grdvBudgetAssetBinding();
@@ -1172,7 +1174,147 @@ namespace HPF.FutureState.WebService.Test.Web
             }
         }
         #endregion
+        #region CreditReport
+        private void grdvCreditReportBinding()
+        {
+            List<CreditReportDTO_App> creditReports;
+            if (Session[SessionVariables.CREDIT_REPORT_COLLECTION] != null)
+            {
+                creditReports = (List<CreditReportDTO_App>)Session[SessionVariables.CREDIT_REPORT_COLLECTION];
+                grdvCreditReport.DataSource = creditReports;
+                grdvCreditReport.DataBind();
+            }
+            else
+            {
+                creditReports = new List<CreditReportDTO_App>();
+                creditReports.Add(new CreditReportDTO_App());
+                grdvCreditReport.DataSource = creditReports;
+                grdvCreditReport.DataBind();
 
+                int TotalColumns = grdvCreditReport.Rows[0].Cells.Count;
+                grdvCreditReport.Rows[0].Cells.Clear();
+                grdvCreditReport.Rows[0].Cells.Add(new TableCell());
+                grdvCreditReport.Rows[0].Cells[0].ColumnSpan = TotalColumns;
+                grdvCreditReport.Rows[0].Cells[0].Text = "No Records Found";
+            }
+        }
+        private CreditReportDTO_App RowToCreditReportDTO(GridViewRow row)
+        {
+            TextBox txtCreditPullDt = (TextBox)row.FindControl("txtCreditPullDt");
+            TextBox txtCreditScore = (TextBox)row.FindControl("txtCreditScore");
+            TextBox txtCreditBureauCd = (TextBox)row.FindControl("txtCreditBureauCd");
+            TextBox txtRevolvingBal = (TextBox)row.FindControl("txtRevolvingBal");
+            TextBox txtRevolvingLimitAmt = (TextBox)row.FindControl("txtRevolvingLimitAmt");
+            TextBox txtInstallmentBal = (TextBox)row.FindControl("txtInstallmentBal");
+            TextBox txtInstallmentLimitAmt = (TextBox)row.FindControl("txtInstallmentLimitAmt");
+            Label lblCreditReportId = (Label) row.FindControl("lblCreditReportId");
+
+            CreditReportDTO_App creditReport = new CreditReportDTO_App();
+            creditReport.CreditPullDt = Util.ConvertToDateTime(txtCreditPullDt.Text.Trim());
+            creditReport.CreditScore = txtCreditScore.Text.Trim();
+            creditReport.CreditBureauCd = txtCreditBureauCd.Text.Trim();
+            creditReport.RevolvingBal = Util.ConvertToDouble(txtRevolvingBal.Text.Trim());
+            creditReport.RevolvingLimitAmt = Util.ConvertToDouble(txtRevolvingLimitAmt.Text.Trim());
+            creditReport.InstallmentBal = Util.ConvertToDouble(txtInstallmentBal.Text.Trim());
+            creditReport.InstallmentLimitAmt = Util.ConvertToDouble(txtInstallmentLimitAmt.Text.Trim());
+
+            creditReport.CreditReportId = Util.ConvertToInt(lblCreditReportId.Text.Trim());
+            return creditReport;
+        }
+        protected void grdvCreditReport_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
+        {
+            grdvCreditReport.EditIndex = -1;
+            RefreshAllGrids();
+        }
+
+        protected void grdvCreditReportRowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName.Equals("AddNew"))
+            {
+                CreditReportDTO_App creditReport = RowToCreditReportDTO(grdvCreditReport.FooterRow);
+
+                List<CreditReportDTO_App> creditReports = new List<CreditReportDTO_App>();
+                if (Session[SessionVariables.CREDIT_REPORT_COLLECTION] != null)
+                {
+                    creditReports = (List<CreditReportDTO_App>)Session[SessionVariables.CREDIT_REPORT_COLLECTION];
+                    int? creditReportId =creditReports.Max(item => item.CreditReportId);
+                    creditReport.CreditReportId = creditReportId + 1;
+                }
+                else
+                {
+                    creditReport.CreditReportId = 1;
+                }
+
+                creditReports.Add(creditReport);
+                Session[SessionVariables.CREDIT_REPORT_COLLECTION] = creditReports;
+                RefreshAllGrids();
+            }
+        }
+
+        protected void grdvCreditReport_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int? creditReportId = Util.ConvertToInt(((Label)grdvCreditReport.Rows[e.RowIndex].FindControl("lblCreditReportId")).Text);
+            if (Session[SessionVariables.CREDIT_REPORT_COLLECTION] != null)
+            {
+                List<CreditReportDTO_App> creditReports = (List<CreditReportDTO_App>)Session[SessionVariables.CREDIT_REPORT_COLLECTION];
+                int index = creditReports.FindIndex(item => item.CreditReportId == creditReportId);
+
+                if (index < 0)
+                {
+                    //can not Delete item
+                }
+                else
+                {
+                    creditReports.RemoveAt(index);
+                    if (creditReports.Count != 0)
+                        Session[SessionVariables.CREDIT_REPORT_COLLECTION] = creditReports;
+                    else
+                        Session[SessionVariables.CREDIT_REPORT_COLLECTION] = null;
+                }
+
+                grdvCreditReport.EditIndex = -1;
+                RefreshAllGrids();
+            }
+            else
+            {
+                //can not Delete item
+            }
+        }
+
+        protected void grdvCreditReport_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            grdvCreditReport.EditIndex = e.NewEditIndex;
+            RefreshAllGrids();
+        }
+
+        protected void grdvCreditReport_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            CreditReportDTO_App creditReport = RowToCreditReportDTO(grdvCreditReport.Rows[e.RowIndex]);
+            if (Session[SessionVariables.CREDIT_REPORT_COLLECTION] != null)
+            {
+                List<CreditReportDTO_App> creditReports = (List<CreditReportDTO_App>)Session[SessionVariables.CREDIT_REPORT_COLLECTION];
+                int index = creditReports.FindIndex(item => item.CreditReportId == creditReport.CreditReportId);
+
+                if (index < 0)
+                {
+                    //can not update List
+                }
+                else
+                {
+                    creditReports[index] = creditReport;
+                    Session[SessionVariables.CREDIT_REPORT_COLLECTION] = creditReports;
+                }
+
+
+                grdvCreditReport.EditIndex = -1;
+                RefreshAllGrids();
+            }
+            else
+            {
+                //can not update List
+            }
+        }
+        #endregion
         protected void btnSave_Click(object sender, EventArgs e)
         {
             ForeclosureCaseSaveRequest request = CreateForeclosureCaseSaveRequest();
@@ -1275,6 +1417,17 @@ namespace HPF.FutureState.WebService.Test.Web
                 //fcCaseSet.Outcome = ((List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
             else
                 fcCaseSet.Outcome = null;
+
+            if (Session[SessionVariables.CREDIT_REPORT_COLLECTION] != null)
+            {
+                var list = new List<CreditReportDTO>();
+                var list_app = ((List<CreditReportDTO_App>)Session[SessionVariables.CREDIT_REPORT_COLLECTION]);
+                foreach (var item in list_app)
+                    list.Add(item.ConvertToBase());
+                fcCaseSet.CreditReport = list.ToArray();
+            }
+            else
+                fcCaseSet.CreditReport = null;
                      
             request.ForeclosureCaseSet = fcCaseSet;
             return request;
@@ -1347,8 +1500,9 @@ namespace HPF.FutureState.WebService.Test.Web
                 grdvCaseLoanBinding();
             //if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] == null)
                 grdvOutcomeItemBinding();
-
+                grdvCreditReportBinding();
                 grdvProposedBudgetItemBinding();
+                grdvCreditReportBinding();
         }
 
 
@@ -1499,6 +1653,7 @@ namespace HPF.FutureState.WebService.Test.Web
                     List<CaseLoanDTO_App> caseLoanApps = null;
                     List<OutcomeItemDTO_App> outcomeApps = null;
                     List<BudgetItemDTO_App> proposedBudgetItemApps = null;
+                    List<CreditReportDTO_App> creditReportApps = null;
                     if (response.ForeclosureCaseSet.BudgetAssets != null && response.ForeclosureCaseSet.BudgetAssets.Length>0)
                     {
                         budgetAssetApps = new List<BudgetAssetDTO_App>();
@@ -1554,18 +1709,33 @@ namespace HPF.FutureState.WebService.Test.Web
                             outcomeApps.Add(item);
                         }
                     }
-                    
+
+                    if (response.ForeclosureCaseSet.CreditReport != null && response.ForeclosureCaseSet.CreditReport.Length > 0)
+                    {
+                        creditReportApps = new List<CreditReportDTO_App>();
+                        for (i = 1; i <= response.ForeclosureCaseSet.CreditReport.Length; i++)
+                        {
+                            CreditReportDTO_App item = new CreditReportDTO_App();
+                            item = item.ConvertFromBase(response.ForeclosureCaseSet.CreditReport[i - 1]);
+                            item.CreditReportId = i;
+                            creditReportApps.Add(item);
+                        }
+                    }
+
                     Session[SessionVariables.CASE_LOAN_COLLECTION] = caseLoanApps;
                     Session[SessionVariables.BUDGET_ASSET_COLLECTION] = budgetAssetApps;
                     Session[SessionVariables.BUDGET_ITEM_COLLECTION] = budgetItemApps;
                     Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = outcomeApps;
                     Session[SessionVariables.FORECLOSURE_CASE] = response.ForeclosureCaseSet.ForeclosureCase;
                     Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] = proposedBudgetItemApps;
+                    Session[SessionVariables.CREDIT_REPORT_COLLECTION] = creditReportApps;
                     grdvCaseLoanBinding();
                     grdvOutcomeItemBinding();
+                    grdvCreditReportBinding();
                     grdvBudgetItemBinding();
                     grdvProposedBudgetItemBinding();
                     grdvBudgetAssetBinding();
+                    grdvCreditReportBinding();
                     ForeclosureCaseToForm((ForeclosureCaseDTO)Session[SessionVariables.FORECLOSURE_CASE]);
                     #endregion
                 }
@@ -1575,5 +1745,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 lblMessage.Text = "Messsage:" + ex.Message;
             }
         }
+
+        
     }
 }

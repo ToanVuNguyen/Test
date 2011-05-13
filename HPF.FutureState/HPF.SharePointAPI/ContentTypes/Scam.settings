@@ -153,7 +153,7 @@
       <Value Profile="(Default)">Current Loan Status</Value>
     </Setting>
     <Setting Name="PriorLoanStatus" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Loan Status prior to scam</Value>
+      <Value Profile="(Default)">Loan status prior to scam</Value>
     </Setting>
     <Setting Name="AgenciesContacted" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Agencies contacted for assistance</Value>

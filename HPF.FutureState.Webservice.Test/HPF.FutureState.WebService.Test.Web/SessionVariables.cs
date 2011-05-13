@@ -20,6 +20,7 @@ namespace HPF.FutureState.WebService.Test.Web
         public static string PROPOSED_BUDGET_ITEM_COLLECTION = "ProposedBudgetItemCollection";
         //public static string ACTIVITY_LOG_COLLECTION = "ActivityLogCollection";
         public static string OUTCOME_ITEM_COLLECTION = "OutcomeItemCollection";
+        public static string CREDIT_REPORT_COLLECTION = "CreditReportCollection";
         public static string FORECLOSURE_CASE = "ForeclosureCase";
         public static string CALLLOG_WS = "CallLogWS";
 
@@ -29,5 +30,8 @@ namespace HPF.FutureState.WebService.Test.Web
         public static string PROPOSED_PP_BUDGET_ITEM_COLLECTION = "ProposedPPBudgetItemCollection";
         public static string PREPURCHASE_CASE = "PrePurchaseCase";
         public static string APPLICANT = "Applicant";
+
+        //Session Variables for Event
+        public static string EVENT = "Event";
     }
 }

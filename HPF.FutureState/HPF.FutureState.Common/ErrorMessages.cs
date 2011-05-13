@@ -538,12 +538,14 @@ namespace HPF.FutureState.Common
         public const string ERR1172 = "ERR1172";
         public const string ERR1173 = "ERR1173";
         public const string ERR1174 = "ERR1174";
-        public const string ERR1175 = "ERR1175";
         public const string ERR1176 = "ERR1176";
         public const string ERR1177 = "ERR1177";
         public const string ERR1178 = "ERR1178";
         public const string ERR1179 = "ERR1179";
         public const string ERR1180 = "ERR1180";
+
+        //CreditReport
+        public const string ERR1175 = "ERR1175";
         public const string ERR1181 = "ERR1181";
         public const string ERR1182 = "ERR1182";
         public const string ERR1183 = "ERR1183";
@@ -553,6 +555,29 @@ namespace HPF.FutureState.Common
         public const string ERR1187 = "ERR1187";
         public const string ERR1188 = "ERR1188";
         public const string ERR1189 = "ERR1189";
+
+        //Event
+        public const string ERR1200 = "ERR1200";
+        public const string ERR1201 = "ERR1201";
+        public const string ERR1202 = "ERR1202";
+        public const string ERR1203 = "ERR1203";
+        public const string ERR1204 = "ERR1204";
+        public const string ERR1205 = "ERR1205";
+        public const string ERR1206 = "ERR1206";
+        public const string ERR1207 = "ERR1207";
+        public const string ERR1208 = "ERR1208";
+        public const string ERR1209 = "ERR1209";
+        public const string ERR1210 = "ERR1210";
+        public const string ERR1211 = "ERR1211";
+        public const string ERR1212 = "ERR1212";
+        public const string ERR1213 = "ERR1213";
+        public const string ERR1214 = "ERR1214";
+        public const string ERR1215 = "ERR1215";
+        public const string ERR1216 = "ERR1216";
+        public const string ERR1217 = "ERR1217";
+        public const string ERR1218 = "ERR1218";
+        public const string ERR1219 = "ERR1219";
+        public const string ERR1220 = "ERR1220";
 
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
@@ -1117,16 +1142,38 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1178, "ApplicantId is not exist!");
                 errorMessageDict.Add(ERR1179, "AgencyId must equal SentToAgencyId for ApplicantId");
                 errorMessageDict.Add(ERR1180, "NoRPCReason is required if RightPartyContactInd='N'");
-                errorMessageDict.Add(ERR1175, "");
-                errorMessageDict.Add(ERR1181, "");
-                errorMessageDict.Add(ERR1182, "");
-                errorMessageDict.Add(ERR1183, "");
-                errorMessageDict.Add(ERR1184, "");
-                errorMessageDict.Add(ERR1185, "");
-                errorMessageDict.Add(ERR1186, "");
+                errorMessageDict.Add(ERR1175, "CreditScore has a maximum length of 4 characters.");
+                errorMessageDict.Add(ERR1181, "CreditBureauCd has a maximum length of 15 characters.");
+                errorMessageDict.Add(ERR1182, "RevolvingBal must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR1183, "RevolvingLimitAmt must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR1184, "InstallmentBal must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR1185, "InstallmentLimitAmt must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR1186, "A CreditReportDt is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR1187, "");
                 errorMessageDict.Add(ERR1188, "");
                 errorMessageDict.Add(ERR1189, "");
+
+                errorMessageDict.Add(ERR1200, "An EventTypeCd is required to save an event.");
+                errorMessageDict.Add(ERR1201, "An EventDt is required to save an event.");
+                errorMessageDict.Add(ERR1202, "A RpcInd is required to save an event.");
+                errorMessageDict.Add(ERR1203, "RpcInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1204, "An EventOutcomeCd is required to save an event.");
+                errorMessageDict.Add(ERR1205, "A CompleteInd is required to save an event.");
+                errorMessageDict.Add(ERR1206, "A CompleteInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1207, "A CounselorIdRef is required to save an event.");
+                errorMessageDict.Add(ERR1208, "A FcId is required to save an event.");
+                errorMessageDict.Add(ERR1209, "A ProgramStageId is required to save an event.");
+                errorMessageDict.Add(ERR1210, "A null event is not allowed to insert.");
+                errorMessageDict.Add(ERR1211, "A invalid code was provided for EventTypeCd.");
+                errorMessageDict.Add(ERR1212, "A invalid code was provided for EventOutcomeCd.");
+                errorMessageDict.Add(ERR1213, "A FcId is invalid.");
+                errorMessageDict.Add(ERR1214, "A ProgramStageId is invalid.");
+                errorMessageDict.Add(ERR1215, "Program stage does not belong to program of foreclosure case.");
+                errorMessageDict.Add(ERR1216, "A ChgLstUserId is required to save an event.");
+                errorMessageDict.Add(ERR1217, "An invalid code was provided for CreditBureauCd.");
+                errorMessageDict.Add(ERR1218, "");
+                errorMessageDict.Add(ERR1219, ""); 
+                errorMessageDict.Add(ERR1220, "");
             }
         }
     }

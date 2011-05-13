@@ -15,6 +15,9 @@
     <MenuItem Id="getFcCase" Title="Retriece Summary" Url="RetrieveSummary.aspx" Enabled="True"/>
     <MenuItem Id="SendSummary" Title="Send Summary" Url="SendSummary.aspx" Enabled="True"/>
   </Menu>
+  <Menu Id="Event" Title="Event" Url="" Enabled="true">
+    <MenuItem Id="saveEvent" Title="Save Event" Url="SaveEvent.aspx" Enabled="True"/>
+  </Menu>
   <Menu Id="PPCase" Title="PP Case" Url="" Enabled="true">
     <MenuItem Id="savePPCase" Title="Save PPCase" Url="SavePrePurchaseCase.aspx" Enabled="True"/>
   </Menu>

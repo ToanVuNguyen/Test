@@ -1634,52 +1634,7 @@
                     <asp:Label ID="Label5" runat="server" Text='<%# Bind("OutcomeTypeId") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            
-            
-            
-            <%--<asp:TemplateField HeaderText="Fc ID" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtFcId" runat="server" Text='<%# Eval("FcId") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtFcId" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("FcId") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            
-            <asp:TemplateField HeaderText="Outcome Set Id" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtOutcomeSetId" runat="server" Text='<%# Eval("OutcomeSetId") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtOutcomeSetId" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label6" runat="server" Text='<%# Bind("OutcomeSetId") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            
-            <asp:TemplateField HeaderText="Deleted Date" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtOutcomeDeletedDt" runat="server" Text='<%# Eval("OutcomeDeletedDt") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtOutcomeDeletedDt" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label7" runat="server" Text='<%# Bind("OutcomeDeletedDt") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            
-            <asp:TemplateField HeaderText="Date" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtOutcomeDt" runat="server" Text='<%# Eval("OutcomeDt") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtOutcomeDt" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("OutcomeDt") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField--%>
+                        
             <asp:TemplateField HeaderText="Index" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtOutcomeItemId" runat="server" Text='<%# Eval("OutcomeItemId") %>'></asp:TextBox>
@@ -1692,10 +1647,113 @@
             </asp:TemplateField>
         </Columns>            
     </asp:GridView>
-    
+    <br />
+    <asp:Label ID="Label14" runat="server" Text="CreditReports"></asp:Label>
+    <br />
+    <asp:GridView ID="grdvCreditReport" runat="server" 
+        ShowFooter = "True" 
+        AutoGenerateColumns = "False"
+        onrowediting="grdvCreditReport_RowEditing"
+        OnRowCancelingEdit = "grdvCreditReport_RowCancelEditing"
+        onrowupdating="grdvCreditReport_RowUpdating"
+        onrowcommand="grdvCreditReportRowCommand" 
+        onrowdeleting="grdvCreditReport_RowDeleting">
+        <Columns>
+            <asp:TemplateField HeaderText="Edit" ShowHeader="False">
+                <EditItemTemplate>
+                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
+                    <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="AddNew" Text="New"></asp:LinkButton>
+                </FooterTemplate>
+                <ItemTemplate>
+                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>            
+            <asp:CommandField HeaderText="Delete" ShowDeleteButton="True" ShowHeader="false" />
+            <asp:TemplateField HeaderText="CreditScore" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtCreditScore" runat="server" Text='<%# Eval("CreditScore") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtCreditScore" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("CreditScore") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="CreditBureauCode" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtCreditBureauCd" runat="server" Text='<%# Eval("CreditBureauCd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtCreditBureauCd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("CreditBureauCd") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="RevolvingBal" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtRevolvingBal" runat="server" Text='<%# Eval("RevolvingBal") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtRevolvingBal" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("RevolvingBal") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="RevolvingLimitAmount" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtRevolvingLimitAmt" runat="server" Text='<%# Eval("RevolvingLimitAmt") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtRevolvingLimitAmt" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("RevolvingLimitAmt") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="InstallmentBal" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtInstallmentBal" runat="server" Text='<%# Eval("InstallmentBal") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtInstallmentBal" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label5" runat="server" Text='<%# Bind("InstallmentBal") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="InstallmentLimitAmount" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtInstallmentLimitAmt" runat="server" Text='<%# Eval("InstallmentLimitAmt") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtInstallmentLimitAmt" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label6" runat="server" Text='<%# Bind("InstallmentLimitAmt") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="CreditPullDt" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtCreditPullDt" runat="server" Text='<%# Eval("CreditPullDt") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtCreditPullDt" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label7" runat="server" Text='<%# Bind("CreditPullDt") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Index" >  
+                <FooterTemplate>
+                    <asp:Label ID="lblCreditReportId" runat="server"></asp:Label> 
+                </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lblCreditReportId" runat="server" Text='<%# Bind("CreditReportId") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>    
+    </asp:GridView>
     <br />
     <asp:Label ID="lblMessage" runat="server" Text="Message:"></asp:Label>
-    
     <br />
     <asp:GridView ID="grdvMessages" runat="server">
     </asp:GridView>

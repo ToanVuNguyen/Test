@@ -108,6 +108,8 @@
     <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CounselorDTO.cs" />
     <Compile Include="DataTransferObjects\CounselorDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\CreditReportDTO.cs" />
+    <Compile Include="DataTransferObjects\CreditReportDTOCollection.cs" />
     <Compile Include="DataTransferObjects\EvalQuestionDTOCollection.cs" />
     <Compile Include="DataTransferObjects\EvalSectionCollectionDTO.cs" />
     <Compile Include="DataTransferObjects\EvalTemplateDTOCollection.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="DataTransferObjects\EvalSectionQuestionDTOCollection.cs" />
     <Compile Include="DataTransferObjects\EvalTemplateDTO.cs" />
     <Compile Include="DataTransferObjects\EvalTemplateSectionDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\EventDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CallLogSearchCriteriaDTO.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="DataTransferObjects\PPPBudgetSetDTO.cs" />
     <Compile Include="DataTransferObjects\PrePurchaseCaseDTO.cs" />
     <Compile Include="DataTransferObjects\PrePurchaseCaseSetDTO.cs" />
+    <Compile Include="DataTransferObjects\ProgramStageDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSetDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSetDTOCollection.cs" />
@@ -153,6 +157,8 @@
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSReturnDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\WebServices\EventSaveRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\EventSaveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ICTForeclosureCaseSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\PrePurchaseCaseSaveRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\PrePurchaseCaseSaveResponse.cs" />

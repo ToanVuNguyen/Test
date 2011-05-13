@@ -64,8 +64,10 @@
     <Compile Include="CaseLoanDAO.cs" />
     <Compile Include="CaseFollowUpDAO.cs" />
     <Compile Include="CounseledProgramDAO.cs" />
+    <Compile Include="CreditReportDAO.cs" />
     <Compile Include="EvalTemplateDAO.cs" />
     <Compile Include="EvalTemplateSectionQuestionDAO.cs" />
+    <Compile Include="EventDAO.cs" />
     <Compile Include="MSARefDAO.cs" />
     <Compile Include="NonProfitReferralDAO.cs" />
     <Compile Include="PPBudgetDAO.cs" />

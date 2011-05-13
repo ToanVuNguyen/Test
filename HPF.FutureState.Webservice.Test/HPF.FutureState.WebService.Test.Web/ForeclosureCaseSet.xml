@@ -209,5 +209,16 @@
       <BudgetItemAmt>0</BudgetItemAmt>
       <BudgetNote></BudgetNote>
     </ProposedBudgetItem>
-  </BudgetItemSet>  
+  </BudgetItemSet>
+  <CreditReportSet>
+    <CreditReport>
+      <CreditPullDt>05/11/2011</CreditPullDt>
+      <CreditScore>6</CreditScore>
+      <CreditBureauCd>EXPERION</CreditBureauCd>
+      <RevolvingBal>10</RevolvingBal>
+      <RevolvingLimitAmt>10</RevolvingLimitAmt>
+      <InstallmentBal>10</InstallmentBal>
+      <InstallmentLimitAmt>10</InstallmentLimitAmt>
+    </CreditReport>
+  </CreditReportSet>
 </ForeclosureCaseSet>  

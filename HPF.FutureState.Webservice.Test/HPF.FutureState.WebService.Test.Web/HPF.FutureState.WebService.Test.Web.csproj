@@ -95,6 +95,13 @@
     <Compile Include="RetrieveCallLog.aspx.designer.cs">
       <DependentUpon>RetrieveCallLog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SaveEvent.aspx.cs">
+      <DependentUpon>SaveEvent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SaveEvent.aspx.designer.cs">
+      <DependentUpon>SaveEvent.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SaveForeclosureCase.aspx.cs">
       <DependentUpon>SaveForeclosureCase.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -157,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CallLogWSDTO.xml" />
+    <Content Include="Event.xml" />
     <Content Include="ICTSearchCall.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="ForeclosureCaseSet.xml" />
@@ -165,6 +173,7 @@
     <Content Include="Menu.xml" />
     <Content Include="PrePurchaseCaseSet.xml" />
     <Content Include="RetrieveCallLog.aspx" />
+    <Content Include="SaveEvent.aspx" />
     <Content Include="SaveForeclosureCase.aspx" />
     <Content Include="SavePrePurchaseCase.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />

@@ -185,7 +185,35 @@ namespace HPF.FutureState.WebService.Test.Web
             }
 
         }
-
+        public static List<CreditReportDTO_App> ParseCreditReportItemDTO(XDocument xdoc)
+        {
+            try
+            {
+                var objs = from obj in xdoc.Descendants("CreditReport")
+                           select new CreditReportDTO_App
+                           {
+                               CreditBureauCd = Util.ConvertToString(obj.Element("CreditBureauCd")),
+                               CreditPullDt = Util.ConvertToDateTime(obj.Element("CreditPullDt")),
+                               CreditScore = Util.ConvertToString(obj.Element("CreditScore")),
+                               InstallmentBal = Util.ConvertToDouble(obj.Element("InstallmentBal")),
+                               InstallmentLimitAmt = Util.ConvertToDouble(obj.Element("InstallmentLimitAmt")),
+                               RevolvingBal = Util.ConvertToDouble(obj.Element("RevolvingBal")),
+                               RevolvingLimitAmt = Util.ConvertToDouble(obj.Element("RevolvingLimitAmt"))
+                           };
+                int i = 1;
+                List<CreditReportDTO_App> list = objs.ToList<CreditReportDTO_App>();
+                foreach (var item in list)
+                {
+                    item.CreditReportId = i;
+                    i++;
+                }
+                return list;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+        }
         //public static List<ActivityLogDTO> ParseActivityLogDTO(XDocument xdoc)
         //{
             //try
@@ -503,6 +531,33 @@ namespace HPF.FutureState.WebService.Test.Web
         }
         #endregion
 
+        #region Event
+        public static EventDTO ParseEventDTO(XDocument xdoc)
+        {
+            try
+            {
+                var objs = from obj in xdoc.Descendants("Event")
+                           select new EventDTO
+                           {
+                               CompletedInd = Util.ConvertToString(obj.Element("CompletedInd")),
+                               CounselorIdRef = Util.ConvertToString(obj.Element("CounselorIdRef")),
+                               EventDt = Util.ConvertToDateTime(obj.Element("EventDt")),
+                               EventOutcomeCd = Util.ConvertToString(obj.Element("EventOutcomeCd")),
+                               EventTypeCd = Util.ConvertToString(obj.Element("EventTypeCd")),
+                               ProgramStageId = Util.ConvertToInt(obj.Element("ProgramStageId")),
+                               RpcInd = Util.ConvertToString(obj.Element("RpcInd")),
+                               ChgLstUserId = Util.ConvertToString(obj.Element("ChgLstUserId"))
+                           };
+                EventDTO anEvent = objs.ToList<EventDTO>()[0];
+                return anEvent;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+
+        }
+        #endregion
     }
 
     public class CaseLoanDTO_App : CaseLoanDTO
@@ -608,6 +663,37 @@ namespace HPF.FutureState.WebService.Test.Web
                 ExtRefOtherName = outcome.ExtRefOtherName,
                 NonprofitreferralKeyNum = outcome.NonprofitreferralKeyNum,
                 OutcomeTypeId = outcome.OutcomeTypeId
+            };
+        }
+    }
+
+    public class CreditReportDTO_App : CreditReportDTO
+    {
+        public int? CreditReportId { get; set; }
+        public CreditReportDTO ConvertToBase()
+        {
+            return new CreditReportDTO()
+            {
+                CreditBureauCd = this.CreditBureauCd,
+                CreditScore = this.CreditScore,
+                CreditPullDt = this.CreditPullDt,
+                InstallmentBal = this.InstallmentBal,
+                InstallmentLimitAmt = this.InstallmentLimitAmt,
+                RevolvingBal = this.RevolvingBal,
+                RevolvingLimitAmt = this.RevolvingLimitAmt
+            };
+        }
+        public CreditReportDTO_App ConvertFromBase(CreditReportDTO creditReport)
+        {
+            return new CreditReportDTO_App()
+            {
+                CreditBureauCd =creditReport.CreditBureauCd,
+                CreditPullDt = creditReport.CreditPullDt,
+                CreditScore = creditReport.CreditScore,
+                InstallmentBal = creditReport.InstallmentBal,
+                InstallmentLimitAmt = creditReport.InstallmentLimitAmt,
+                RevolvingBal = creditReport.RevolvingBal,
+                RevolvingLimitAmt = creditReport.RevolvingLimitAmt
             };
         }
     }

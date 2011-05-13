@@ -24,6 +24,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public OutcomeItemDTOCollection Outcome { get; set; }
 
+        public CreditReportDTOCollection CreditReport { get; set; }
+
         [XmlIgnore]
         public ActivityLogDTOCollection ActivityLog { get; set; }
 
