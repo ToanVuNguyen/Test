@@ -56,7 +56,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         private string _eventOutcomeCd;
-        [StringRequiredValidator(Tag = ErrorMessages.ERR1200, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR1204, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Event Outcome Code", Ruleset = Constant.RULESET_LENGTH)]
         public string EventOutcomeCd
         {
@@ -82,7 +82,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         private string _counselorIdRef;
-        [StringRequiredValidator(Tag = ErrorMessages.ERR1200, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR1207, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 30, "CounselorIdRef", Ruleset = Constant.RULESET_LENGTH)]
         public string CounselorIdRef
         {

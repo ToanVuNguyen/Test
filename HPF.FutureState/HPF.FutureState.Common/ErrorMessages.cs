@@ -1142,6 +1142,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1178, "ApplicantId is not exist!");
                 errorMessageDict.Add(ERR1179, "AgencyId must equal SentToAgencyId for ApplicantId");
                 errorMessageDict.Add(ERR1180, "NoRPCReason is required if RightPartyContactInd='N'");
+
+                //CreditReport
                 errorMessageDict.Add(ERR1175, "CreditScore has a maximum length of 4 characters.");
                 errorMessageDict.Add(ERR1181, "CreditBureauCd has a maximum length of 15 characters.");
                 errorMessageDict.Add(ERR1182, "RevolvingBal must be a valid number with 2 decimal places.");
@@ -1153,20 +1155,21 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1188, "");
                 errorMessageDict.Add(ERR1189, "");
 
+                //Event
                 errorMessageDict.Add(ERR1200, "An EventTypeCd is required to save an event.");
                 errorMessageDict.Add(ERR1201, "An EventDt is required to save an event.");
                 errorMessageDict.Add(ERR1202, "A RpcInd is required to save an event.");
-                errorMessageDict.Add(ERR1203, "RpcInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1203, "RpcInd must be either a Y, N.");
                 errorMessageDict.Add(ERR1204, "An EventOutcomeCd is required to save an event.");
                 errorMessageDict.Add(ERR1205, "A CompleteInd is required to save an event.");
-                errorMessageDict.Add(ERR1206, "A CompleteInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1206, "A CompleteInd must be either a Y, N.");
                 errorMessageDict.Add(ERR1207, "A CounselorIdRef is required to save an event.");
-                errorMessageDict.Add(ERR1208, "A FcId is required to save an event.");
+                errorMessageDict.Add(ERR1208, "A HPF FcId is required to save an event.");
                 errorMessageDict.Add(ERR1209, "A ProgramStageId is required to save an event.");
                 errorMessageDict.Add(ERR1210, "A null event is not allowed to insert.");
-                errorMessageDict.Add(ERR1211, "A invalid code was provided for EventTypeCd.");
-                errorMessageDict.Add(ERR1212, "A invalid code was provided for EventOutcomeCd.");
-                errorMessageDict.Add(ERR1213, "A FcId is invalid.");
+                errorMessageDict.Add(ERR1211, "An invalid code was provided for EventTypeCd.");
+                errorMessageDict.Add(ERR1212, "An invalid code was provided for EventOutcomeCd.");
+                errorMessageDict.Add(ERR1213, "An invalid HPF FcId was provided.  Please correct the FcId and resend the event.");
                 errorMessageDict.Add(ERR1214, "A ProgramStageId is invalid.");
                 errorMessageDict.Add(ERR1215, "Program stage does not belong to program of foreclosure case.");
                 errorMessageDict.Add(ERR1216, "A ChgLstUserId is required to save an event.");

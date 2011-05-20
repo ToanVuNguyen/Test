@@ -2129,7 +2129,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CreditReportDTO item in creditReportCollection)
             {
-                if (string.Compare(creditReport.CreditPullDt.Value.ToString("ddMMyyyy"), item.CreditPullDt.Value.ToString("ddMMyyyy")) == 0)
+                if (string.Compare(creditReport.CreditPullDt.Value.ToString("ddMMyyyy"), item.CreditPullDt.Value.ToString("ddMMyyyy")) == 0
+                    && string.Compare(creditReport.CreditBureauCd.ToUpper(),item.CreditBureauCd.ToUpper()))
                     return true;
             }
             return false;
@@ -2146,9 +2147,9 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CreditReportDTO item in creditReportCollection)
             {
-                if (string.Compare(creditReport.CreditPullDt.Value.ToString("ddMMyyyy"), item.CreditPullDt.Value.ToString("ddMMyyyy")) == 0)
-                    if (item.CreditBureauCd != creditReport.CreditBureauCd
-                        || item.CreditScore != creditReport.CreditScore
+                if (string.Compare(creditReport.CreditPullDt.Value.ToString("ddMMyyyy"), item.CreditPullDt.Value.ToString("ddMMyyyy")) == 0
+                    && string.Compare(creditReport.CreditBureauCd.ToUpper(), item.CreditBureauCd.ToUpper()))
+                    if (item.CreditScore != creditReport.CreditScore
                         || item.InstallmentBal != creditReport.InstallmentBal
                         || item.InstallmentLimitAmt != creditReport.InstallmentLimitAmt
                         || item.RevolvingBal != creditReport.RevolvingBal
