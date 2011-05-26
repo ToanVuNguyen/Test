@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <State>$base64$PFNvdXJjZUNvbnRyb2xJbmZvIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOmR3ZD0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9EYXRhV2FyZWhvdXNlL0Rlc2lnbmVyLzEuMCI+DQogIDxFbmFibGVkPmZhbHNlPC9FbmFibGVkPg0KICA8UHJvamVjdE5hbWU+PC9Qcm9qZWN0TmFtZT4NCiAgPEF1eFBhdGg+PC9BdXhQYXRoPg0KICA8TG9jYWxQYXRoPjwvTG9jYWxQYXRoPg0KICA8UHJvdmlkZXI+PC9Qcm92aWRlcj4NCjwvU291cmNlQ29udHJvbEluZm8+</State>
+  <DataSources>
+    <ProjectItem>
+      <Name>ds_HPF_Agency.rds</Name>
+      <FullPath>ds_HPF_Agency.rds</FullPath>
+    </ProjectItem>
+  </DataSources>
+  <Reports>
+    <ResourceProjectItem>
+      <Name>image.hpf_logo.gif</Name>
+      <FullPath>image.hpf_logo.gif</FullPath>
+      <MimeType>image/gif</MimeType>
+    </ResourceProjectItem>
+    <ProjectItem>
+      <Name>rpt_AgencyQualityDetail.rdl</Name>
+      <FullPath>rpt_AgencyQualityDetail.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CaseFundingReport.rdl</Name>
+      <FullPath>rpt_CaseFundingReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CompletedCounselingByCounselor.rdl</Name>
+      <FullPath>rpt_CompletedCounselingByCounselor.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CompletedCounselingDetail.rdl</Name>
+      <FullPath>rpt_CompletedCounselingDetail.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CounselingSummary.rdl</Name>
+      <FullPath>rpt_CounselingSummary.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_IncompleteSessionsDetail.rdl</Name>
+      <FullPath>rpt_IncompleteSessionsDetail.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_ServicerRejectReport.rdl</Name>
+      <FullPath>rpt_ServicerRejectReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_AgencyFieldComplianceReport.rdl</Name>
+      <FullPath>rpt_AgencyFieldComplianceReport.rdl</FullPath>
+    </ProjectItem>
+  </Reports>
+  <Configurations>
+    <Configuration>
+      <Name>Debug</Name>
+      <Platform>Win32</Platform>
+      <Options>
+        <TargetFolder>CCCS Atlanta</TargetFolder>
+        <TargetDataSourceFolder>Data Sources</TargetDataSourceFolder>
+      </Options>
+    </Configuration>
+    <Configuration>
+      <Name>DebugLocal</Name>
+      <Platform>Win32</Platform>
+      <Options>
+        <TargetServerURL>http://hpf-04:8088/</TargetServerURL>
+        <TargetFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/Reports/CredAbility</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
+      </Options>
+    </Configuration>
+    <Configuration>
+      <Name>Production</Name>
+      <Platform>Win32</Platform>
+      <Options>
+        <TargetFolder>CCCS Atlanta</TargetFolder>
+        <TargetDataSourceFolder>Data Sources</TargetDataSourceFolder>
+      </Options>
+    </Configuration>
+  </Configurations>
+</Project>

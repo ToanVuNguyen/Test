@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <DataSources>
-    <DataSource Name="ds_HPF">
-      <rd:DataSourceID>3f41f13f-2c6f-44c9-9b45-078ad3c517cc</rd:DataSourceID>
-      <DataSourceReference>ds_HPF</DataSourceReference>
+    <DataSource Name="ds_HPF_Agency">
+      <rd:DataSourceID>6bbc8b80-9ea1-4664-acb3-7accc6304141</rd:DataSourceID>
+      <DataSourceReference>ds_HPF_Agency</DataSourceReference>
     </DataSource>
   </DataSources>
   <InteractiveHeight>11in</InteractiveHeight>
@@ -18,9 +18,6 @@
       <Prompt>Year</Prompt>
       <ValidValues>
         <ParameterValues>
-          <ParameterValue>
-            <Value>2009</Value>
-          </ParameterValue>
           <ParameterValue>
             <Value>2010</Value>
           </ParameterValue>
@@ -53,6 +50,11 @@
     </ReportParameter>
     <ReportParameter Name="pi_agency_id">
       <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=18361</Value>
+        </Values>
+      </DefaultValue>
       <Prompt>Agency</Prompt>
       <ValidValues>
         <DataSetReference>
@@ -61,6 +63,7 @@
           <LabelField>agency_name</LabelField>
         </DataSetReference>
       </ValidValues>
+      <Hidden>true</Hidden>
     </ReportParameter>
   </ReportParameters>
   <rd:DrawGrid>true</rd:DrawGrid>
@@ -143,7 +146,7 @@
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
+        <DataSourceName>ds_HPF_Agency</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>hpf_rpt_ServicerRejectReport</CommandText>
         <QueryParameters>
@@ -172,7 +175,7 @@
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
+        <DataSourceName>ds_HPF_Agency</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>hpf_agency_get</CommandText>
       </Query>

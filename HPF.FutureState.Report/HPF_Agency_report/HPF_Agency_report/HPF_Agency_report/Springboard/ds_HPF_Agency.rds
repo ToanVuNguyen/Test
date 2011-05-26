@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>ds_HPF_Agency</Name>
+  <DataSourceID>781aa8b4-bf1a-46b6-908a-89df2940a897</DataSourceID>
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=HPF-01;Initial Catalog=hpf</ConnectString>
+  </ConnectionProperties>
+</RptDataSource>
