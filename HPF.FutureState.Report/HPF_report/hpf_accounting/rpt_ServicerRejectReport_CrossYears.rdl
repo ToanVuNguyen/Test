@@ -2,11 +2,12 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <DataSources>
     <DataSource Name="ds_HPF">
-      <rd:DataSourceID>3f41f13f-2c6f-44c9-9b45-078ad3c517cc</rd:DataSourceID>
       <DataSourceReference>ds_HPF</DataSourceReference>
+      <rd:DataSourceID>3f41f13f-2c6f-44c9-9b45-078ad3c517cc</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <InteractiveHeight>11in</InteractiveHeight>
+  <BottomMargin>1in</BottomMargin>
+  <RightMargin>1in</RightMargin>
   <ReportParameters>
     <ReportParameter Name="pi_from_month">
       <DataType>String</DataType>
@@ -218,57 +219,234 @@
   <rd:DrawGrid>true</rd:DrawGrid>
   <InteractiveWidth>8.5in</InteractiveWidth>
   <rd:SnapToGrid>true</rd:SnapToGrid>
-  <RightMargin>1in</RightMargin>
-  <LeftMargin>1in</LeftMargin>
-  <BottomMargin>1in</BottomMargin>
+  <Body>
+    <ReportItems>
+      <Matrix Name="matrix1">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1.5in</Width>
+            <DynamicRows>
+              <ReportItems>
+                <Textbox Name="textbox6">
+                  <rd:DefaultName>textbox6</rd:DefaultName>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontWeight>700</FontWeight>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>="Agency " &amp; Fields!agency_name.Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Grouping Name="matrix1_RowGroup2">
+                <PageBreakAtEnd>true</PageBreakAtEnd>
+                <GroupExpressions>
+                  <GroupExpression>=Fields!agency_name.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicRows>
+          </RowGrouping>
+          <RowGrouping>
+            <Width>2.625in</Width>
+            <DynamicRows>
+              <ReportItems>
+                <Textbox Name="textbox7">
+                  <rd:DefaultName>textbox7</rd:DefaultName>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontWeight>= IIF(Fields!reject_reason.Value = "zTotal" OR Fields!reject_reason.Value = "Ratio", "Bold", "Normal")</FontWeight>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=IIF(Fields!reject_reason.Value = "zTotal", "Total", Fields!reject_reason.Value)</Value>
+                </Textbox>
+              </ReportItems>
+              <Grouping Name="matrix1_RowGroup3">
+                <Parent>=Fields!agency_name.Value</Parent>
+                <GroupExpressions>
+                  <GroupExpression>=Fields!reject_reason.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <DynamicColumns>
+              <ReportItems>
+                <Textbox Name="mon_yyyy_1">
+                  <rd:DefaultName>mon_yyyy_1</rd:DefaultName>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <TextAlign>Center</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontWeight>700</FontWeight>
+                    <FontSize>9pt</FontSize>
+                    <BackgroundColor>Navy</BackgroundColor>
+                    <Color>White</Color>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!mon_yyyy.Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Grouping Name="matrix1_mon_yyyy">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!mon_yyyy.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicColumns>
+            <Height>0.25in</Height>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <DataSetName>dst_hpf_rpt_ServicerRejectReport_CrossYears</DataSetName>
+        <Top>0.88542in</Top>
+        <ZIndex>3</ZIndex>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox2">
+              <rd:DefaultName>textbox2</rd:DefaultName>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingBottom>2pt</PaddingBottom>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+              </Style>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.25in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="Cnt_1">
+                    <rd:DefaultName>Cnt_1</rd:DefaultName>
+                    <Style>
+                      <BorderStyle>
+                        <Default>Solid</Default>
+                      </BorderStyle>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <Format>=IIF(Fields!mon_yyyy.Value = "Percentage" OR Fields!reject_reason.Value = "Percentage of Total Rejects" OR Fields!reject_reason.Value = "Percentage of Completed Sessions" , "P1", IIF(Fields!reject_reason.Value = "Ratio", "N2", "N0"))</Format>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=IIF(Sum(Fields!Cnt.Value) = Nothing AND Fields!mon_yyyy.Value &lt;&gt; "Percentage", 0, Sum(Fields!Cnt.Value))</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+      </Matrix>
+      <Textbox Name="textbox11">
+        <Top>0.625in</Top>
+        <ZIndex>2</ZIndex>
+        <Width>4.125in</Width>
+        <Style>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>="From "&amp; CStr(Parameters!pi_from_month.label) &amp; "-" &amp; CStr(Parameters!pi_from_year.Value) &amp; " to " &amp; CStr(Parameters!pi_to_month.Label) &amp; "-" &amp; CStr(Parameters!pi_to_year.Value)</Value>
+      </Textbox>
+      <Textbox Name="textbox10">
+        <Top>0.36458in</Top>
+        <rd:DefaultName>textbox10</rd:DefaultName>
+        <ZIndex>1</ZIndex>
+        <Width>4.125in</Width>
+        <Style>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>= "Report Date " &amp; CStr(Today)</Value>
+      </Textbox>
+      <Textbox Name="textbox8">
+        <rd:DefaultName>textbox8</rd:DefaultName>
+        <Width>4.125in</Width>
+        <Style>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>16pt</FontSize>
+          <Color>Navy</Color>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.35in</Height>
+        <Value>Servicer Reject Report</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>1.38542in</Height>
+  </Body>
   <rd:ReportID>2a7014cc-4a63-42ac-b463-58d33b11278b</rd:ReportID>
+  <LeftMargin>1in</LeftMargin>
   <DataSets>
     <DataSet Name="dst_hpf_agency_get">
-      <Fields>
-        <Field Name="agency_id">
-          <DataField>agency_id</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="agency_name">
-          <DataField>agency_name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ID">
-          <DataField />
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
       <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>hpf_agency_get</CommandText>
+        <DataSourceName>ds_HPF</DataSourceName>
       </Query>
-    </DataSet>
-    <DataSet Name="dst_hpf_rpt_ServicerRejectReport_CrossYears">
       <Fields>
+        <Field Name="agency_id">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>agency_id</DataField>
+        </Field>
         <Field Name="agency_name">
+          <rd:TypeName>System.String</rd:TypeName>
           <DataField>agency_name</DataField>
+        </Field>
+        <Field Name="ID">
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="reject_reason">
-          <DataField>reject_reason</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="mon_yyyy">
-          <DataField>mon_yyyy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Cnt">
-          <DataField>Cnt</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="sort_order">
-          <DataField>sort_order</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField />
         </Field>
       </Fields>
+    </DataSet>
+    <DataSet Name="dst_hpf_rpt_ServicerRejectReport_CrossYears">
       <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>hpf_rpt_ServicerRejectReport_CrossYears</CommandText>
         <QueryParameters>
@@ -288,212 +466,34 @@
             <Value>=Parameters!pi_agency_id.Value</Value>
           </QueryParameter>
         </QueryParameters>
+        <DataSourceName>ds_HPF</DataSourceName>
       </Query>
+      <Fields>
+        <Field Name="agency_name">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>agency_name</DataField>
+        </Field>
+        <Field Name="reject_reason">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>reject_reason</DataField>
+        </Field>
+        <Field Name="mon_yyyy">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>mon_yyyy</DataField>
+        </Field>
+        <Field Name="Cnt">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>Cnt</DataField>
+        </Field>
+        <Field Name="sort_order">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>sort_order</DataField>
+        </Field>
+      </Fields>
     </DataSet>
   </DataSets>
   <Width>5.125in</Width>
-  <Body>
-    <ReportItems>
-      <Matrix Name="matrix1">
-        <MatrixColumns>
-          <MatrixColumn>
-            <Width>1in</Width>
-          </MatrixColumn>
-        </MatrixColumns>
-        <ZIndex>3</ZIndex>
-        <DataSetName>dst_hpf_rpt_ServicerRejectReport_CrossYears</DataSetName>
-        <RowGroupings>
-          <RowGrouping>
-            <Width>1.5in</Width>
-            <DynamicRows>
-              <Grouping Name="matrix1_RowGroup2">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!agency_name.Value</GroupExpression>
-                </GroupExpressions>
-                <PageBreakAtEnd>true</PageBreakAtEnd>
-              </Grouping>
-              <ReportItems>
-                <Textbox Name="textbox6">
-                  <rd:DefaultName>textbox6</rd:DefaultName>
-                  <Style>
-                    <BorderStyle>
-                      <Default>Solid</Default>
-                    </BorderStyle>
-                    <FontWeight>700</FontWeight>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                  <ZIndex>2</ZIndex>
-                  <CanGrow>true</CanGrow>
-                  <Value>="Agency " &amp; Fields!agency_name.Value</Value>
-                </Textbox>
-              </ReportItems>
-            </DynamicRows>
-          </RowGrouping>
-          <RowGrouping>
-            <Width>2.625in</Width>
-            <DynamicRows>
-              <Grouping Name="matrix1_RowGroup3">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!reject_reason.Value</GroupExpression>
-                </GroupExpressions>
-                <Parent>=Fields!agency_name.Value</Parent>
-              </Grouping>
-              <ReportItems>
-                <Textbox Name="textbox7">
-                  <rd:DefaultName>textbox7</rd:DefaultName>
-                  <Style>
-                    <BorderStyle>
-                      <Default>Solid</Default>
-                    </BorderStyle>
-                    <FontWeight>= IIF(Fields!reject_reason.Value = "zTotal" OR Fields!reject_reason.Value = "Ratio", "Bold", "Normal")</FontWeight>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                  <ZIndex>1</ZIndex>
-                  <CanGrow>true</CanGrow>
-                  <Value>=IIF(Fields!reject_reason.Value = "zTotal", "Total", Fields!reject_reason.Value)</Value>
-                </Textbox>
-              </ReportItems>
-            </DynamicRows>
-          </RowGrouping>
-        </RowGroupings>
-        <Top>0.88542in</Top>
-        <ColumnGroupings>
-          <ColumnGrouping>
-            <Height>0.25in</Height>
-            <DynamicColumns>
-              <Grouping Name="matrix1_mon_yyyy">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!mon_yyyy.Value</GroupExpression>
-                </GroupExpressions>
-              </Grouping>
-              <ReportItems>
-                <Textbox Name="mon_yyyy_1">
-                  <rd:DefaultName>mon_yyyy_1</rd:DefaultName>
-                  <Style>
-                    <Color>White</Color>
-                    <BackgroundColor>Navy</BackgroundColor>
-                    <BorderStyle>
-                      <Default>Solid</Default>
-                    </BorderStyle>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>700</FontWeight>
-                    <TextAlign>Center</TextAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                  <ZIndex>3</ZIndex>
-                  <CanGrow>true</CanGrow>
-                  <Value>=Fields!mon_yyyy.Value</Value>
-                </Textbox>
-              </ReportItems>
-            </DynamicColumns>
-          </ColumnGrouping>
-        </ColumnGroupings>
-        <Corner>
-          <ReportItems>
-            <Textbox Name="textbox2">
-              <rd:DefaultName>textbox2</rd:DefaultName>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-              <ZIndex>4</ZIndex>
-              <CanGrow>true</CanGrow>
-              <Value />
-            </Textbox>
-          </ReportItems>
-        </Corner>
-        <MatrixRows>
-          <MatrixRow>
-            <Height>0.25in</Height>
-            <MatrixCells>
-              <MatrixCell>
-                <ReportItems>
-                  <Textbox Name="Cnt_1">
-                    <rd:DefaultName>Cnt_1</rd:DefaultName>
-                    <Style>
-                      <BorderStyle>
-                        <Default>Solid</Default>
-                      </BorderStyle>
-                      <Format>=IIF(Fields!mon_yyyy.Value = "Percentage" OR Fields!reject_reason.Value = "Percentage of Total Rejects" OR Fields!reject_reason.Value = "Percentage of Completed Sessions"  OR Fields!reject_reason.Value = "Ratio", "P2", "N0")</Format>
-                      <TextAlign>Right</TextAlign>
-                      <PaddingLeft>2pt</PaddingLeft>
-                      <PaddingRight>2pt</PaddingRight>
-                      <PaddingTop>2pt</PaddingTop>
-                      <PaddingBottom>2pt</PaddingBottom>
-                    </Style>
-                    <CanGrow>true</CanGrow>
-                    <Value>=IIF(Sum(Fields!Cnt.Value) = Nothing AND Fields!mon_yyyy.Value &lt;&gt; "Percentage", 0, Sum(Fields!Cnt.Value))</Value>
-                  </Textbox>
-                </ReportItems>
-              </MatrixCell>
-            </MatrixCells>
-          </MatrixRow>
-        </MatrixRows>
-      </Matrix>
-      <Textbox Name="textbox11">
-        <Top>0.625in</Top>
-        <Width>4.125in</Width>
-        <Style>
-          <TextAlign>Left</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>2</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Height>0.25in</Height>
-        <Value>="From "&amp; CStr(Parameters!pi_from_month.label) &amp; "-" &amp; CStr(Parameters!pi_from_year.Value) &amp; " to " &amp; CStr(Parameters!pi_to_month.Label) &amp; "-" &amp; CStr(Parameters!pi_to_year.Value)</Value>
-      </Textbox>
-      <Textbox Name="textbox10">
-        <rd:DefaultName>textbox10</rd:DefaultName>
-        <Top>0.36458in</Top>
-        <Width>4.125in</Width>
-        <Style>
-          <TextAlign>Left</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>1</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Height>0.25in</Height>
-        <Value>= "Report Date " &amp; CStr(Today)</Value>
-      </Textbox>
-      <Textbox Name="textbox8">
-        <rd:DefaultName>textbox8</rd:DefaultName>
-        <Width>4.125in</Width>
-        <Style>
-          <Color>Navy</Color>
-          <FontSize>16pt</FontSize>
-          <TextAlign>Left</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <CanGrow>true</CanGrow>
-        <Height>0.35in</Height>
-        <Value>Servicer Reject Report</Value>
-      </Textbox>
-    </ReportItems>
-    <Height>1.38542in</Height>
-  </Body>
+  <InteractiveHeight>11in</InteractiveHeight>
   <Language>en-US</Language>
   <TopMargin>1in</TopMargin>
 </Report>
