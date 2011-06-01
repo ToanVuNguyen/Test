@@ -631,6 +631,7 @@ namespace HPF.FutureState.BusinessLogic
             string FcIdList = "";
             string FcIdInvalidList = "";
             int count = 0;
+            WarningMessage = new ExceptionMessageCollection();
             DataValidationException dataVaidEx = new DataValidationException();
 
             if (excelStream == null || excelStream.Length == 0)
@@ -675,7 +676,6 @@ namespace HPF.FutureState.BusinessLogic
             }
             if (FcIdInvalidList.Length > 0)
             {
-                WarningMessage = new ExceptionMessageCollection();
                 WarningMessage.AddExceptionMessage("WARNING", String.Format("List of fcIds can not find a rejected invoice case : {0}", FcIdInvalidList));
             }
             if (IcIdList == "")

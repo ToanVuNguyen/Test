@@ -2130,7 +2130,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach (CreditReportDTO item in creditReportCollection)
             {
                 if (string.Compare(creditReport.CreditPullDt.Value.ToString("ddMMyyyy"), item.CreditPullDt.Value.ToString("ddMMyyyy")) == 0
-                    && string.Compare(creditReport.CreditBureauCd.ToUpper(),item.CreditBureauCd.ToUpper()))
+                    && string.Compare(creditReport.CreditBureauCd.ToUpper(),item.CreditBureauCd.ToUpper())==0)
                     return true;
             }
             return false;
@@ -2148,7 +2148,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach (CreditReportDTO item in creditReportCollection)
             {
                 if (string.Compare(creditReport.CreditPullDt.Value.ToString("ddMMyyyy"), item.CreditPullDt.Value.ToString("ddMMyyyy")) == 0
-                    && string.Compare(creditReport.CreditBureauCd.ToUpper(), item.CreditBureauCd.ToUpper()))
+                    && string.Compare(creditReport.CreditBureauCd.ToUpper(), item.CreditBureauCd.ToUpper())==0)
                     if (item.CreditScore != creditReport.CreditScore
                         || item.InstallmentBal != creditReport.InstallmentBal
                         || item.InstallmentLimitAmt != creditReport.InstallmentLimitAmt
