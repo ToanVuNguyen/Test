@@ -14,6 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? FcID { get; set; }
         public DateTime? FcCompletedDt { get; set; }
         public int? ServicerID { get; set; }
+        public int? ProgramID { get; set; }
         public string ServicerName { get; set; }
         public string BorrowerFirstName { get; set; }
         public string BorrowerLastName { get; set; }

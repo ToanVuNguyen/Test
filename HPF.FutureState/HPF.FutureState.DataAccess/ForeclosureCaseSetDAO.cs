@@ -1258,6 +1258,7 @@ namespace HPF.FutureState.DataAccess
                         obj.FcID = ConvertToInt(reader["FC_ID"]);
                         obj.FcCompletedDt = ConvertToDateTime(reader["Completed_dt"]);
                         obj.ServicerID = ConvertToInt(reader["Servicer_ID"]);
+                        obj.ProgramID = ConvertToInt(reader["program_id"]);
                         obj.AgencyCaseNumber = ConvertToString(reader["Agency_Case_Num"]);
                         obj.AgencyName = ConvertToString(reader["Agency_Name"]);
                         obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
@@ -1272,7 +1273,17 @@ namespace HPF.FutureState.DataAccess
                         obj.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
                         obj.OutcomeTypeCode = ConvertToString(reader["outcome_type_name"]);
 
-                        returnCollection.Add(obj);
+                        //Check if the program_id = 5001 (the program id that you determine from the counseled_program_id, sponsor, and campaign) 
+                        //then accept the case if a duplicate with a different program_id already exists 
+                        if (foreclosureCaseSet.ForeclosureCase.ProgramId.HasValue && foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_FNMA_POST_MOD)
+                        {
+                            if (obj.ProgramID.HasValue && obj.ProgramID == Constant.PROGRAM_FNMA_POST_MOD)
+                            {
+                                returnCollection.Add(obj);
+                            }
+                        }
+                        else
+                            returnCollection.Add(obj);
                     }
                 }
                 reader.Close();
