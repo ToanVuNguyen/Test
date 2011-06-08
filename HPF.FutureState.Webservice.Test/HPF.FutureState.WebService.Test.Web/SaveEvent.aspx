@@ -41,6 +41,12 @@
     <table width="100%">
         <tr>
             <td>
+                <asp:Label CssClass = "sidelinks" ID="Label10" runat="server" Text="EventID"></asp:Label>             
+            </td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtEventId" runat="server"></asp:TextBox>
+            </td>
+            <td>
                 <asp:Label CssClass = "sidelinks" ID="Label1" runat="server" Text="FCID"></asp:Label>             
             </td>
             <td>

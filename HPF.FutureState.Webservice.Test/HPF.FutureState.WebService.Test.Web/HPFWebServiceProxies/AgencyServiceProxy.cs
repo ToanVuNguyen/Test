@@ -54,7 +54,8 @@ namespace HPF.Webservice.Agency {
         private System.Threading.SendOrPostCallback SearchForeclosureCaseOperationCompleted;
         
         /// <remarks/>
-        public AgencyWebService() {
+        public AgencyWebService()
+        {
             this.Url = ConfigurationManager.AppSettings["AgencyServiceProxy"];
         }
         
@@ -1903,6 +1904,8 @@ namespace HPF.Webservice.Agency {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://www.homeownershopenetwork.org")]
     public partial class EventDTO : BaseDTO {
         
+        private System.Nullable<int> eventIdField;
+        
         private System.Nullable<int> fcIdField;
         
         private System.Nullable<int> programStageIdField;
@@ -1922,6 +1925,17 @@ namespace HPF.Webservice.Agency {
         private System.Nullable<System.DateTime> programRefusalDtField;
         
         private string chgLstUserIdField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<int> EventId {
+            get {
+                return this.eventIdField;
+            }
+            set {
+                this.eventIdField = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]

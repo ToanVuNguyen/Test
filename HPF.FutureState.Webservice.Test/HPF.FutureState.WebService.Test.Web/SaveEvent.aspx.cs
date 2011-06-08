@@ -46,6 +46,8 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             if (anEvent != null)
             {
+                if (anEvent.EventId.HasValue)
+                    txtEventId.Text = Util.ConvertToString(anEvent.EventId);
                 if (anEvent.FcId.HasValue)
                     txtFcID.Text = Util.ConvertToString(anEvent.FcId);
                 txtProgramStageId.Text = Util.ConvertToString(anEvent.ProgramStageId);
@@ -63,6 +65,7 @@ namespace HPF.FutureState.WebService.Test.Web
         private EventDTO FormToEvent()
         {
             EventDTO anEvent = new EventDTO();
+            anEvent.EventId = Util.ConvertToInt(txtEventId.Text.Trim());
             anEvent.FcId = Util.ConvertToInt(txtFcID.Text.Trim());
             anEvent.ProgramStageId = Util.ConvertToInt(txtProgramStageId.Text.Trim());
             anEvent.EventTypeCd = txtEventTypeCd.Text.Trim();
