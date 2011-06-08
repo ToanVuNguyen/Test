@@ -2675,7 +2675,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 CreditReportDTO creditReport = creditReportCollection[i];
                 if (!string.IsNullOrEmpty(creditReport.CreditBureauCd) && !referenceCode.Validate(ReferenceCode.CREDIT_BURREAU_CODE, creditReport.CreditBureauCd))
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR1217, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1217) + " working on credit report index " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR1181, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1181) + " working on credit report index " + (i + 1));
             }
 
             return msgFcCaseSet;

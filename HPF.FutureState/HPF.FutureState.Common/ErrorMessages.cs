@@ -1145,13 +1145,13 @@ namespace HPF.FutureState.Common
 
                 //CreditReport
                 errorMessageDict.Add(ERR1175, "CreditScore has a maximum length of 4 characters.");
-                errorMessageDict.Add(ERR1181, "CreditBureauCd has a maximum length of 15 characters.");
+                errorMessageDict.Add(ERR1181, "An invalid code was provided for CreditBureauCd.");
                 errorMessageDict.Add(ERR1182, "RevolvingBal must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR1183, "RevolvingLimitAmt must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR1184, "InstallmentBal must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR1185, "InstallmentLimitAmt must be a valid number with 2 decimal places.");
-                errorMessageDict.Add(ERR1186, "A CreditReportDt is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR1187, "");
+                errorMessageDict.Add(ERR1186, "A CreditPullDt is required to save a credit report.");
+                errorMessageDict.Add(ERR1187, "A CreditBureauCd is required to save a credit report.");
                 errorMessageDict.Add(ERR1188, "");
                 errorMessageDict.Add(ERR1189, "");
 
@@ -1161,8 +1161,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1202, "A RpcInd is required to save an event.");
                 errorMessageDict.Add(ERR1203, "RpcInd must be either a Y, N.");
                 errorMessageDict.Add(ERR1204, "An EventOutcomeCd is required to save an event.");
-                errorMessageDict.Add(ERR1205, "A CompleteInd is required to save an event.");
-                errorMessageDict.Add(ERR1206, "A CompleteInd must be either a Y, N.");
+                errorMessageDict.Add(ERR1205, "A CompletedInd is required to save an event.");
+                errorMessageDict.Add(ERR1206, "A CompletedInd must be either a Y, N.");
                 errorMessageDict.Add(ERR1207, "A CounselorIdRef is required to save an event.");
                 errorMessageDict.Add(ERR1208, "A HPF FcId is required to save an event.");
                 errorMessageDict.Add(ERR1209, "A ProgramStageId is required to save an event.");
@@ -1173,8 +1173,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1214, "A ProgramStageId is invalid.");
                 errorMessageDict.Add(ERR1215, "Program stage does not belong to program of foreclosure case.");
                 errorMessageDict.Add(ERR1216, "A ChgLstUserId is required to save an event.");
-                errorMessageDict.Add(ERR1217, "An invalid code was provided for CreditBureauCd.");
-                errorMessageDict.Add(ERR1218, "");
+                errorMessageDict.Add(ERR1217, "An invalid EventID was provided.  Please correct the EventID and resend the event.");
+                errorMessageDict.Add(ERR1218, "EventId {0} does not belong to FcId {1}.");
                 errorMessageDict.Add(ERR1219, ""); 
                 errorMessageDict.Add(ERR1220, "");
             }

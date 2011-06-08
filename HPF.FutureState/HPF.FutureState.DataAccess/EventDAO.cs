@@ -90,20 +90,22 @@ namespace HPF.FutureState.DataAccess
 
             #region parameters
             //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[11];
-            sqlParam[0] = new SqlParameter("@pi_event_id", anEvent.EventId);
-            sqlParam[1] = new SqlParameter("@pi_program_stage_id", anEvent.ProgramStageId);
-            sqlParam[2] = new SqlParameter("@pi_event_type_cd", anEvent.EventTypeCd);
-            sqlParam[3] = new SqlParameter("@pi_rpc_ind", anEvent.RpcInd);
-            sqlParam[4] = new SqlParameter("@pi_event_outcome_cd", anEvent.EventOutcomeCd);
-            sqlParam[5] = new SqlParameter("@pi_completed_ind", anEvent.CompletedInd);
-            sqlParam[6] = new SqlParameter("@pi_counselor_id_ref", anEvent.CounselorIdRef);
-            sqlParam[7] = new SqlParameter("@pi_program_refusal_dt", NullableDateTime(anEvent.ProgramRefusalDt));
+            SqlParameter[] sqlParam = new SqlParameter[13];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", anEvent.FcId);
+            sqlParam[1] = new SqlParameter("@pi_event_id", anEvent.EventId);
+            sqlParam[2] = new SqlParameter("@pi_program_stage_id", anEvent.ProgramStageId);
+            sqlParam[3] = new SqlParameter("@pi_event_type_cd", anEvent.EventTypeCd);
+            sqlParam[4] = new SqlParameter("@pi_event_dt", NullableDateTime(anEvent.EventDt));
+            sqlParam[5] = new SqlParameter("@pi_rpc_ind", anEvent.RpcInd);
+            sqlParam[6] = new SqlParameter("@pi_event_outcome_cd", anEvent.EventOutcomeCd);
+            sqlParam[7] = new SqlParameter("@pi_completed_ind", anEvent.CompletedInd);
+            sqlParam[8] = new SqlParameter("@pi_counselor_id_ref", anEvent.CounselorIdRef);
+            sqlParam[9] = new SqlParameter("@pi_program_refusal_dt", NullableDateTime(anEvent.ProgramRefusalDt));
 
             
-            sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(anEvent.ChangeLastDate));
-            sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", anEvent.ChangeLastUserId);
-            sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", anEvent.ChangeLastAppName);
+            sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(anEvent.ChangeLastDate));
+            sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", anEvent.ChangeLastUserId);
+            sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", anEvent.ChangeLastAppName);
 
             //</Parameter>
             #endregion
@@ -172,6 +174,63 @@ namespace HPF.FutureState.DataAccess
             return returnObject;
         }
 
+        public EventDTO GetEvent(int? eventId)
+        {
+            EventDTO returnObject = null;
+            SqlConnection dbConnection = base.CreateConnection();
+            try
+            {
+                SqlCommand command = base.CreateCommand("hpf_event_get", dbConnection);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_event_id", eventId);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        #region set Event value
+                        returnObject = new EventDTO();
+                        returnObject.FcId = ConvertToInt(reader["fc_id"]);
+                        returnObject.ProgramStageId = ConvertToInt(reader["program_stage_id"]);
+                        returnObject.EventTypeCd = ConvertToString(reader["event_type_cd"]);
+                        returnObject.EventDt = ConvertToDateTime(reader["event_dt"]);
+                        returnObject.RpcInd = ConvertToString(reader["rpc_ind"]);
+                        returnObject.EventOutcomeCd = ConvertToString(reader["event_outcome_cd"]);
+                        returnObject.CompletedInd = ConvertToString(reader["completed_ind"]);
+                        returnObject.CounselorIdRef = ConvertToString(reader["counselor_id_ref"]);
+                        returnObject.ProgramRefusalDt = ConvertToDateTime(reader["program_refusal_dt"]);
+                        
+                        #endregion
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return returnObject;
+        }
+
+        /// <summary>
+        /// Return 0 if it does not exist event with fcId and eventDt
+        /// else return eventId
+        /// </summary>
+        /// <param name="fcId"></param>
+        /// <param name="eventDt"></param>
+        /// <returns></returns>
         public int? CheckExistingFcIdAndEventDt(int? fcId, DateTime? eventDt)
         {
             int? eventId = 0;

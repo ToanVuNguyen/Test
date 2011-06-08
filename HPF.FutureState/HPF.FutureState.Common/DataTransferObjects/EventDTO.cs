@@ -14,7 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class EventDTO : BaseDTO
     {
-        [XmlIgnore]
+        [XmlElement(IsNullable = true)]
         public int? EventId { get; set; }
 
         [XmlElement(IsNullable = true)]

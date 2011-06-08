@@ -36,7 +36,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="anEvent"></param>
         /// <returns></returns>
-        public EventDTO SaveEvent(EventDTO anEvent)
+        public EventDTO SaveEvent(EventDTO anEvent, int? currentAgencyId)
         {
             int? eventId;
             if (anEvent == null)
@@ -47,29 +47,44 @@ namespace HPF.FutureState.BusinessLogic
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
             ForeclosureCaseDTO fc = LoadForeclosureCaseFromDB(anEvent.FcId);
-            if (fc == null)
+            if ((fc == null) || (fc.AgencyId != currentAgencyId))
                 ThrowDataValidationException(ErrorMessages.ERR1213);
+            
             ProgramStageDTO programStage = LoadProgramStageFromDB(anEvent.ProgramStageId);
             if (programStage == null)
                 ThrowDataValidationException(ErrorMessages.ERR1214);
             if (fc.ProgramId != programStage.ProgramId)
                 ThrowDataValidationException(ErrorMessages.ERR1215);
+            
+            LoadEventFromDB(anEvent);
             _workingUserID = anEvent.ChgLstUserId;
+            if (anEvent.EventId.HasValue)
+                eventId = ProcessInsertUpdateWithEventId(anEvent);
+            else
+                eventId = ProcessInsertUpdateWithoutEventId(anEvent);
+            anEvent.EventId = eventId;
+            return anEvent;
+        }
+
+        private int? ProcessInsertUpdateWithEventId(EventDTO anEvent)
+        {
+            UpdateEvent(anEvent);
+            return anEvent.EventId;
+        }
+        private int? ProcessInsertUpdateWithoutEventId(EventDTO anEvent)
+        {
             //Process insert or update event
-            eventId = CheckExistingFcIdAndEventDt(anEvent.FcId, anEvent.EventDt);
-            if (eventId==0)
+            int? eventId = CheckExistingFcIdAndEventDt(anEvent.FcId, anEvent.EventDt);
+            if (eventId == 0)
             {
-                anEvent.SetInsertTrackingInformation(_workingUserID);
                 eventId = InsertEvent(anEvent);
-                anEvent.EventId = eventId;
             }
             else
             {
-                anEvent.SetUpdateTrackingInformation(_workingUserID);
                 anEvent.EventId = eventId;
                 UpdateEvent(anEvent);
             }
-            return anEvent;
+            return eventId;
         }
         /// <summary>
         /// Check all fields are required by event
@@ -113,6 +128,17 @@ namespace HPF.FutureState.BusinessLogic
             var msgEventSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(anEvent, ruleSet) };
             return msgEventSet;
         }
+
+        private void LoadEventFromDB(EventDTO anEvent)
+        {
+            if (!anEvent.EventId.HasValue) return;
+            EventDTO anEventDB = EventDAO.Instance.GetEvent(anEvent.EventId);
+            if (anEventDB == null)
+                ThrowDataValidationException(ErrorMessages.ERR1217);
+            if (anEvent.FcId != anEventDB.FcId)
+                ThrowDataValidationException(ErrorMessages.ERR1218,ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1218,anEvent.EventId,anEvent.FcId));
+        }
+
         private ForeclosureCaseDTO LoadForeclosureCaseFromDB(int? fcId)
         {
             ForeclosureCaseSetDAO foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
@@ -122,12 +148,18 @@ namespace HPF.FutureState.BusinessLogic
         {
             return EventDAO.Instance.GetProgramStage(programStageId);
         }
+        private EventDTO GetEvent(int? eventId)
+        {
+            return EventDAO.Instance.GetEvent(eventId);
+        }
         private int? InsertEvent(EventDTO anEvent)
         {
+            anEvent.SetInsertTrackingInformation(_workingUserID);
             return EventDAO.Instance.InsertEvent(anEvent);
         }
         private void UpdateEvent(EventDTO anEvent)
         {
+            anEvent.SetUpdateTrackingInformation(_workingUserID);
             EventDAO.Instance.UpdateEvent(anEvent);
         }
         #region Throw Detail Exception
@@ -135,6 +167,12 @@ namespace HPF.FutureState.BusinessLogic
         {
             DataValidationException ex = new DataValidationException();
             ex.ExceptionMessages.AddExceptionMessage(errorCode, ErrorMessages.GetExceptionMessageCombined(errorCode));
+            throw ex;
+        }
+        private void ThrowDataValidationException(string errorCode, string errorMessage)
+        {
+            DataValidationException ex = new DataValidationException();
+            ex.ExceptionMessages.AddExceptionMessage(errorCode, errorMessage);
             throw ex;
         }
         private static void ThrowDataValidationException(ExceptionMessageCollection exDetailCollection)

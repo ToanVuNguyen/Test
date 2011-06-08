@@ -18,13 +18,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? FcId { get; set; }
 
         [RequiredObjectValidator(Tag = ErrorMessages.ERR1186, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CreditReportDt must be between 1/1/1753 and 12/31/9999")]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CreditPullDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? CreditPullDt { get; set; }
 
         [NullableOrStringLengthValidator(true, 4, "Credit Score", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR1175)]
         public string CreditScore { get; set; }
 
-        [NullableOrStringLengthValidator(true, 15, "Credit Bureau Code", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR1181)]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR1187, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public string CreditBureauCd { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR1182)]
