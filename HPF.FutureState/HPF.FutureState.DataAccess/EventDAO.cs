@@ -222,46 +222,6 @@ namespace HPF.FutureState.DataAccess
             }
             return returnObject;
         }
-
-        /// <summary>
-        /// Return 0 if it does not exist event with fcId and eventDt
-        /// else return eventId
-        /// </summary>
-        /// <param name="fcId"></param>
-        /// <param name="eventDt"></param>
-        /// <returns></returns>
-        public int? CheckExistingFcIdAndEventDt(int? fcId, DateTime? eventDt)
-        {
-            int? eventId = 0;
-            var dbConnection = CreateConnection();
-            try
-            {
-                SqlCommand command = base.CreateCommand("hpf_event_get_from_fcId_and_eventDt", dbConnection);
-                //<Parameter>
-                var sqlParam = new SqlParameter[2];
-                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
-                sqlParam[1] = new SqlParameter("@pi_event_dt", NullableDateTime(eventDt));
-                //</Parameter>
-                command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                        eventId = ConvertToInt(reader["event_id"]);
-                }
-                reader.Close();
-            }
-            catch (Exception Ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
-            return eventId;
-        }
+                
     }
 }

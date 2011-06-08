@@ -59,33 +59,16 @@ namespace HPF.FutureState.BusinessLogic
             LoadEventFromDB(anEvent);
             _workingUserID = anEvent.ChgLstUserId;
             if (anEvent.EventId.HasValue)
-                eventId = ProcessInsertUpdateWithEventId(anEvent);
+                UpdateEvent(anEvent);
             else
-                eventId = ProcessInsertUpdateWithoutEventId(anEvent);
-            anEvent.EventId = eventId;
-            return anEvent;
-        }
-
-        private int? ProcessInsertUpdateWithEventId(EventDTO anEvent)
-        {
-            UpdateEvent(anEvent);
-            return anEvent.EventId;
-        }
-        private int? ProcessInsertUpdateWithoutEventId(EventDTO anEvent)
-        {
-            //Process insert or update event
-            int? eventId = CheckExistingFcIdAndEventDt(anEvent.FcId, anEvent.EventDt);
-            if (eventId == 0)
             {
                 eventId = InsertEvent(anEvent);
-            }
-            else
-            {
                 anEvent.EventId = eventId;
-                UpdateEvent(anEvent);
             }
-            return eventId;
+            
+            return anEvent;
         }
+                
         /// <summary>
         /// Check all fields are required by event
         /// </summary>
@@ -118,10 +101,6 @@ namespace HPF.FutureState.BusinessLogic
             if (!referenceCode.Validate(ReferenceCode.EVENT_OUTCOME_CODE, anEvent.EventOutcomeCd))
                 msgEventSet.AddExceptionMessage(ErrorMessages.ERR1212, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR1212));
             return msgEventSet;
-        }
-        private int? CheckExistingFcIdAndEventDt(int? fcId, DateTime? eventDt)
-        {
-            return EventDAO.Instance.CheckExistingFcIdAndEventDt(fcId, eventDt);
         }
         private ExceptionMessageCollection ValidateFieldsByRuleSet(EventDTO anEvent, string ruleSet)
         {
