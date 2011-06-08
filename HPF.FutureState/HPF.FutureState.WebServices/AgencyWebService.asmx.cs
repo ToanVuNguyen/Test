@@ -181,7 +181,7 @@ namespace HPF.FutureState.WebServices
                 if (IsAuthenticated())//Authentication checking                
                 {
                     workingInstance = EventBL.Instance;
-                    EventDTO anEvent = workingInstance.SaveEvent(request.Event);
+                    EventDTO anEvent = workingInstance.SaveEvent(request.Event, CurrentAgencyID);
                     response.EventId = anEvent.EventId;
                     if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
                     {
