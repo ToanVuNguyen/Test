@@ -45,7 +45,7 @@ namespace HPF.FutureState.Common.Utils
                 StringBuilder fileName = new StringBuilder();
                 FcId = (!string.IsNullOrEmpty(FcId) ? FcId : "agency_" + CurAgencyId.ToString());
                 string folder = EnsureFolderName("agency_" + CurAgencyId.ToString());
-                fileName.AppendFormat("{0}{1}{2}{3}{4}{5}", folder, "debug_info_", FcId, "_", DateTime.Now.ToString("yyyyMMddhhmmss"), ".xml");
+                fileName.AppendFormat("{0}{1}{2}{3}{4}{5}", folder, "save_event_debug_info_", FcId, "_", DateTime.Now.ToString("yyyyMMddhhmmss"), ".xml");
                 WSDebugInfoDTO wsDebugInfo = new WSDebugInfoDTO() { EventRequest = EventRequest, EventResponse = EventResponse, FcId = FcId };
                 TextWriter writer = new StreamWriter(fileName.ToString());
                 serializer.Serialize(writer, wsDebugInfo);
