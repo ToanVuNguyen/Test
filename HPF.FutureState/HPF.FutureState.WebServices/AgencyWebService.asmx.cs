@@ -232,6 +232,27 @@ namespace HPF.FutureState.WebServices
 
             if (workingInstance != null && workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
                 response.Messages.Add(workingInstance.WarningMessage);
+
+            //Send WS debug info collector if any
+            if ((response.Status != ResponseStatus.AuthenticationFail) && (string.Compare(HPFConfigurationSettings.WS_DEBUG_MODE.ToUpper(), "ON") == 0))
+            {
+                try
+                {
+                    string[] agencyIds = HPFConfigurationSettings.WS_DEBUG_AGENCY_LIST.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < agencyIds.Length; i++)
+                        if (string.Compare(CurrentAgencyID.ToString(), agencyIds[i]) == 0)
+                        {
+                            DebugInfoCollector debugInfo = new DebugInfoCollector() { EventRequest = request, EventResponse = response, CurAgencyId = CurrentAgencyID, FcId = GetFcId(request) };
+                            debugInfo.SaveEventWSDebugInfo();
+                            break;
+                        }
+                }
+                catch (Exception ex)
+                {
+                    HandleException(ex, GetFcId(request));
+                }
+            }
+
             return response;
         }
 

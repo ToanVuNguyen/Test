@@ -14,6 +14,8 @@ namespace HPF.FutureState.Common.Utils
     {
         public ForeclosureCaseSetDTO FCaseSetRequest { get; set; }
         public ForeclosureCaseSaveResponse Response { get; set; }
+        public EventSaveRequest EventRequest { get; set; }
+        public EventSaveResponse EventResponse { get; set; }
         public int? CurAgencyId { get; set; }
         public string FcId { get; set; }
         public void SaveForeclosureCaseWSDebugInfo()
@@ -26,6 +28,25 @@ namespace HPF.FutureState.Common.Utils
                 string folder = EnsureFolderName("agency_" + CurAgencyId.ToString());
                 fileName.AppendFormat("{0}{1}{2}{3}{4}{5}", folder, "debug_info_", FcId,"_",DateTime.Now.ToString("yyyyMMddhhmmss"), ".xml");
                 WSDebugInfoDTO wsDebugInfo = new WSDebugInfoDTO() { FCaseSetRequest = FCaseSetRequest, Response = Response, FcId = FcId };
+                TextWriter writer = new StreamWriter(fileName.ToString());
+                serializer.Serialize(writer, wsDebugInfo);
+                writer.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void SaveEventWSDebugInfo()
+        {
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(WSDebugInfoDTO));
+                StringBuilder fileName = new StringBuilder();
+                FcId = (!string.IsNullOrEmpty(FcId) ? FcId : "agency_" + CurAgencyId.ToString());
+                string folder = EnsureFolderName("agency_" + CurAgencyId.ToString());
+                fileName.AppendFormat("{0}{1}{2}{3}{4}{5}", folder, "debug_info_", FcId, "_", DateTime.Now.ToString("yyyyMMddhhmmss"), ".xml");
+                WSDebugInfoDTO wsDebugInfo = new WSDebugInfoDTO() { EventRequest = EventRequest, EventResponse = EventResponse, FcId = FcId };
                 TextWriter writer = new StreamWriter(fileName.ToString());
                 serializer.Serialize(writer, wsDebugInfo);
                 writer.Close();

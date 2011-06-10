@@ -15,5 +15,9 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public ForeclosureCaseSetDTO FCaseSetRequest { get; set; }
         [XmlElement("Response")]
         public ForeclosureCaseSaveResponse Response { get; set; }
+        [XmlElement("EventSaveRequest")]
+        public EventSaveRequest EventRequest { get; set; }
+        [XmlElement("EventSaveResponse")]
+        public EventSaveResponse EventResponse {get;set;}
     }
 }
