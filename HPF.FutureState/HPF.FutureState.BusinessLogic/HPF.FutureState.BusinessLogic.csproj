@@ -83,6 +83,7 @@
     <Compile Include="MenuGroupBL.cs" />
     <Compile Include="MenuSecurityBL.cs" />
     <Compile Include="OutcomeBL.cs" />
+    <Compile Include="PostModInclusionBL.cs" />
     <Compile Include="PPBudgetBL.cs" />
     <Compile Include="PrePurchaseCaseSetBL.cs" />
     <Compile Include="RefCodeItemBL.cs" />

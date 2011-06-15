@@ -579,6 +579,70 @@ namespace HPF.FutureState.Common
         public const string ERR1219 = "ERR1219";
         public const string ERR1220 = "ERR1220";
 
+        //Batch job - Save PostModInclusion
+        public const string ERR1230 = "ERR1230";
+        public const string ERR1231 = "ERR1231";
+        public const string ERR1232 = "ERR1232";
+        public const string ERR1233 = "ERR1233";
+        public const string ERR1234 = "ERR1234";
+        public const string ERR1235 = "ERR1235";
+        public const string ERR1236 = "ERR1236";
+        public const string ERR1237 = "ERR1237";
+        public const string ERR1238 = "ERR1238";
+        public const string ERR1239 = "ERR1239";
+        public const string ERR1240 = "ERR1240";
+        public const string ERR1241 = "ERR1241";
+        public const string ERR1242 = "ERR1242";
+        public const string ERR1243 = "ERR1243";
+        public const string ERR1244 = "ERR1244";
+        public const string ERR1245 = "ERR1245";
+        public const string ERR1246 = "ERR1246";
+        public const string ERR1247 = "ERR1247";
+        public const string ERR1248 = "ERR1248";
+        public const string ERR1249 = "ERR1249";
+        public const string ERR1250 = "ERR1250";
+        public const string ERR1251 = "ERR1251";
+        public const string ERR1252 = "ERR1252";
+        public const string ERR1253 = "ERR1253";
+        public const string ERR1254 = "ERR1254";
+        public const string ERR1255 = "ERR1255";
+        public const string ERR1256 = "ERR1256";
+        public const string ERR1257 = "ERR1257";
+        public const string ERR1258 = "ERR1258";
+        public const string ERR1259 = "ERR1259";
+        public const string ERR1260 = "ERR1260";
+        public const string ERR1261 = "ERR1261";
+        public const string ERR1262 = "ERR1262";
+        public const string ERR1263 = "ERR1263";
+        public const string ERR1264 = "ERR1264";
+        public const string ERR1265 = "ERR1265";
+        public const string ERR1266 = "ERR1266";
+        public const string ERR1267 = "ERR1267";
+        public const string ERR1268 = "ERR1268";
+        public const string ERR1269 = "ERR1269";
+        public const string ERR1270 = "ERR1270";
+        public const string ERR1271 = "ERR1271";
+        public const string ERR1272 = "ERR1272";
+        public const string ERR1273 = "ERR1273";
+        public const string ERR1274 = "ERR1274";
+        public const string ERR1275 = "ERR1275";
+        public const string ERR1276 = "ERR1276";
+        public const string ERR1277 = "ERR1277";
+        public const string ERR1278 = "ERR1278";
+        public const string ERR1279 = "ERR1279";
+        public const string ERR1280 = "ERR1280";
+        public const string ERR1281 = "ERR1281";
+        public const string ERR1282 = "ERR1282";
+        public const string ERR1283 = "ERR1283";
+        public const string ERR1284 = "ERR1284";
+        public const string ERR1285 = "ERR1285";
+        public const string ERR1286 = "ERR1286";
+        public const string ERR1287 = "ERR1287";
+        public const string ERR1288 = "ERR1288";
+        public const string ERR1289 = "ERR1289";
+        public const string ERR1290 = "ERR1290";
+
+
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
@@ -1177,6 +1241,71 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1218, "EventId {0} does not belong to FcId {1}.");
                 errorMessageDict.Add(ERR1219, ""); 
                 errorMessageDict.Add(ERR1220, "");
+
+                //Batch job - Save PostModInclusion
+                errorMessageDict.Add(ERR1230, "A Fannie Mae Loan Number is required.");
+                errorMessageDict.Add(ERR1231, "Fannie Mae Loan Number has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1232, "A Referral Date is required.");
+                errorMessageDict.Add(ERR1233, "A Servicer Name is required.");
+                errorMessageDict.Add(ERR1234, "Servier Name has a maximum length of 50 characters.");
+                errorMessageDict.Add(ERR1235, "Agency Name has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1236, "A Trial/Mod Type is required.");
+                errorMessageDict.Add(ERR1237, "Trial/Mod Type has a maximum length of 60 characters.");
+                errorMessageDict.Add(ERR1238, "A Trial Start Date is required.");
+                errorMessageDict.Add(ERR1239, "A Servier Number is required.");
+                errorMessageDict.Add(ERR1240, "Servicer Number has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1241, "ACH Flag must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1242, "A Trial / Mod Payment is required.");
+                errorMessageDict.Add(ERR1243, "Trial / Mod Payment Amount must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR1244, "A Next Due Date is required.");
+                errorMessageDict.Add(ERR1245, "A Last Payment Applied Date is required.");
+                errorMessageDict.Add(ERR1246, "An UPB is required.");
+                errorMessageDict.Add(ERR1247, "UPB must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR1248, "Default Reason has a maximum length of 80 characters.");
+                errorMessageDict.Add(ERR1249, "An English / Spanish Indicator is required.");
+                errorMessageDict.Add(ERR1250, "English / Spanish Indicator must be either Y or N");
+                errorMessageDict.Add(ERR1251, "A Property State is required.");
+                errorMessageDict.Add(ERR1252, "Property State has a maximum length of 15 characters.");
+                errorMessageDict.Add(ERR1253, "A Borrower FName is required.");
+                errorMessageDict.Add(ERR1254, "Borrower FName has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1255, "A Borrower LName is required.");
+                errorMessageDict.Add(ERR1256, "Borrower LName has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1257, "Borrower Phone - Home has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1258, "A Co-Borrower FName has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1259, "A Co-Borrower LName has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1260, "A Property Address 1 is required.");
+                errorMessageDict.Add(ERR1261, "Property Address 1 has a maximum length of 50 characters.");
+                errorMessageDict.Add(ERR1262, "Property Address 2 has a maximum length of 50 characters.");
+                errorMessageDict.Add(ERR1263, "A Property City is required.");
+                errorMessageDict.Add(ERR1264, "Property City has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1265, "A Property Zip is required.");
+                errorMessageDict.Add(ERR1266, "Property Zip has a maximum length of 5 characters.");
+                errorMessageDict.Add(ERR1267, "A Mailing Address 1 is required.");
+                errorMessageDict.Add(ERR1268, "Mailing Address 1 has a maximum length of 50 characters.");
+                errorMessageDict.Add(ERR1269, "Mailing Address 2 has a maximum length of 50 characters.");
+                errorMessageDict.Add(ERR1270, "A Mailing City is required.");
+                errorMessageDict.Add(ERR1271, "Mailing City has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR1272, "A Mailing State is required.");
+                errorMessageDict.Add(ERR1273, "Mailing State has a maximum length of 15 characters.");
+                errorMessageDict.Add(ERR1274, "A Mailing Zip is required.");
+                errorMessageDict.Add(ERR1275, "Mailing Zip has a maximum length of 5 characters.");
+                errorMessageDict.Add(ERR1276, "Borrower Phone - Office 1 has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1277, "Borrower Phone - Office 2 has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1278, "Borrower Phone - Other has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1279, "Borrower Phone - Cell 1 has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1280, "Borrower Phone - Cell 2 has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1281, "Borrower Email has a maximum length of 50 characters.");
+                errorMessageDict.Add(ERR1282, "Co-Borrower Phone - Home has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1283, "Co-Borrower Phone - Office 1 has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1284, "Co-Borrower Phone - Office 2 has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1285, "Co-Borrower Phone - Other has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1286, "Co-Borrower Phone - Cell 1 has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1287, "Co-Borrower Phone - Cell 2 has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR1288, "Co-Borrower Email has a maximum length of 50 characters.");
+                errorMessageDict.Add(ERR1289, "");
+                errorMessageDict.Add(ERR1290, "");
+                
+                
             }
         }
     }

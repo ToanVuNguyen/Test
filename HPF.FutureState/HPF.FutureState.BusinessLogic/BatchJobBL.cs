@@ -73,6 +73,8 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = ImportScamData();
                 else if (job.JobName.Equals(Constant.AD_HOC))
                     rowCount = AdHoc();
+                else if (job.JobName.Equals(Constant.POST_MOD_INCLUSION_IMPORT))
+                    rowCount = ImportPostModInclusionData(job);
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
 
@@ -484,6 +486,127 @@ namespace HPF.FutureState.BusinessLogic
                     mail.Send();
                 }
             }
+            return recordCount;
+        }
+
+        /// <summary>
+        /// Import data into database from post mod inclusion file located in folder
+        /// If there is error import file, it will log error and continue import the next file.
+        /// It does not stop when found error.
+        /// If import file successfuly, the file will be moved to Processed Folder
+        /// </summary>
+        /// <param name="batchJob"></param>
+        /// <returns></returns>
+        public int ImportPostModInclusionData(BatchJobDTO batchJob)
+        {
+            string[] postModFiles = Directory.GetFiles(batchJob.OutputDestination + @"\Upload\");
+            int recordCount = 0;
+            //There are no post mod files in upload directory
+            if (postModFiles.Length <= 0)
+            {
+                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                var mail = new HPFSendMail
+                {
+                    To = hpfSupportEmail,
+                    Subject = "Batch Manager Warning- Import post mod inclusion data",
+                    Body = "Error import post mod inclusion file \n" +
+                            "Messsage: There are no post mod inclusion files in upload directory"
+                };
+                mail.Send();
+                return 0;
+            }
+            foreach (string postModFile in postModFiles)
+            {
+                try
+                {
+                    recordCount += ImportPostModInclusionData(postModFile,batchJob.OutputDestination);
+                }
+                catch (Exception ex)
+                {
+                    ExceptionProcessor.HandleException(ex);
+                    //Send E-mail to support
+                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                    var mail = new HPFSendMail
+                    {
+                        To = hpfSupportEmail,
+                        Subject = "Batch Manager Error- Import post mod inclusion data",
+                        Body = "Error import post mod inclusion file " + postModFile + "\n--" +
+                                "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace
+                    };
+                    mail.Send();
+                }
+            }
+
+            return recordCount;
+        }
+
+        /// <summary>
+        /// Import data into database from post mod file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns>The nymber of record error</returns>
+        public int ImportPostModInclusionData(string filename,string outputDestination)
+        {
+            int recordErrorCount = 0;
+            int recordCount = 0;
+            PostModInclusionDAO postModInclusionDAO = PostModInclusionDAO.CreateInstance();
+            StringBuilder processedFileContent = new StringBuilder();
+            StringBuilder errorFileContent = new StringBuilder();
+            try
+            {
+                TextReader tr = new StreamReader(filename);
+                string strLine = "";
+                strLine = tr.ReadLine();
+                postModInclusionDAO.Begin();
+                while (strLine != null)
+                {
+                    //Bypass the empty line
+                    if (strLine.Trim() == "") break;
+                    PostModInclusionDTO postModInclusion = PostModInclusionBL.Instance.ReadPostModInclusion(strLine);
+                    if (postModInclusion != null)
+                    {
+                        postModInclusion.ServicerFileName = Path.GetFileName(filename);
+                        postModInclusion.SetInsertTrackingInformation("System");
+                        postModInclusionDAO.InsertPostModInclusion(postModInclusion);
+                        processedFileContent.AppendLine(strLine);
+                        recordCount++;
+                    }
+                    else
+                    {
+                        errorFileContent.AppendLine(strLine);
+                        recordErrorCount++;
+                    }
+                    strLine = tr.ReadLine();
+                }
+                tr.Close();
+                //Move file to processed folder
+                PostModInclusionBL.Instance.MoveProcessedFile(errorFileContent, processedFileContent, filename, outputDestination);
+            }
+            catch (Exception ex)
+            {
+                postModInclusionDAO.Cancel();
+                throw ex;
+            }
+            finally
+            {
+                postModInclusionDAO.Commit();
+                
+                //Send alert email to support when CallRecordCount field from the header not equal with numbers of detail records
+                if (recordErrorCount>0)
+                {
+                    //Send E-mail to support
+                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                    var mail = new HPFSendMail
+                    {
+                        To = hpfSupportEmail,
+                        Subject = "Batch Manager Warning- Import post mod inclusion",
+                        Body = "Warning import post mod report file " + filename + "\n" +
+                                "Messsage: There are "+recordErrorCount+" error records."
+                    };
+                    mail.Send();
+                }
+            }
+
             return recordCount;
         }
     }

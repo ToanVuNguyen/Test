@@ -70,6 +70,7 @@
     <Compile Include="EventDAO.cs" />
     <Compile Include="MSARefDAO.cs" />
     <Compile Include="NonProfitReferralDAO.cs" />
+    <Compile Include="PostModInclusionDAO.cs" />
     <Compile Include="PPBudgetDAO.cs" />
     <Compile Include="PrePurchaseCaseSetDAO.cs" />
     <Compile Include="RefCodeSettDAO.cs" />
