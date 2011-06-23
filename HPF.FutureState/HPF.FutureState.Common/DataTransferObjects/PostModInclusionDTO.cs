@@ -12,7 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         private string _fannieMaeLoanNum = null;
         [StringRequiredValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
-        [NullableOrStringLengthValidator(true, 30, "Fannie Mae Loan Number", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 10, "Fannie Mae Loan Number", Ruleset = Constant.RULESET_LENGTH)]
         public string FannieMaeLoanNum
         {
             get { return _fannieMaeLoanNum; }

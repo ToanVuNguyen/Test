@@ -54,6 +54,7 @@ namespace HPF.FutureState.DataAccess
                         {
                             servicer.ServicerID = ConvertToInt(reader["servicer_id"]);
                             servicer.ServicerName = ConvertToString(reader["servicer_name"]);
+                            servicer.ServicerLabel = ConvertToString(reader["servicer_label"]);
                             servicer.ContactFName = ConvertToString(reader["contact_fname"]);
                             servicer.ContactLName = ConvertToString(reader["contact_lname"]);
                             servicer.ContactEmail = ConvertToString(reader["contact_email"]);
@@ -101,6 +102,7 @@ namespace HPF.FutureState.DataAccess
                             ServicerDTO servicer = new ServicerDTO();
                             servicer.ServicerID = ConvertToInt(reader["servicer_id"]);
                             servicer.ServicerName = ConvertToString(reader["servicer_name"]);
+                            servicer.ServicerLabel = ConvertToString(reader["servicer_label"]);
                             servicer.ContactFName = ConvertToString(reader["contact_fname"]);
                             servicer.ContactLName = ConvertToString(reader["contact_lname"]);
                             servicer.ContactEmail = ConvertToString(reader["contact_email"]);

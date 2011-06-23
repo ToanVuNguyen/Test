@@ -92,7 +92,7 @@ namespace HPF.FutureState.BusinessLogic
                 exceptionList.Add(CheckValidCode(draftResult));
                 if (exceptionList.Count > 0) return result;
                 //Validate Servicer Name and assign servicer id value
-                ServicerDTO servicerDB = servicerCollection.GetServicerByName(draftResult.ServicerName);
+                ServicerDTO servicerDB = servicerCollection.GetServicerByLabel(draftResult.ServicerName);
                 if (servicerDB == null)
                     return result;
                 else

@@ -10,6 +10,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         public int? ServicerID { get; set; }
         public string ServicerName { get; set; }
+        public string ServicerLabel { get; set; }
         public string ContactFName { get; set; }
         public string ContactLName { get; set; }
         public string Phone { get; set; }

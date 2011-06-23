@@ -42,5 +42,20 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 return null;
             }
         }
+
+        public ServicerDTO GetServicerByLabel(string servicerLabel)
+        {
+            if (string.IsNullOrEmpty(servicerLabel))
+                return null;
+            try
+            {
+                string sLabel = servicerLabel.ToUpper();
+                return this.SingleOrDefault(i => (!string.IsNullOrEmpty(i.ServicerLabel) && i.ServicerLabel.ToUpper().Equals(sLabel)));
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
