@@ -8,6 +8,8 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.Common;
 using System.IO;
+using HPF.FutureState.DataAccess;
+
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -32,7 +34,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        public PostModInclusionDTO ReadPostModInclusion(string buffer)
+        public PostModInclusionDTO ReadPostModInclusion(string buffer, ref List<string>fannieMaeLoanNumExistedList, ServicerDTOCollection servicerCollection)
         {
             PostModInclusionDTO result = null;
             string[] fields = buffer.Split(PostModInclusionDTO.SpitChar);
@@ -44,10 +46,11 @@ namespace HPF.FutureState.BusinessLogic
                 draftResult.ServicerName = fields[PostModInclusionDTO.ServicerNamePos];
                 draftResult.FannieMaeAgency = fields[PostModInclusionDTO.FannieMaeAgencyPos];
                 draftResult.BackLogInd = fields[PostModInclusionDTO.BackLogIndPos];
+                draftResult.TrialModInd = fields[PostModInclusionDTO.TrialModIndPost];
                 draftResult.TrialStartDt = ConvertToDateTime(fields[PostModInclusionDTO.TrialStartDtPos]);
                 draftResult.ModConversionDt = ConvertToDateTime(fields[PostModInclusionDTO.ModConversionDtPos]);
                 draftResult.AcctNum = fields[PostModInclusionDTO.AcctNumPos];
-                draftResult.AchFlag = fields[PostModInclusionDTO.AchFlagPos];
+                draftResult.AchInd = fields[PostModInclusionDTO.AchIndPos];
                 draftResult.TrialModPmtAmt = ConvertToDouble(fields[PostModInclusionDTO.TrialModPmtAmtPos]);
                 draftResult.NextPmtDueDt = ConvertToDateTime(fields[PostModInclusionDTO.NextPmtDueDtPos]);
                 draftResult.LastPmtAppliedDt = ConvertToDateTime(fields[PostModInclusionDTO.LastPmtAppliedDtPos]);
@@ -86,8 +89,22 @@ namespace HPF.FutureState.BusinessLogic
                 //Validate fields
                 var exceptionList = CheckRequiredFields(draftResult);
                 exceptionList.Add(CheckInvalidFormatData(draftResult));
+                exceptionList.Add(CheckValidCode(draftResult));
                 if (exceptionList.Count > 0) return result;
+                //Validate Servicer Name and assign servicer id value
+                ServicerDTO servicerDB = servicerCollection.GetServicerByName(draftResult.ServicerName);
+                if (servicerDB == null)
+                    return result;
+                else
+                    draftResult.ServicerId = servicerDB.ServicerID;
+                //Check Business Rule
                 if (!CheckBusinessRule(draftResult)) return result;
+
+                //Check Duplicate fannieMaeLoanNum and add new fannieMaeLoanNum if it does not exist
+                if (fannieMaeLoanNumExistedList.Contains(draftResult.FannieMaeLoanNum))
+                    return result;
+                else fannieMaeLoanNumExistedList.Add(draftResult.FannieMaeLoanNum);
+
                 result =ApplyHPFValue(draftResult);
             }
             return result;
@@ -133,14 +150,12 @@ namespace HPF.FutureState.BusinessLogic
                 throw ex;
             }
         }
-        
+
         private PostModInclusionDTO ApplyHPFValue(PostModInclusionDTO postModInclusion)
         {
-            postModInclusion.ServicerId = 0;
-            postModInclusion.ServicerFileName = "";
-            postModInclusion.AgencyId = 0;
-            postModInclusion.AgencyFileName = "";
-            postModInclusion.AgencyFileDt = DateTime.Now;
+            postModInclusion.AgencyId = null;
+            postModInclusion.AgencyFileName = null;
+            postModInclusion.AgencyFileDt = null;
             return postModInclusion;
         }
         /// <summary>
@@ -160,19 +175,20 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckBusinessRule(PostModInclusionDTO postModInclusion)
         {
             bool result = false;
-            if (postModInclusion.TrialStartDt > DateTime.Now)
+            if (postModInclusion.TrialStartDt > DateTime.Now || postModInclusion.TrialStartDt>postModInclusion.ReferallDt)
                 return result;
             //In trial mod
-            if (postModInclusion.BackLogInd == Constant.INDICATOR_YES)
+            if (string.Compare(postModInclusion.TrialModInd,Constant.INDICATOR_YES)==0)
             {
-                if (postModInclusion.ModConversionDt.HasValue || !string.IsNullOrEmpty(postModInclusion.AchFlag))
+                if (!string.IsNullOrEmpty(postModInclusion.AchInd) || postModInclusion.ModConversionDt.HasValue)
                     return result;
             }
             //In modification mod
             else
             {
-                if (!postModInclusion.ModConversionDt.HasValue || (postModInclusion.ModConversionDt <= postModInclusion.TrialStartDt)
-                    || string.IsNullOrEmpty(postModInclusion.AchFlag))
+                if (string.IsNullOrEmpty(postModInclusion.AchInd) || !postModInclusion.ModConversionDt.HasValue)
+                    return result;
+                if ((postModInclusion.ModConversionDt <= postModInclusion.TrialStartDt))
                     return result;
             }
             if (postModInclusion.NextPmtDueDt < postModInclusion.ReferallDt)
@@ -185,6 +201,7 @@ namespace HPF.FutureState.BusinessLogic
                 ||!string.IsNullOrEmpty(postModInclusion.BorrowerCell1ContactNo)
                 ||!string.IsNullOrEmpty(postModInclusion.BorrowerCell2ContactNo))
                 result = true;
+            
             return result;
         }
         /// <summary>
@@ -194,7 +211,16 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         private ExceptionMessageCollection CheckInvalidFormatData(PostModInclusionDTO postModInclusion)
         {
-            return ValidateFieldsByRuleSet(postModInclusion, Constant.RULESET_LENGTH);
+            ExceptionMessageCollection exceptionList = new ExceptionMessageCollection();
+            exceptionList.Add(ValidateFieldsByRuleSet(postModInclusion, Constant.RULESET_LENGTH));
+            //Validate fannie_mae_loan_num must be exactly 10 digits - all numeric with no leading zeros.
+            double checkNum = 0;
+            bool result = double.TryParse(postModInclusion.FannieMaeLoanNum, out checkNum);
+            if (result && checkNum.ToString().Length == 10)
+                postModInclusion.FannieMaeLoanNum = checkNum.ToString();
+            else
+                exceptionList.AddExceptionMessage("fannie_mae_loan_num must be exactly 10 digits with no leading zeros");
+            return exceptionList;
         }
         private ExceptionMessageCollection ValidateFieldsByRuleSet(PostModInclusionDTO postModInclustion, string ruleSet)
         {
@@ -202,6 +228,84 @@ namespace HPF.FutureState.BusinessLogic
             return msgEventSet;
         }
 
+        private ExceptionMessageCollection CheckValidCode(PostModInclusionDTO postModInclusion)
+        {
+            ExceptionMessageCollection exceptionList = new ExceptionMessageCollection();
+            exceptionList.Add(CheckValidZipCode(postModInclusion));
+            exceptionList.Add(CheckValidCombinationStateCdAndZip(postModInclusion));
+            return exceptionList;
+        }
+        /// <summary>
+        /// Check valid combination state_code and zip code
+        /// <input>PostModInclusionDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private ExceptionMessageCollection CheckValidCombinationStateCdAndZip(PostModInclusionDTO postModInclusion)
+        {
+            GeoCodeRefDTOCollection geoCodeRefCollection = GeoCodeRefDAO.Instance.GetGeoCodeRef();
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            bool contactValid = false;
+            bool propertyValid = false;
+            if (geoCodeRefCollection == null || geoCodeRefCollection.Count < 1)
+                return null;
+            foreach (GeoCodeRefDTO item in geoCodeRefCollection)
+            {
+                contactValid = CombinationContactValid(postModInclusion, item);
+                if (contactValid == true)
+                    break;
+            }
+            foreach (GeoCodeRefDTO item in geoCodeRefCollection)
+            {
+                propertyValid = CombinationPropertyValid(postModInclusion, item);
+                if (propertyValid == true)
+                    break;
+            }
+            if (contactValid == false)
+                msgFcCaseSet.AddExceptionMessage("Contact is invalid");
+            if (propertyValid == false)
+                msgFcCaseSet.AddExceptionMessage("Property is invalid");
+            return msgFcCaseSet;
+        }
+
+        /// <summary>
+        /// Check valid combination contact state_code and contact zip code
+        /// <input>PostModInclusionDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CombinationContactValid(PostModInclusionDTO postModInclusion, GeoCodeRefDTO item)
+        {
+            if (string.IsNullOrEmpty(postModInclusion.ContactZip) && string.IsNullOrEmpty(postModInclusion.ContactStateCd))
+                return true;
+            return (ConvertStringToUpper(postModInclusion.ContactZip) == ConvertStringToUpper(item.ZipCode) && ConvertStringToUpper(postModInclusion.ContactStateCd) == ConvertStringToUpper(item.StateAbbr));
+        }
+
+        /// <summary>
+        /// Check valid combination property state_code and property zip code
+        /// <input>PostModInclusionDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CombinationPropertyValid(PostModInclusionDTO postModInclusion, GeoCodeRefDTO item)
+        {
+            if (string.IsNullOrEmpty(postModInclusion.PropZip) && string.IsNullOrEmpty(postModInclusion.PropStateCd))
+                return true;
+            return (ConvertStringToUpper(postModInclusion.PropZip) == ConvertStringToUpper(item.ZipCode) && ConvertStringToUpper(postModInclusion.PropStateCd) == ConvertStringToUpper(item.StateAbbr));
+        }
+
+        /// <summary>
+        /// Check valid zipcode
+        /// <input>PostModInclusionDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private ExceptionMessageCollection CheckValidZipCode(PostModInclusionDTO postModInclusion)
+        {
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if ((!string.IsNullOrEmpty(postModInclusion.PropZip) && postModInclusion.PropZip.Length != 5) || !ConvertStringtoInt(postModInclusion.PropZip))
+                msgFcCaseSet.AddExceptionMessage("Property Zip is invalid");
+            if ((!string.IsNullOrEmpty(postModInclusion.ContactZip) && postModInclusion.ContactZip.Length != 5) || !ConvertStringtoInt(postModInclusion.ContactZip))
+                msgFcCaseSet.AddExceptionMessage("Contact Zip is invalid");
+            return msgFcCaseSet;
+        }
+        
         /// <summary>
         /// Convert an object to Int
         /// </summary>
@@ -240,6 +344,31 @@ namespace HPF.FutureState.BusinessLogic
             if (obj == null || !double.TryParse(obj.ToString(), out returnValue))
                 return null;
             return returnValue;
+        }
+
+        private bool ConvertStringtoInt(string s)
+        {
+            if (s == null)
+                return true;
+            else
+            {
+                try
+                {
+                    int.Parse(s);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+        private string ConvertStringToUpper(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return null;
+            s = s.ToUpper().Trim();
+            return s;
         }
     }
 }

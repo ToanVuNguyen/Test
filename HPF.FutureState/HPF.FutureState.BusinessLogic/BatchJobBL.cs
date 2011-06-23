@@ -10,7 +10,6 @@ using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
-using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using System.IO;
 
@@ -557,12 +556,16 @@ namespace HPF.FutureState.BusinessLogic
                 TextReader tr = new StreamReader(filename);
                 string strLine = "";
                 strLine = tr.ReadLine();
+                //Get list of fannieMaeLoanNum from database
+                List<string> fannieMaeLoanNumExistedList = postModInclusionDAO.GetPostModInclusion();
+                //Get list of servicers
+                ServicerDTOCollection servicerCollection = ServicerBL.Instance.GetServicers();
                 postModInclusionDAO.Begin();
                 while (strLine != null)
                 {
                     //Bypass the empty line
                     if (strLine.Trim() == "") break;
-                    PostModInclusionDTO postModInclusion = PostModInclusionBL.Instance.ReadPostModInclusion(strLine);
+                    PostModInclusionDTO postModInclusion = PostModInclusionBL.Instance.ReadPostModInclusion(strLine, ref fannieMaeLoanNumExistedList,servicerCollection);
                     if (postModInclusion != null)
                     {
                         postModInclusion.ServicerFileName = Path.GetFileName(filename);
