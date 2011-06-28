@@ -515,7 +515,7 @@ namespace HPF.FutureState.BusinessLogic
                         servicerAccessFolder = new StringBuilder();
                         hpfAccessFolder.AppendFormat(@"C:\HPF_Batch_Processed\FNMA_PostMod\{0}\", servicer);
                         servicerAccessFolder.AppendFormat(@"C:\HPF_FTP_Secure\{0}\FNMA_PostMod\", servicer);
-                        recordCount += PostModInclusionBL.Instance.ImportPostModInclusionData(hpfAccessFolder.ToString(), servicerAccessFolder.ToString(), ref listPostModInclusionErrorFile);
+                        recordCount += PostModInclusionBL.Instance.ImportPostModInclusionData(servicer, hpfAccessFolder.ToString(), servicerAccessFolder.ToString(), ref listPostModInclusionErrorFile);
                     }
                 }
             }

@@ -40,22 +40,22 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="batchJob"></param>
         /// <returns></returns>
-        public int ImportPostModInclusionData(string hpfAccessFolder, string servicerAccessFolder, ref string listPostModInclusionErrorFile)
+        public int ImportPostModInclusionData(string servicerName, string hpfAccessFolder, string servicerAccessFolder, ref string listPostModInclusionErrorFile)
         {
             string[] postModFiles = Directory.GetFiles(servicerAccessFolder + @"InclusionFiles\");
             int recordCount = 0;
             //There are no post mod files in upload directory
             if (postModFiles.Length <= 0)
             {
-                //var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
-                //var mail = new HPFSendMail
-                //{
-                //    To = hpfSupportEmail,
-                //    Subject = "Batch Manager Warning- Import post mod inclusion data",
-                //    Body = "Error import post mod inclusion file \n" +
-                //            "Messsage: There are no post mod inclusion files in upload directory"
-                //};
-                //mail.Send();
+                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                var mail = new HPFSendMail
+                {
+                    To = hpfSupportEmail,
+                    Subject = "Batch Manager Warning- Import post mod inclusion data",
+                    Body = "Error import post mod inclusion file \n" +
+                            "Messsage: There are no post mod inclusion files in upload directory of servicer "+servicerName
+                };
+                mail.Send();
                 return 0;
             }
             foreach (string postModFile in postModFiles)
