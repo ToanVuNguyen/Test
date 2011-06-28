@@ -32,7 +32,7 @@ namespace HPF.FutureState.BusinessLogic
         protected BatchJobBL()
         {            
         }
-
+        
         /// <summary>
         /// Main function: Read job table and process all jobs and write email + log when error orcur
         /// </summary>
@@ -489,128 +489,58 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
-        /// Import data into database from post mod inclusion file located in folder
-        /// If there is error import file, it will log error and continue import the next file.
-        /// It does not stop when found error.
-        /// If import file successfuly, the file will be moved to Processed Folder
+        /// Import postModInclusion data from all servicers get from config file
         /// </summary>
         /// <param name="batchJob"></param>
         /// <returns></returns>
         public int ImportPostModInclusionData(BatchJobDTO batchJob)
         {
-            string[] postModFiles = Directory.GetFiles(batchJob.OutputDestination + @"\Upload\");
             int recordCount = 0;
-            //There are no post mod files in upload directory
-            if (postModFiles.Length <= 0)
+            StringBuilder hpfAccessFolder;
+            StringBuilder servicerAccessFolder;
+            string listPostModInclusionErrorFile = "";
+            PostModInclusionDAO postModInclusionDAO = PostModInclusionDAO.CreateInstance();
+            try
             {
-                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
-                var mail = new HPFSendMail
+                string[] servicers = HPFConfigurationSettings.POST_MOD_INCLUSION_SERVICER_LIST.Split(',');
+                if (servicers.Length > 0)
                 {
-                    To = hpfSupportEmail,
-                    Subject = "Batch Manager Warning- Import post mod inclusion data",
-                    Body = "Error import post mod inclusion file \n" +
-                            "Messsage: There are no post mod inclusion files in upload directory"
-                };
-                mail.Send();
-                return 0;
-            }
-            foreach (string postModFile in postModFiles)
-            {
-                try
-                {
-                    recordCount += ImportPostModInclusionData(postModFile,batchJob.OutputDestination);
+                    //Get list of fannieMaeLoanNum from database
+                    PostModInclusionBL.Instance.fannieMaeLoanNumExistedList = postModInclusionDAO.GetPostModInclusion();
+                    //Get list of servicers
+                    PostModInclusionBL.Instance.servicerCollection = ServicerBL.Instance.GetServicers();
+                    foreach (string servicer in servicers)
+                    {
+                        hpfAccessFolder = new StringBuilder();
+                        servicerAccessFolder = new StringBuilder();
+                        hpfAccessFolder.AppendFormat(@"C:\HPF_Batch_Processed\FNMA_PostMod\{0}\", servicer);
+                        servicerAccessFolder.AppendFormat(@"C:\HPF_FTP_Secure\{0}\FNMA_PostMod\", servicer);
+                        recordCount += PostModInclusionBL.Instance.ImportPostModInclusionData(hpfAccessFolder.ToString(), servicerAccessFolder.ToString(), ref listPostModInclusionErrorFile);
+                    }
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                ExceptionProcessor.HandleException(ex);
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(listPostModInclusionErrorFile))
                 {
-                    ExceptionProcessor.HandleException(ex);
                     //Send E-mail to support
                     var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
                     var mail = new HPFSendMail
                     {
                         To = hpfSupportEmail,
                         Subject = "Batch Manager Error- Import post mod inclusion data",
-                        Body = "Error import post mod inclusion file " + postModFile + "\n--" +
-                                "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace
+                        Body = "Error import post mod inclusion files: " + listPostModInclusionErrorFile
                     };
                     mail.Send();
                 }
             }
-
             return recordCount;
         }
 
-        /// <summary>
-        /// Import data into database from post mod file
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <returns>The nymber of record error</returns>
-        public int ImportPostModInclusionData(string filename,string outputDestination)
-        {
-            int recordErrorCount = 0;
-            int recordCount = 0;
-            PostModInclusionDAO postModInclusionDAO = PostModInclusionDAO.CreateInstance();
-            StringBuilder processedFileContent = new StringBuilder();
-            StringBuilder errorFileContent = new StringBuilder();
-            try
-            {
-                TextReader tr = new StreamReader(filename);
-                string strLine = "";
-                strLine = tr.ReadLine();
-                //Get list of fannieMaeLoanNum from database
-                List<string> fannieMaeLoanNumExistedList = postModInclusionDAO.GetPostModInclusion();
-                //Get list of servicers
-                ServicerDTOCollection servicerCollection = ServicerBL.Instance.GetServicers();
-                postModInclusionDAO.Begin();
-                while (strLine != null)
-                {
-                    //Bypass the empty line
-                    if (strLine.Trim() == "") break;
-                    PostModInclusionDTO postModInclusion = PostModInclusionBL.Instance.ReadPostModInclusion(strLine, ref fannieMaeLoanNumExistedList,servicerCollection);
-                    if (postModInclusion != null)
-                    {
-                        postModInclusion.ServicerFileName = Path.GetFileName(filename);
-                        postModInclusion.SetInsertTrackingInformation("System");
-                        postModInclusionDAO.InsertPostModInclusion(postModInclusion);
-                        processedFileContent.AppendLine(strLine);
-                        recordCount++;
-                    }
-                    else
-                    {
-                        errorFileContent.AppendLine(strLine);
-                        recordErrorCount++;
-                    }
-                    strLine = tr.ReadLine();
-                }
-                tr.Close();
-                //Move file to processed folder
-                PostModInclusionBL.Instance.MoveProcessedFile(errorFileContent, processedFileContent, filename, outputDestination);
-            }
-            catch (Exception ex)
-            {
-                postModInclusionDAO.Cancel();
-                throw ex;
-            }
-            finally
-            {
-                postModInclusionDAO.Commit();
-                
-                //Send alert email to support when CallRecordCount field from the header not equal with numbers of detail records
-                if (recordErrorCount>0)
-                {
-                    //Send E-mail to support
-                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
-                    var mail = new HPFSendMail
-                    {
-                        To = hpfSupportEmail,
-                        Subject = "Batch Manager Warning- Import post mod inclusion",
-                        Body = "Warning import post mod report file " + filename + "\n" +
-                                "Messsage: There are "+recordErrorCount+" error records."
-                    };
-                    mail.Send();
-                }
-            }
-
-            return recordCount;
-        }
+        
     }
 }

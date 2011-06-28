@@ -44,11 +44,6 @@ namespace HPF.FutureState.BatchManager
                         int count = BatchJobBL.Instance.ImportScamData();
                         Console.WriteLine("Success " + count);
                     }
-                    else if (args[0] == "-PostModInclustionImport" && args.Length>2)
-                    {
-                        int count = BatchJobBL.Instance.ImportPostModInclusionData(args[1],args[2]);
-                        Console.WriteLine("Success " + count);
-                    }
                     return;
                 }
 

@@ -9,6 +9,7 @@ using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.Common;
 using System.IO;
 using HPF.FutureState.DataAccess;
+using HPF.FutureState.Common.Utils;
 
 
 namespace HPF.FutureState.BusinessLogic
@@ -28,13 +29,125 @@ namespace HPF.FutureState.BusinessLogic
         }
         protected PostModInclusionBL(){}
 
+        public List<string> fannieMaeLoanNumExistedList;
+        public ServicerDTOCollection servicerCollection;
+
+        /// <summary>
+        /// Import data into database from post mod inclusion file located in folder of servicer
+        /// If there is error import file, it will log error and continue import the next file.
+        /// It does not stop when found error.
+        /// If import file successfuly, the file will be moved to Processed Folder
+        /// </summary>
+        /// <param name="batchJob"></param>
+        /// <returns></returns>
+        public int ImportPostModInclusionData(string hpfAccessFolder, string servicerAccessFolder, ref string listPostModInclusionErrorFile)
+        {
+            string[] postModFiles = Directory.GetFiles(servicerAccessFolder + @"InclusionFiles\");
+            int recordCount = 0;
+            //There are no post mod files in upload directory
+            if (postModFiles.Length <= 0)
+            {
+                //var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                //var mail = new HPFSendMail
+                //{
+                //    To = hpfSupportEmail,
+                //    Subject = "Batch Manager Warning- Import post mod inclusion data",
+                //    Body = "Error import post mod inclusion file \n" +
+                //            "Messsage: There are no post mod inclusion files in upload directory"
+                //};
+                //mail.Send();
+                return 0;
+            }
+            foreach (string postModFile in postModFiles)
+            {
+                try
+                {
+                    recordCount += ImportPostModInclusionData(postModFile, hpfAccessFolder, servicerAccessFolder);
+                }
+                catch (Exception ex)
+                {
+                    listPostModInclusionErrorFile += postModFile + "\n--" + "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace+"\n";
+                    throw ex;
+                }
+            }
+
+            return recordCount;
+        }
+
+        /// <summary>
+        /// Import data into database from post mod file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns>The number of error record</returns>
+        public int ImportPostModInclusionData(string filename, string hpfAccessFolder, string servicerAccessFolder)
+        {
+            int recordErrorCount = 0;
+            int recordCount = 0;
+            PostModInclusionDAO postModInclusionDAO = PostModInclusionDAO.CreateInstance();
+            StringBuilder processedFileContent = new StringBuilder();
+            StringBuilder errorFileContent = new StringBuilder();
+            try
+            {
+                TextReader tr = new StreamReader(filename);
+                string strLine = "";
+                strLine = tr.ReadLine();
+                postModInclusionDAO.Begin();
+                while (strLine != null)
+                {
+                    //Bypass the empty line
+                    if (strLine.Trim() == "") break;
+                    PostModInclusionDTO postModInclusion = ReadPostModInclusion(strLine);
+                    if (postModInclusion != null)
+                    {
+                        postModInclusion.ServicerFileName = Path.GetFileName(filename);
+                        postModInclusion.SetInsertTrackingInformation("System");
+                        postModInclusionDAO.InsertPostModInclusion(postModInclusion);
+                        processedFileContent.AppendLine(strLine);
+                        recordCount++;
+                    }
+                    else
+                    {
+                        errorFileContent.AppendLine(strLine);
+                        recordErrorCount++;
+                    }
+                    strLine = tr.ReadLine();
+                }
+                tr.Close();
+                //Move file to processed folder
+                PostModInclusionBL.Instance.MoveProcessedFile(errorFileContent, processedFileContent, filename, hpfAccessFolder, servicerAccessFolder);
+            }
+            catch (Exception ex)
+            {
+                postModInclusionDAO.Cancel();
+                throw ex;
+            }
+            finally
+            {
+                postModInclusionDAO.Commit();
+                if (recordErrorCount > 0)
+                {
+                    //Send E-mail to support
+                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                    var mail = new HPFSendMail
+                    {
+                        To = hpfSupportEmail,
+                        Subject = "Batch Manager Warning- Import post mod inclusion",
+                        Body = "Warning import post mod report file " + filename + "\n" +
+                                "Messsage: There are " + recordErrorCount + " error records."
+                    };
+                    mail.Send();
+                }
+            }
+
+            return recordCount;
+        }
 
         /// <summary>
         /// Read post mod inclusion fields from text line
         /// </summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        public PostModInclusionDTO ReadPostModInclusion(string buffer, ref List<string>fannieMaeLoanNumExistedList, ServicerDTOCollection servicerCollection)
+        public PostModInclusionDTO ReadPostModInclusion(string buffer)
         {
             PostModInclusionDTO result = null;
             string[] fields = buffer.Split(PostModInclusionDTO.SpitChar);
@@ -111,44 +224,69 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
-        /// Delete original file, copy processed Record to Processed folder
+        /// Copy processed Record to Processed folder
         /// Copy error Record to Error folder if any
+        /// Move original file to Archive folder
         /// </summary>
         /// <param name="errorFileContent"></param>
         /// <param name="processedFileContent"></param>
         /// <param name="originalFileName"></param>
         /// <param name="outputDestination"></param>
-        public void MoveProcessedFile(StringBuilder errorFileContent, StringBuilder processedFileContent, string originalFileName, string outputDestination)
+        public void MoveProcessedFile(StringBuilder errorFileContent, StringBuilder processedFileContent, string originalFileName, string hpfAccessFolder, string servicerAccessFolder)
         {
             try
             {
+                string orginalFileNameNoExt = Path.GetFileNameWithoutExtension(originalFileName);
+                string orignalFileExt = Path.GetExtension(originalFileName);
                 if (!string.IsNullOrEmpty(errorFileContent.ToString()))
                 {
-                    //Add "_ERROR" to File Name
-                    StringBuilder errorFileName = new StringBuilder();
-                    errorFileName.AppendFormat(@"{0}\Error\{1}_ERROR{2}", outputDestination, Path.GetFileNameWithoutExtension(originalFileName),
-                                                Path.GetExtension(originalFileName));
-
-                    using (StreamWriter sw = new StreamWriter(errorFileName.ToString()))
+                    //Add "_ERROR" to File Name and store to HpfAccessFolder and ServiceAccessFolder
+                    string errorFileName = CreateFileName(orginalFileNameNoExt + "_ERROR", orignalFileExt, hpfAccessFolder + @"\Errored\");
+                    string errorFileNameServicer = CreateFileName(orginalFileNameNoExt + "_ERROR", orignalFileExt, servicerAccessFolder + @"\ErrorFiles\");
+                    using (StreamWriter sw = new StreamWriter(errorFileName))
+                    {
+                        sw.Write(errorFileContent.ToString());
+                    }
+                    using (StreamWriter sw = new StreamWriter(errorFileNameServicer))
                     {
                         sw.Write(errorFileContent.ToString());
                     }
                 }
                 if (!string.IsNullOrEmpty(processedFileContent.ToString()))
                 {
-                    StringBuilder processedFileName = new StringBuilder();
-                    processedFileName.AppendFormat(@"{0}\Processed\{1}", outputDestination, Path.GetFileName(originalFileName));
-                    using (StreamWriter sw = new StreamWriter(processedFileName.ToString()))
+                    string processedFileName = CreateFileName(orginalFileNameNoExt, orignalFileExt, hpfAccessFolder + @"\Processed\");
+                    using (StreamWriter sw = new StreamWriter(processedFileName))
                     {
                         sw.Write(processedFileContent.ToString());
                     }
                 }
-                File.Delete(originalFileName);
+                string archiveFileName = CreateFileName(orginalFileNameNoExt, orignalFileExt, hpfAccessFolder + @"\Uploaded\");
+                File.Move(originalFileName, archiveFileName);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        /// <summary>
+        /// Check if file name is existed, increase the number at the end of file name, return new file name with full path
+        /// </summary>
+        /// <param name="inputFileName"></param>
+        /// <param name="targetFolder"></param>
+        /// <returns></returns>
+        private string CreateFileName(string inputFileName,string extension, string targetFolder)
+        {
+            StringBuilder result = new StringBuilder();
+            result.AppendFormat("{0}{1}{2}", targetFolder, inputFileName, extension);
+            int iCount = 0;
+            while (File.Exists(result.ToString()))
+            {
+                iCount++;
+                result = new StringBuilder();
+                result.AppendFormat("{0}{1}_{2}{3}", targetFolder, inputFileName, iCount.ToString(), extension);
+            }
+            return result.ToString();
         }
 
         private PostModInclusionDTO ApplyHPFValue(PostModInclusionDTO postModInclusion)
@@ -216,9 +354,7 @@ namespace HPF.FutureState.BusinessLogic
             //Validate fannie_mae_loan_num must be exactly 10 digits - all numeric with no leading zeros.
             double checkNum = 0;
             bool result = double.TryParse(postModInclusion.FannieMaeLoanNum, out checkNum);
-            if (result && checkNum.ToString().Length == 10)
-                postModInclusion.FannieMaeLoanNum = checkNum.ToString();
-            else
+            if (!result || checkNum.ToString().Length != 10)
                 exceptionList.AddExceptionMessage("fannie_mae_loan_num must be exactly 10 digits with no leading zeros");
             return exceptionList;
         }
@@ -299,10 +435,20 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidZipCode(PostModInclusionDTO postModInclusion)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if ((!string.IsNullOrEmpty(postModInclusion.PropZip) && postModInclusion.PropZip.Length != 5) || !ConvertStringtoInt(postModInclusion.PropZip))
+            if (!string.IsNullOrEmpty(postModInclusion.PropZip) && postModInclusion.PropZip.Length < 5)
                 msgFcCaseSet.AddExceptionMessage("Property Zip is invalid");
-            if ((!string.IsNullOrEmpty(postModInclusion.ContactZip) && postModInclusion.ContactZip.Length != 5) || !ConvertStringtoInt(postModInclusion.ContactZip))
+            if (!string.IsNullOrEmpty(postModInclusion.ContactZip) && postModInclusion.ContactZip.Length < 5)
                 msgFcCaseSet.AddExceptionMessage("Contact Zip is invalid");
+            if (msgFcCaseSet.Count > 0) return msgFcCaseSet;
+            else
+            {
+                postModInclusion.PropZip = postModInclusion.PropZip.Substring(0, 5);
+                postModInclusion.ContactZip = postModInclusion.ContactZip.Substring(0, 5);
+                if (!ConvertStringtoInt(postModInclusion.PropZip))
+                    msgFcCaseSet.AddExceptionMessage("Property Zip is invalid");
+                if (!ConvertStringtoInt(postModInclusion.ContactZip))
+                    msgFcCaseSet.AddExceptionMessage("Contact Zip is invalid");
+            }
             return msgFcCaseSet;
         }
         
@@ -370,5 +516,6 @@ namespace HPF.FutureState.BusinessLogic
             s = s.ToUpper().Trim();
             return s;
         }
+        
     }
 }

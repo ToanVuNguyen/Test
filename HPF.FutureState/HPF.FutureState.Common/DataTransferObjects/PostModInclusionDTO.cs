@@ -153,7 +153,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [StringRequiredValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
-        [NullableOrStringLengthValidator(true, 5, "Property Zip", Ruleset = Constant.RULESET_LENGTH)]
         public string PropZip { get; set; }
         [StringRequiredValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
         [NullableOrStringLengthValidator(true, 50, "Mailing Address 1", Ruleset = Constant.RULESET_LENGTH)]
@@ -177,7 +176,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
         [StringRequiredValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
-        [NullableOrStringLengthValidator(true, 5, "Mailing Zip", Ruleset = Constant.RULESET_LENGTH)]
         public string ContactZip { get; set; }
         [NullableOrStringLengthValidator(true, 20, "Borrower Phone - Home", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerHomeContactNo { get; set; }

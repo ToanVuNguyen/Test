@@ -329,5 +329,14 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["WS_DEBUG_OUTPUT_PATH"];
             }
         }
+
+        //Batch job Post Mod Inclusion
+        public static string POST_MOD_INCLUSION_SERVICER_LIST
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["POST_MOD_INCLUSION_SERVICER_LIST"];
+            }
+        }
     }
 }
