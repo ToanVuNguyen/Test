@@ -206,6 +206,7 @@ namespace HPF.FutureState.Common
         public const string ERR0288 = "ERR0288";
         public const string ERR0289 = "ERR0289";
         public const string ERR0290 = "ERR0290";
+        public const string ERR0291 = "ERR0291";
 
         public const string ERR0350 = "ERR0350";
         public const string ERR0351 = "ERR0351";
@@ -881,6 +882,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0288, "ProgramId, SponsorId, and CampaignId is not a valid combination.");
                 errorMessageDict.Add(ERR0289, "ProgramId requires a SponsorId and CampaignId.");
                 errorMessageDict.Add(ERR0290, "CounselorContactedSrvcrInd needs to by N if CounselorAttemptedSrvcrContactInd is N");
+                errorMessageDict.Add(ERR0291, "This program requires a valid Fannie Mae Loan Number. Please correct the ReferralClientNum and resend the foreclosure case.");
 
                 errorMessageDict.Add(ERR0350, "A CcCallKey is required to save a call.");
                 errorMessageDict.Add(ERR0351, "A valid StartDt is required to save a call.");

@@ -2359,6 +2359,15 @@ namespace HPF.FutureState.BusinessLogic
                 && ((CompareString(forclosureCase.CounselorContactedSrvcrInd, Constant.INDICATOR_YES))
                 || CompareString(forclosureCase.CounselorContactedSrvcrInd, null)))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0290, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0290));
+
+            //Validate ReferralClientNum: if ReferralClientNum not in (select fannie_mae_loan_num from post_mod_inclusion) then reject the case and return the ERR0291
+            if (forclosureCase.ProgramId == 2004 && forclosureCase.SponsorId == 4)
+            {
+                List<string> fannieMaeLoanNumListDB = PostModInclusionDAO.CreateInstance().GetPostModInclusion();
+                if (!fannieMaeLoanNumListDB.Contains(forclosureCase.ReferralClientNum))
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0291, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0291));
+            }
+
             return msgFcCaseSet;
         }
 
