@@ -926,8 +926,7 @@ namespace HPF.FutureState.BusinessLogic
             PPPBudgetSetDTO proposedPPBudgetSet = new PPPBudgetSetDTO();
             double? totalIncome = 0;
             double? totalExpenses = 0;
-            double? totalAssest = 0;
-
+            
             if (proposedPPBudgetItemCollection != null)
                 CalculateTotalExpenseAndIncome(proposedPPBudgetItemCollection, ref totalIncome, ref totalExpenses);
 

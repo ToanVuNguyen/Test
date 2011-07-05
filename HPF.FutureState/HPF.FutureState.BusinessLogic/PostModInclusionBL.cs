@@ -30,8 +30,23 @@ namespace HPF.FutureState.BusinessLogic
         protected PostModInclusionBL(){}
 
         public List<string> fannieMaeLoanNumExistedList;
+        public List<string> fanniMaeLoanNumExistedOptOutList;
         public ServicerDTOCollection servicerCollection;
+        public string hpfAccessFolderPattern=@"C:\HPF_Batch_Processed\FNMA_PostMod\{0}\";
+        public string servicerAccessFolderPattern = @"C:\HPF_FTP_Secure\{0}\FNMA_PostMod\";
+        private string hpfAccessFolder;
+        private string servicerAccessFolder;
+        private string hpfAgencyFileFolder;
+        private string servicerAgencyFileFolder;
 
+        public void SetPrivateParameter(string servicerName)
+        {
+            servicerAccessFolder = string.Format(servicerAccessFolderPattern, servicerName);
+            hpfAccessFolder = string.Format(hpfAccessFolderPattern, servicerName);
+            servicerAgencyFileFolder = string.Format(servicerAccessFolderPattern, "Novadebt");
+            hpfAgencyFileFolder = string.Format(hpfAccessFolderPattern, "Novadebt");
+        }
+        #region Process PostModInclusion File
         /// <summary>
         /// Import data into database from post mod inclusion file located in folder of servicer
         /// If there is error import file, it will log error and continue import the next file.
@@ -40,37 +55,35 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="batchJob"></param>
         /// <returns></returns>
-        public int ImportPostModInclusionData(string servicerName, string hpfAccessFolder, string servicerAccessFolder, ref string listPostModInclusionErrorFile)
+        public int ImportServicerPostModInclusionData()
         {
             string[] postModFiles = Directory.GetFiles(servicerAccessFolder + @"InclusionFiles\");
             int recordCount = 0;
-            //There are no post mod files in upload directory
-            if (postModFiles.Length <= 0)
+            if (postModFiles.Length > 0)
             {
-                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
-                var mail = new HPFSendMail
-                {
-                    To = hpfSupportEmail,
-                    Subject = "Batch Manager Warning- Import post mod inclusion data",
-                    Body = "Error import post mod inclusion file \n" +
-                            "Messsage: There are no post mod inclusion files in upload directory of servicer "+servicerName
-                };
-                mail.Send();
-                return 0;
-            }
-            foreach (string postModFile in postModFiles)
-            {
-                try
-                {
-                    recordCount += ImportPostModInclusionData(postModFile, hpfAccessFolder, servicerAccessFolder);
-                }
-                catch (Exception ex)
-                {
-                    listPostModInclusionErrorFile += postModFile + "\n--" + "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace+"\n";
-                    throw ex;
-                }
-            }
 
+                foreach (string postModFile in postModFiles)
+                {
+                    try
+                    {
+                        recordCount += ImportPostModInclusionData(postModFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        ExceptionProcessor.HandleException(ex);
+                        //Send E-mail to support
+                        var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                        var mail = new HPFSendMail
+                        {
+                            To = hpfSupportEmail,
+                            Subject = "Batch Manager Error- Import post mod inclusion data",
+                            Body = "Error import post mod inclusion files: " + postModFile + "\n--" +
+                                "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace
+                        };
+                        mail.Send();
+                    }
+                }
+            }
             return recordCount;
         }
 
@@ -79,30 +92,31 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="filename"></param>
         /// <returns>The number of error record</returns>
-        public int ImportPostModInclusionData(string filename, string hpfAccessFolder, string servicerAccessFolder)
+        private int ImportPostModInclusionData(string filename)
         {
             int recordErrorCount = 0;
             int recordCount = 0;
             PostModInclusionDAO postModInclusionDAO = PostModInclusionDAO.CreateInstance();
             StringBuilder processedFileContent = new StringBuilder();
             StringBuilder errorFileContent = new StringBuilder();
+            StringBuilder agencyFileContent = new StringBuilder();
+            BaseDTOCollection<PostModInclusionDTO> listRecord = new BaseDTOCollection<PostModInclusionDTO>();
             try
             {
                 TextReader tr = new StreamReader(filename);
                 string strLine = "";
+                string agencyFileLine="";
                 strLine = tr.ReadLine();
-                postModInclusionDAO.Begin();
                 while (strLine != null)
                 {
                     //Bypass the empty line
                     if (strLine.Trim() == "") break;
-                    PostModInclusionDTO postModInclusion = ReadPostModInclusion(strLine);
+                    PostModInclusionDTO postModInclusion = ReadPostModInclusion(strLine,ref agencyFileLine);
                     if (postModInclusion != null)
                     {
-                        postModInclusion.ServicerFileName = Path.GetFileName(filename);
-                        postModInclusion.SetInsertTrackingInformation("System");
-                        postModInclusionDAO.InsertPostModInclusion(postModInclusion);
+                        listRecord.Add(postModInclusion);
                         processedFileContent.AppendLine(strLine);
+                        agencyFileContent.AppendLine(agencyFileLine);
                         recordCount++;
                     }
                     else
@@ -113,8 +127,29 @@ namespace HPF.FutureState.BusinessLogic
                     strLine = tr.ReadLine();
                 }
                 tr.Close();
+                //Create agency file name
+                string agencyFileNameNoExt = Path.GetFileNameWithoutExtension(filename);
+                string[] array = agencyFileNameNoExt.Split('_');
+                if (array.Length > 2)
+                    agencyFileNameNoExt = agencyFileNameNoExt.Replace(array[2], recordCount.ToString());
+                string agencyFileName = CreateFileName(agencyFileNameNoExt, Path.GetExtension(filename), hpfAgencyFileFolder + @"\Created\");
+                //Import DTO Collection to database
+                postModInclusionDAO.Begin();
+                if (listRecord.Count > 0)
+                {
+                    foreach (PostModInclusionDTO postModInclusion in listRecord)
+                    {
+                        postModInclusion.ServicerFileName = Path.GetFileName(filename);
+                        postModInclusion.AgencyFileName = Path.GetFileName(agencyFileName);
+                        postModInclusion.AgencyFileDt = DateTime.Now;
+                        postModInclusion.AgencyId = 4;
+                        postModInclusion.SetInsertTrackingInformation("System");
+                        postModInclusionDAO.InsertPostModInclusion(postModInclusion);
+                    }
+                }
                 //Move file to processed folder
-                PostModInclusionBL.Instance.MoveProcessedFile(errorFileContent, processedFileContent, filename, hpfAccessFolder, servicerAccessFolder);
+                PostModInclusionBL.Instance.MoveProcessedFile(errorFileContent, processedFileContent,agencyFileContent, filename,agencyFileName);
+
             }
             catch (Exception ex)
             {
@@ -147,13 +182,14 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        public PostModInclusionDTO ReadPostModInclusion(string buffer)
+        private PostModInclusionDTO ReadPostModInclusion(string buffer, ref string postModAgencyLine)
         {
             PostModInclusionDTO result = null;
             string[] fields = buffer.Split(PostModInclusionDTO.SpitChar);
             if (fields.Length == PostModInclusionDTO.TotalFields)
             {
                 PostModInclusionDTO draftResult = new PostModInclusionDTO();
+                
                 draftResult.FannieMaeLoanNum = fields[PostModInclusionDTO.FannieMaeLoanNumPos];
                 draftResult.ReferallDt = ConvertToDateTime(fields[PostModInclusionDTO.ReferallDtPos]);
                 draftResult.ServicerName = fields[PostModInclusionDTO.ServicerNamePos];
@@ -219,7 +255,36 @@ namespace HPF.FutureState.BusinessLogic
                 else fannieMaeLoanNumExistedList.Add(draftResult.FannieMaeLoanNum);
 
                 result =ApplyHPFValue(draftResult);
+
+                //Set post-mod agency line
+                postModAgencyLine = buffer.Replace(fields[PostModInclusionDTO.ServicerNamePos], result.ServicerId.Value.ToString());
+                postModAgencyLine = AddExtendFiels(postModAgencyLine, result);
+
             }
+            return result;
+        }
+
+        private string AddExtendFiels(string postModAgencyLine, PostModInclusionDTO postMod)
+        {
+            string primaryContactNum = "";
+            string secondaryContactNum = "";
+            string [] array = {postMod.BorrowerHomeContactNo,postMod.BorrowerCell1ContactNo,postMod.BorrowerCell2ContactNo,
+                postMod.BorrowerOtherContactNo,postMod.BorrowerOffice1ContactNo,postMod.BorrowerOffice2ContactNo};
+            for (int i = 0; i < array.Length;i++ )
+            {
+                if (!string.IsNullOrEmpty(array[i]))
+                {
+                    primaryContactNum = array[i];
+                    for (int j=i+1;j<array.Length;j++)
+                        if (!string.IsNullOrEmpty(array[j]))
+                        {
+                            secondaryContactNum = array[j];
+                            break;
+                        }
+                    break;
+                }
+            }
+            string result = string.Format(postModAgencyLine + "|{0}|{1}|FNMAPOSTMOD|2004|4|6", primaryContactNum, secondaryContactNum);
             return result;
         }
 
@@ -232,12 +297,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="processedFileContent"></param>
         /// <param name="originalFileName"></param>
         /// <param name="outputDestination"></param>
-        public void MoveProcessedFile(StringBuilder errorFileContent, StringBuilder processedFileContent, string originalFileName, string hpfAccessFolder, string servicerAccessFolder)
+        private void MoveProcessedFile(StringBuilder errorFileContent, StringBuilder processedFileContent, StringBuilder agencyFileContent, string originalFileName, string agencyFileName)
         {
             try
             {
                 string orginalFileNameNoExt = Path.GetFileNameWithoutExtension(originalFileName);
                 string orignalFileExt = Path.GetExtension(originalFileName);
+                
                 if (!string.IsNullOrEmpty(errorFileContent.ToString()))
                 {
                     //Add "_ERROR" to File Name and store to HpfAccessFolder and ServiceAccessFolder
@@ -247,10 +313,7 @@ namespace HPF.FutureState.BusinessLogic
                     {
                         sw.Write(errorFileContent.ToString());
                     }
-                    using (StreamWriter sw = new StreamWriter(errorFileNameServicer))
-                    {
-                        sw.Write(errorFileContent.ToString());
-                    }
+                    File.Copy(errorFileName, errorFileNameServicer);
                 }
                 if (!string.IsNullOrEmpty(processedFileContent.ToString()))
                 {
@@ -259,6 +322,16 @@ namespace HPF.FutureState.BusinessLogic
                     {
                         sw.Write(processedFileContent.ToString());
                     }
+                }
+                if (!string.IsNullOrEmpty(agencyFileContent.ToString()))
+                {
+                    
+                    string agencyFileNameCopy = CreateFileName(Path.GetFileNameWithoutExtension(agencyFileName), orignalFileExt, servicerAgencyFileFolder + @"\InclusionFiles\");
+                    using (StreamWriter sw = new StreamWriter(agencyFileName))
+                    {
+                        sw.Write(agencyFileContent.ToString());
+                    }
+                    File.Copy(agencyFileName, agencyFileNameCopy);
                 }
                 string archiveFileName = CreateFileName(orginalFileNameNoExt, orignalFileExt, hpfAccessFolder + @"\Uploaded\");
                 File.Move(originalFileName, archiveFileName);
@@ -291,9 +364,9 @@ namespace HPF.FutureState.BusinessLogic
 
         private PostModInclusionDTO ApplyHPFValue(PostModInclusionDTO postModInclusion)
         {
-            postModInclusion.AgencyId = null;
+            postModInclusion.AgencyId = 4;//Novadebt
             postModInclusion.AgencyFileName = null;
-            postModInclusion.AgencyFileDt = null;
+            postModInclusion.AgencyFileDt = DateTime.Now;
             return postModInclusion;
         }
         /// <summary>
@@ -313,10 +386,10 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckBusinessRule(PostModInclusionDTO postModInclusion)
         {
             bool result = false;
-            if (postModInclusion.TrialStartDt > DateTime.Now || postModInclusion.TrialStartDt>postModInclusion.ReferallDt)
+            if (postModInclusion.TrialStartDt > DateTime.Now || postModInclusion.TrialStartDt > postModInclusion.ReferallDt)
                 return result;
             //In trial mod
-            if (string.Compare(postModInclusion.TrialModInd,Constant.INDICATOR_YES)==0)
+            if (string.Compare(postModInclusion.TrialModInd, Constant.INDICATOR_YES) == 0)
             {
                 if (!string.IsNullOrEmpty(postModInclusion.AchInd) || postModInclusion.ModConversionDt.HasValue)
                     return result;
@@ -333,13 +406,13 @@ namespace HPF.FutureState.BusinessLogic
                 return result;
             //Check to make sure this record has at least one contact phone number
             if (!string.IsNullOrEmpty(postModInclusion.BorrowerHomeContactNo)
-                ||!string.IsNullOrEmpty(postModInclusion.BorrowerOffice1ContactNo)
-                ||!string.IsNullOrEmpty(postModInclusion.BorrowerOffice2ContactNo)
-                ||!string.IsNullOrEmpty(postModInclusion.BorrowerOtherContactNo)
-                ||!string.IsNullOrEmpty(postModInclusion.BorrowerCell1ContactNo)
-                ||!string.IsNullOrEmpty(postModInclusion.BorrowerCell2ContactNo))
+                || !string.IsNullOrEmpty(postModInclusion.BorrowerOffice1ContactNo)
+                || !string.IsNullOrEmpty(postModInclusion.BorrowerOffice2ContactNo)
+                || !string.IsNullOrEmpty(postModInclusion.BorrowerOtherContactNo)
+                || !string.IsNullOrEmpty(postModInclusion.BorrowerCell1ContactNo)
+                || !string.IsNullOrEmpty(postModInclusion.BorrowerCell2ContactNo))
                 result = true;
-            
+
             return result;
         }
         /// <summary>
@@ -451,6 +524,175 @@ namespace HPF.FutureState.BusinessLogic
             }
             return msgFcCaseSet;
         }
+        #endregion
+        
+        #region Process OptOutFile
+        public int ImportOptOutData()
+        {
+            string[] optOutFiles = Directory.GetFiles(servicerAccessFolder + @"OptoutFiles\");
+            int recordCount = 0;
+            if (optOutFiles.Length > 0)
+            {
+
+                foreach (string optOutFile in optOutFiles)
+                {
+                    try
+                    {
+                        recordCount += ImportOutOutData(optOutFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        ExceptionProcessor.HandleException(ex);
+                        //Send E-mail to support
+                        var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                        var mail = new HPFSendMail
+                        {
+                            To = hpfSupportEmail,
+                            Subject = "Batch Manager Error- Import post mod inclusion data",
+                            Body = "Error import opt out files: " + optOutFile + "\n--" +
+                                "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace
+                        };
+                        mail.Send();
+                    }
+                }
+            }
+            return recordCount;
+        }
+        private int ImportOutOutData(string filename)
+        {
+            int recordErrorCount = 0;
+            int recordCount = 0;
+            PostModInclusionDAO postModInclusionDAO = PostModInclusionDAO.CreateInstance();
+            StringBuilder processedFileContent = new StringBuilder();
+            StringBuilder errorFileContent = new StringBuilder();
+            StringBuilder agencyFileContent = new StringBuilder();
+            try
+            {
+                TextReader tr = new StreamReader(filename);
+                string strLine = "";
+                strLine = tr.ReadLine();
+                postModInclusionDAO.Begin();
+                while (strLine != null)
+                {
+                    //Bypass the empty line
+                    if (strLine.Trim() == "") break;
+                    OptOutDTO optOut = ReadOptOutData(strLine);
+                    if (optOut != null)
+                    {
+                        optOut.SetInsertTrackingInformation("System");
+                        postModInclusionDAO.InsertOptOut(optOut);
+                        processedFileContent.AppendLine(strLine);
+                        recordCount++;
+                    }
+                    else
+                    {
+                        errorFileContent.AppendLine(strLine);
+                        recordErrorCount++;
+                    }
+                    strLine = tr.ReadLine();
+                }
+                tr.Close();
+                //Move file to processed folder
+                PostModInclusionBL.Instance.MoveProcessedFile(errorFileContent, processedFileContent, agencyFileContent, filename, "");
+            }
+            catch (Exception ex)
+            {
+                postModInclusionDAO.Cancel();
+                throw ex;
+            }
+            finally
+            {
+                postModInclusionDAO.Commit();
+                if (recordErrorCount > 0)
+                {
+                    //Send E-mail to support
+                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                    var mail = new HPFSendMail
+                    {
+                        To = hpfSupportEmail,
+                        Subject = "Batch Manager Warning- Import post mod inclusion",
+                        Body = "Warning import post mod report file " + filename + "\n" +
+                                "Messsage: There are " + recordErrorCount + " error records."
+                    };
+                    mail.Send();
+                }
+            }
+
+            return recordCount;
+        }
+        private OptOutDTO ReadOptOutData(string buffer)
+        {
+            OptOutDTO result = null;
+            string[] fields = buffer.Split(OptOutDTO.SpitChar);
+            if (fields.Length == OptOutDTO.TotalFields)
+            {
+                OptOutDTO draftResult = new OptOutDTO();
+                draftResult.FannieMaeLoanNum = fields[OptOutDTO.FannieMaeLoanNumPos];
+                draftResult.ServicerName = fields[OptOutDTO.ServicerNamePos];
+                draftResult.ServicerLoanNum = fields[OptOutDTO.ServicerLoanNumPost];
+                draftResult.BorrowerFName = fields[OptOutDTO.BorrowerFNamePos];
+                draftResult.BorrowerLName = fields[OptOutDTO.BorrowerLNamePos];
+                draftResult.CoBorrowerFName = fields[OptOutDTO.CoBorrowerFNamePos];
+                draftResult.CoBorrowerLName = fields[OptOutDTO.CoBorrowerLNamePos];
+                draftResult.PropStateCd = fields[OptOutDTO.PropStateCdPos];
+                draftResult.OptOutDt = ConvertToDateTime(fields[OptOutDTO.OptOutDtPos]);
+                draftResult.OptOutReason = fields[OptOutDTO.OptOutReasonPos];
+
+                //Validate fields
+                var exceptionList = CheckRequiredFields(draftResult);
+                exceptionList.Add(CheckInvalidFormatData(draftResult));
+                exceptionList.Add(CheckValidCode(draftResult));
+                if (exceptionList.Count > 0) return result;
+                
+                //Check Duplicate fannieMaeLoanNum and add new fannieMaeLoanNum if it does not exist
+                if (fanniMaeLoanNumExistedOptOutList.Contains(draftResult.FannieMaeLoanNum))
+                    return result;
+                else fanniMaeLoanNumExistedOptOutList.Add(draftResult.FannieMaeLoanNum);
+                
+                result = draftResult;
+            }
+            return result;
+        }
+        /// <summary>
+        /// Check all fields are required by opt out data
+        /// </summary>
+        /// <param name="optOut"></param>
+        /// <returns></returns>
+        private ExceptionMessageCollection CheckRequiredFields(OptOutDTO optOut)
+        {
+            return ValidateFieldsByRuleSet(optOut, Constant.RULESET_MIN_REQUIRE_FIELD);
+        }
+        /// <summary>
+        /// Check data input format
+        /// </summary>
+        /// <param name="optOut"></param>
+        /// <returns></returns>
+        private ExceptionMessageCollection CheckInvalidFormatData(OptOutDTO optOut)
+        {
+            ExceptionMessageCollection exceptionList = new ExceptionMessageCollection();
+            exceptionList.Add(ValidateFieldsByRuleSet(optOut, Constant.RULESET_LENGTH));
+            //Validate fannie_mae_loan_num must be exactly 10 digits - all numeric with no leading zeros.
+            double checkNum = 0;
+            bool result = double.TryParse(optOut.FannieMaeLoanNum, out checkNum);
+            if (!result || checkNum.ToString().Length != 10)
+                exceptionList.AddExceptionMessage("fannie_mae_loan_num must be exactly 10 digits with no leading zeros");
+            return exceptionList;
+        }
+        private ExceptionMessageCollection CheckValidCode(OptOutDTO optOut)
+        {
+            ExceptionMessageCollection exceptionList = new ExceptionMessageCollection();
+            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
+            if (!referenceCode.Validate(ReferenceCode.STATE_CODE, optOut.PropStateCd))
+                exceptionList.AddExceptionMessage("Invalid property state code!");
+            return exceptionList;
+        }
+        private ExceptionMessageCollection ValidateFieldsByRuleSet(OptOutDTO optOut, string ruleSet)
+        {
+            var msgEventSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(optOut, ruleSet) };
+            return msgEventSet;
+        }
+        #endregion
+        
         
         /// <summary>
         /// Convert an object to Int

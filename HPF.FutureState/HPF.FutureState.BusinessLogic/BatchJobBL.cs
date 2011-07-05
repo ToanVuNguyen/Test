@@ -496,46 +496,20 @@ namespace HPF.FutureState.BusinessLogic
         public int ImportPostModInclusionData(BatchJobDTO batchJob)
         {
             int recordCount = 0;
-            StringBuilder hpfAccessFolder;
-            StringBuilder servicerAccessFolder;
-            string listPostModInclusionErrorFile = "";
             PostModInclusionDAO postModInclusionDAO = PostModInclusionDAO.CreateInstance();
-            try
+            string[] servicers = HPFConfigurationSettings.POST_MOD_INCLUSION_SERVICER_LIST.Split(',');
+            if (servicers.Length > 0)
             {
-                string[] servicers = HPFConfigurationSettings.POST_MOD_INCLUSION_SERVICER_LIST.Split(',');
-                if (servicers.Length > 0)
+                //Get list of fannieMaeLoanNum from database
+                PostModInclusionBL.Instance.fannieMaeLoanNumExistedList = postModInclusionDAO.GetPostModInclusion();
+                PostModInclusionBL.Instance.fanniMaeLoanNumExistedOptOutList = postModInclusionDAO.GetOptOut();
+                //Get list of servicers
+                PostModInclusionBL.Instance.servicerCollection = ServicerBL.Instance.GetServicers();
+                foreach (string servicer in servicers)
                 {
-                    //Get list of fannieMaeLoanNum from database
-                    PostModInclusionBL.Instance.fannieMaeLoanNumExistedList = postModInclusionDAO.GetPostModInclusion();
-                    //Get list of servicers
-                    PostModInclusionBL.Instance.servicerCollection = ServicerBL.Instance.GetServicers();
-                    foreach (string servicer in servicers)
-                    {
-                        hpfAccessFolder = new StringBuilder();
-                        servicerAccessFolder = new StringBuilder();
-                        hpfAccessFolder.AppendFormat(@"C:\HPF_Batch_Processed\FNMA_PostMod\{0}\", servicer);
-                        servicerAccessFolder.AppendFormat(@"C:\HPF_FTP_Secure\{0}\FNMA_PostMod\", servicer);
-                        recordCount += PostModInclusionBL.Instance.ImportPostModInclusionData(servicer, hpfAccessFolder.ToString(), servicerAccessFolder.ToString(), ref listPostModInclusionErrorFile);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcessor.HandleException(ex);
-            }
-            finally
-            {
-                if (!string.IsNullOrEmpty(listPostModInclusionErrorFile))
-                {
-                    //Send E-mail to support
-                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
-                    var mail = new HPFSendMail
-                    {
-                        To = hpfSupportEmail,
-                        Subject = "Batch Manager Error- Import post mod inclusion data",
-                        Body = "Error import post mod inclusion files: " + listPostModInclusionErrorFile
-                    };
-                    mail.Send();
+                    PostModInclusionBL.Instance.SetPrivateParameter(servicer);
+                    recordCount += PostModInclusionBL.Instance.ImportServicerPostModInclusionData();
+                    recordCount += PostModInclusionBL.Instance.ImportOptOutData();
                 }
             }
             return recordCount;

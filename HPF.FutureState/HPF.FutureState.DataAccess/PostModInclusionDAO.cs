@@ -159,6 +159,65 @@ namespace HPF.FutureState.DataAccess
             return fannieMaeLoanNumList;
         }
 
-        
+        public void InsertOptOut(OptOutDTO record)
+        {
+            var command = CreateSPCommand("hpf_opt_out_insert", dbConnection);
+            var sqlParam = new SqlParameter[12];
+            try
+            {
+
+                sqlParam[0] = new SqlParameter("@pi_fannie_mae_loan_num", record.FannieMaeLoanNum);
+                sqlParam[1] = new SqlParameter("@pi_servicer_name", record.ServicerName);
+                sqlParam[2] = new SqlParameter("@pi_servicer_loan_num", record.ServicerLoanNum);
+                sqlParam[3] = new SqlParameter("@pi_borrower_fname", record.BorrowerFName);
+                sqlParam[4] = new SqlParameter("@pi_borrower_lname", record.BorrowerLName);
+                sqlParam[5] = new SqlParameter("@pi_co_borrower_fname", NullableString(record.CoBorrowerFName));
+                sqlParam[6] = new SqlParameter("@pi_co_borrower_lname", NullableString(record.CoBorrowerLName));
+                sqlParam[7] = new SqlParameter("@pi_prop_state_cd", record.PropStateCd);
+                sqlParam[8] = new SqlParameter("@pi_opt_out_dt", NullableDateTime(record.OptOutDt));
+                sqlParam[9] = new SqlParameter("@pi_opt_out_reason", record.OptOutReason);
+
+                sqlParam[10] = new SqlParameter("@pi_create_user_id", record.CreateUserId);
+                sqlParam[11] = new SqlParameter("@pi_create_app_name", record.CreateAppName);
+
+                command.Parameters.AddRange(sqlParam);
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+        }
+
+        /// <summary>
+        /// Get a collection of all fannieMaeLoanNum of out_out table in database
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetOptOut()
+        {
+            List<string> fannieMaeLoanNumList = new List<string>();
+            SqlConnection dbConnection1 = base.CreateConnection();
+            try
+            {
+                SqlCommand command = base.CreateSPCommand("hpf_opt_out_get_all", dbConnection1);
+                dbConnection1.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                    while (reader.Read())
+                        fannieMaeLoanNumList.Add(ConvertToString(reader["fannie_mae_loan_num"]));
+                reader.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection1.Close();
+            }
+            return fannieMaeLoanNumList;
+        }
     }
 }

@@ -133,6 +133,7 @@
     <Compile Include="DataTransferObjects\NonProfitReferralDTO.cs" />
     <Compile Include="DataTransferObjects\NonProfitReferralDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\OptOutDTO.cs" />
     <Compile Include="DataTransferObjects\PostModInclusionDTO.cs" />
     <Compile Include="DataTransferObjects\PPBudgetAssetDTO.cs" />
     <Compile Include="DataTransferObjects\PPBudgetAssetDTOCollection.cs" />
