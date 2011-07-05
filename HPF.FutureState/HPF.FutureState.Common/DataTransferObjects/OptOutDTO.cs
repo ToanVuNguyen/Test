@@ -39,19 +39,19 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     _servicerName = value;
             }
         }
-
-        private string _servicerLoanNum = null;
+        public int? ServicerId { get; set; }
+        private string _actNum = null;
         [StringRequiredValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
         [NullableOrStringLengthValidator(true, 30, "Servicer Loan Number", Ruleset = Constant.RULESET_LENGTH)]
-        public string ServicerLoanNum
+        public string ActNum
         {
-            get { return _servicerLoanNum; }
+            get { return _actNum; }
             set
             {
                 if (!string.IsNullOrEmpty(value))
-                    _servicerLoanNum = value.Trim();
+                    _actNum = value.Trim();
                 else
-                    _servicerLoanNum = value;
+                    _actNum = value;
             }
         }
 
@@ -89,6 +89,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 100, "Opt-Out Reason", Ruleset = Constant.RULESET_LENGTH)]
         public string OptOutReason { get; set; }
 
+        public string UploadFileName { get; set; }
+        public int? AgencyId { get; set; }
+        public string AgencyFileName { get; set; }
+        public DateTime? AgencyFileDt { get; set; }
 
         //Postion of field in text file
         public const char SpitChar = '|';

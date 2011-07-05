@@ -579,6 +579,10 @@ namespace HPF.FutureState.BusinessLogic
                     OptOutDTO optOut = ReadOptOutData(strLine);
                     if (optOut != null)
                     {
+                        optOut.UploadFileName = Path.GetFileName(filename);
+                        optOut.AgencyFileName = null;
+                        optOut.AgencyFileDt = null;
+                        optOut.AgencyId = 4;
                         optOut.SetInsertTrackingInformation("System");
                         postModInclusionDAO.InsertOptOut(optOut);
                         processedFileContent.AppendLine(strLine);
@@ -629,7 +633,7 @@ namespace HPF.FutureState.BusinessLogic
                 OptOutDTO draftResult = new OptOutDTO();
                 draftResult.FannieMaeLoanNum = fields[OptOutDTO.FannieMaeLoanNumPos];
                 draftResult.ServicerName = fields[OptOutDTO.ServicerNamePos];
-                draftResult.ServicerLoanNum = fields[OptOutDTO.ServicerLoanNumPost];
+                draftResult.ActNum = fields[OptOutDTO.ServicerLoanNumPost];
                 draftResult.BorrowerFName = fields[OptOutDTO.BorrowerFNamePos];
                 draftResult.BorrowerLName = fields[OptOutDTO.BorrowerLNamePos];
                 draftResult.CoBorrowerFName = fields[OptOutDTO.CoBorrowerFNamePos];
@@ -643,7 +647,13 @@ namespace HPF.FutureState.BusinessLogic
                 exceptionList.Add(CheckInvalidFormatData(draftResult));
                 exceptionList.Add(CheckValidCode(draftResult));
                 if (exceptionList.Count > 0) return result;
-                
+
+                //Validate Servicer Name and assign servicer id value
+                ServicerDTO servicerDB = servicerCollection.GetServicerByLabel(draftResult.ServicerName);
+                if (servicerDB == null)
+                    return result;
+                else
+                    draftResult.ServicerId = servicerDB.ServicerID;
                 //Check Duplicate fannieMaeLoanNum and add new fannieMaeLoanNum if it does not exist
                 if (fanniMaeLoanNumExistedOptOutList.Contains(draftResult.FannieMaeLoanNum))
                     return result;

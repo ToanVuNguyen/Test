@@ -161,24 +161,29 @@ namespace HPF.FutureState.DataAccess
 
         public void InsertOptOut(OptOutDTO record)
         {
-            var command = CreateSPCommand("hpf_opt_out_insert", dbConnection);
-            var sqlParam = new SqlParameter[12];
+            var command = CreateSPCommand("hpf_post_mod_opt_out_insert", dbConnection);
+            var sqlParam = new SqlParameter[17];
             try
             {
 
                 sqlParam[0] = new SqlParameter("@pi_fannie_mae_loan_num", record.FannieMaeLoanNum);
                 sqlParam[1] = new SqlParameter("@pi_servicer_name", record.ServicerName);
-                sqlParam[2] = new SqlParameter("@pi_servicer_loan_num", record.ServicerLoanNum);
-                sqlParam[3] = new SqlParameter("@pi_borrower_fname", record.BorrowerFName);
-                sqlParam[4] = new SqlParameter("@pi_borrower_lname", record.BorrowerLName);
-                sqlParam[5] = new SqlParameter("@pi_co_borrower_fname", NullableString(record.CoBorrowerFName));
-                sqlParam[6] = new SqlParameter("@pi_co_borrower_lname", NullableString(record.CoBorrowerLName));
-                sqlParam[7] = new SqlParameter("@pi_prop_state_cd", record.PropStateCd);
-                sqlParam[8] = new SqlParameter("@pi_opt_out_dt", NullableDateTime(record.OptOutDt));
-                sqlParam[9] = new SqlParameter("@pi_opt_out_reason", record.OptOutReason);
+                sqlParam[2] = new SqlParameter("@pi_servicer_id", record.ServicerId);
+                sqlParam[3] = new SqlParameter("@pi_act_num", record.ActNum);
+                sqlParam[4] = new SqlParameter("@pi_borrower_fname", record.BorrowerFName);
+                sqlParam[5] = new SqlParameter("@pi_borrower_lname", record.BorrowerLName);
+                sqlParam[6] = new SqlParameter("@pi_co_borrower_fname", NullableString(record.CoBorrowerFName));
+                sqlParam[7] = new SqlParameter("@pi_co_borrower_lname", NullableString(record.CoBorrowerLName));
+                sqlParam[8] = new SqlParameter("@pi_prop_state_cd", record.PropStateCd);
+                sqlParam[9] = new SqlParameter("@pi_opt_out_dt", NullableDateTime(record.OptOutDt));
+                sqlParam[10] = new SqlParameter("@pi_opt_out_reason", record.OptOutReason);
+                sqlParam[11] = new SqlParameter("@pi_upload_file_name", record.UploadFileName);
+                sqlParam[12] = new SqlParameter("@pi_agency_id", record.AgencyId);
+                sqlParam[13] = new SqlParameter("@pi_agency_file_name", NullableString(record.AgencyFileName));
+                sqlParam[14] = new SqlParameter("@pi_agency_file_dt", NullableDateTime(record.AgencyFileDt));
 
-                sqlParam[10] = new SqlParameter("@pi_create_user_id", record.CreateUserId);
-                sqlParam[11] = new SqlParameter("@pi_create_app_name", record.CreateAppName);
+                sqlParam[15] = new SqlParameter("@pi_create_user_id", record.CreateUserId);
+                sqlParam[16] = new SqlParameter("@pi_create_app_name", record.CreateAppName);
 
                 command.Parameters.AddRange(sqlParam);
                 command.Transaction = trans;
@@ -201,7 +206,7 @@ namespace HPF.FutureState.DataAccess
             SqlConnection dbConnection1 = base.CreateConnection();
             try
             {
-                SqlCommand command = base.CreateSPCommand("hpf_opt_out_get_all", dbConnection1);
+                SqlCommand command = base.CreateSPCommand("hpf_post_mod_opt_out_get_all", dbConnection1);
                 dbConnection1.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
