@@ -6,9 +6,9 @@ using HPF.FutureState.Common.Utils.DataValidator;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public class OptOutDTO:BaseDTO
+    public class PostModOptOutDTO : BaseDTO
     {
-        public int? OptOutId { get; set; }
+        public int? PostModOptOutId { get; set; }
 
         private string _fannieMaeLoanNum = null;
         [StringRequiredValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
@@ -28,7 +28,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         private string _servicerName = null;
         [StringRequiredValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
         [NullableOrStringLengthValidator(true, 50, "Servicer Name", Ruleset = Constant.RULESET_LENGTH)]
-        public string ServicerName 
+        public string ServicerName
         {
             get { return _servicerName; }
             set
