@@ -65,15 +65,15 @@ namespace HPF.FutureState.BusinessLogic
                     {
                         ExceptionProcessor.HandleException(ex);
                         //Send E-mail to support
-                        //var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
-                        //var mail = new HPFSendMail
-                        //{
-                        //    To = hpfSupportEmail,
-                        //    Subject = "Batch Manager Error- Import servicer applicant data",
-                        //    Body = "Error import servicer file " + servicerApplicantFile + "\n--" +
-                        //            "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace
-                        //};
-                        //mail.Send();
+                        var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                        var mail = new HPFSendMail
+                        {
+                            To = hpfSupportEmail,
+                            Subject = "Batch Manager Error- Import servicer applicant data",
+                            Body = "Error import servicer file " + servicerApplicantFile + "\n--" +
+                                    "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace
+                        };
+                        mail.Send();
                     }
                 }
             }
@@ -129,7 +129,6 @@ namespace HPF.FutureState.BusinessLogic
                             ApplicantDTO applicant = new ApplicantDTO();
                             applicant.ServicerApplicantId = servicerApplicant.ServicerApplicantId;
                             applicant.AssignedToGroupDt = DateTime.Now;
-                            applicant.ProgramId = 61;
                             if (recordCount % 3 == 0)
                                 applicant.GroupCd = Constant.APPLICANT_GROUP_B_CODE;
                             else
@@ -172,15 +171,15 @@ namespace HPF.FutureState.BusinessLogic
                 if (recordErrorCount > 0)
                 {
                     //Send E-mail to support
-                    //var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
-                    //var mail = new HPFSendMail
-                    //{
-                    //    To = hpfSupportEmail,
-                    //    Subject = "Batch Manager Warning- Import servicer applicant data",
-                    //    Body = "Warning import Chase file " + filename + "\n" +
-                    //            "Messsage: There are " + recordErrorCount + " error records."
-                    //};
-                    //mail.Send();
+                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                    var mail = new HPFSendMail
+                    {
+                        To = hpfSupportEmail,
+                        Subject = "Batch Manager Warning- Import servicer applicant data",
+                        Body = "Warning import Chase file " + filename + "\n" +
+                                "Messsage: There are " + recordErrorCount + " error records."
+                    };
+                    mail.Send();
                 }
             }
 
