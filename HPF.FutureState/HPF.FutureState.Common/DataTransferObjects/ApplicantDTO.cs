@@ -11,7 +11,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class ApplicantDTO:BaseDTO
     {
-        [XmlIgnore]
+        [XmlElement(IsNullable = true)]
         public int? ApplicantId { get; set; }
 
         [XmlIgnore]
@@ -96,5 +96,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "ActualCloseDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? ActualCloseDt { get; set; }
 
+        [NullableOrStringLengthValidator(true, 30, "Change Last User ID", Ruleset = Constant.RULESET_LENGTH)]
+        public string ChgLstUserId { get; set; }
     }
 }

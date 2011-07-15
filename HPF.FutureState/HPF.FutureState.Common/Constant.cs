@@ -158,6 +158,10 @@ namespace HPF.FutureState.Common
         public const string ATT_CALLING_RECORD_IMPORT = "ATT Calling Record Import";
         public const string AD_HOC = "Ad Hoc";
         public const string POST_MOD_INCLUSION_IMPORT = "Post Mod Inclusion Import";
-                
+        public const string SERVICER_APPLICATION_IMPORT = "Servicer Application Import";
+
+        //Pre-purchase 
+        public const string APPLICANT_GROUP_A_CODE = "A";
+        public const string APPLICANT_GROUP_B_CODE = "B";
     }
 }

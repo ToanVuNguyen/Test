@@ -124,7 +124,7 @@ namespace HPF.FutureState.WebServices
                         workingInstance = PrePurchaseCaseSetBL.Instance;
                         PrePurchaseCaseDTO ppc = workingInstance.SavePrePurchaseCaseSet(request.PrePurchaseCaseSet);
                         response.PpcId = ppc.PpcId;
-                        response.AgencyId = (int)ppc.AgencyId;
+                        response.AgencyId = ppc.AgencyId;
                         if (workingInstance.WarningMessages != null && workingInstance.WarningMessages.Count != 0)
                         {
                             response.Status = ResponseStatus.Warning;

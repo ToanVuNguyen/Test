@@ -60,6 +60,7 @@ namespace HPF.FutureState.Common
         public const string CONTACT_NO_TYPE_CODE = "contact no type code";
         public const string EVENT_TYPE_CODE = "event type code";
         public const string EVENT_OUTCOME_CODE = "event outcome code";
+        public const string ACCEPTANCE_METHOD_CODE = "acceptance method code";
 
     }
 }

@@ -91,6 +91,7 @@
     <Compile Include="ReferenceCodeValidatorBL.cs" />
     <Compile Include="ReportBL.cs" />
     <Compile Include="SecurityBL.cs" />
+    <Compile Include="ServicerApplicantBL.cs" />
     <Compile Include="ServicerBL.cs">
       <SubType>Code</SubType>
     </Compile>

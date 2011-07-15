@@ -17,8 +17,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public int? ProgramId { get; set; }
 
-        [XmlElement(IsNullable = true)]
-        [RequiredObjectValidator(Tag = ErrorMessages.ERR1133, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [XmlIgnore]
         public int? ApplicantId { get; set; }
 
         [XmlElement(IsNullable = true)]
@@ -178,9 +177,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [NullableOrInRangeNumberValidator(true, "0", "9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "An invalid CounselingDurationMins was provided.")]
         public int? CounselingDurationMins { get; set; }
-
-        [StringRequiredValidator(Tag = ErrorMessages.ERR1176, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
-        [NullableOrStringLengthValidator(true, 30, "Change Last User ID", Ruleset = Constant.RULESET_LENGTH)]
-        public string ChgLstUserId { get; set; }
+        
     }
 }

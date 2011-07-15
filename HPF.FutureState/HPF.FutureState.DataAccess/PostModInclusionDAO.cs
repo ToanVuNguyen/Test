@@ -159,7 +159,7 @@ namespace HPF.FutureState.DataAccess
             return fannieMaeLoanNumList;
         }
 
-        public void InsertOptOut(OptOutDTO record)
+        public void InsertOptOut(PostModOptOutDTO record)
         {
             var command = CreateSPCommand("hpf_post_mod_opt_out_insert", dbConnection);
             var sqlParam = new SqlParameter[17];

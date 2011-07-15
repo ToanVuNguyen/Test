@@ -74,6 +74,8 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = AdHoc();
                 else if (job.JobName.Equals(Constant.POST_MOD_INCLUSION_IMPORT))
                     rowCount = ImportPostModInclusionData(job);
+                else if (job.JobName.Equals(Constant.SERVICER_APPLICATION_IMPORT))
+                    rowCount = ImportServicerApplicantData(job);
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
 
@@ -509,12 +511,32 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     PostModInclusionBL.Instance.SetPrivateParameter(servicer);
                     recordCount += PostModInclusionBL.Instance.ImportServicerPostModInclusionData();
-                    recordCount += PostModInclusionBL.Instance.ImportOptOutData();
+                    recordCount += PostModInclusionBL.Instance.ImportPostModOptOutData();
                 }
             }
             return recordCount;
         }
 
-        
+        /// <summary>
+        /// Import servicer applicant and applicant from referral files from servicer (Chase)
+        /// </summary>
+        /// <param name="batchJob"></param>
+        /// <returns></returns>
+        public int ImportServicerApplicantData(BatchJobDTO batchJob)
+        {
+            int recordCount = 0;
+            string[] servicers = HPFConfigurationSettings.SERVICER_APPLICANT_SERVICER_LIST.Split(',');
+            if (servicers.Length > 0)
+            {
+                //Get list of servicers
+                ServicerApplicantBL.Instance.servicerCollection = ServicerBL.Instance.GetServicers();
+                foreach (string servicer in servicers)
+                {
+                    ServicerApplicantBL.Instance.SetPrivateParameter(servicer);
+                    recordCount += ServicerApplicantBL.Instance.ImportServicerApplicantData();
+                }
+            }
+            return recordCount;
+        }
     }
 }

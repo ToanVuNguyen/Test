@@ -338,5 +338,14 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["POST_MOD_INCLUSION_SERVICER_LIST"];
             }
         }
+
+        //Batch job Servicer Applicant
+        public static string SERVICER_APPLICANT_SERVICER_LIST
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SERVICER_APPLICANT_SERVICER_LIST"];
+            }
+        }
     }
 }

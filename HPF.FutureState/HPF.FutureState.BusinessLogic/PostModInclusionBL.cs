@@ -91,7 +91,7 @@ namespace HPF.FutureState.BusinessLogic
         /// Import data into database from post mod file
         /// </summary>
         /// <param name="filename"></param>
-        /// <returns>The number of error record</returns>
+        /// <returns>The number of success record</returns>
         private int ImportPostModInclusionData(string filename)
         {
             int recordErrorCount = 0;
@@ -110,7 +110,7 @@ namespace HPF.FutureState.BusinessLogic
                 while (strLine != null)
                 {
                     //Bypass the empty line
-                    if (strLine.Trim() == "") break;
+                    if (strLine.Trim() == "") continue;
                     PostModInclusionDTO postModInclusion = ReadPostModInclusion(strLine,ref agencyFileLine);
                     if (postModInclusion != null)
                     {
@@ -142,13 +142,13 @@ namespace HPF.FutureState.BusinessLogic
                         postModInclusion.ServicerFileName = Path.GetFileName(filename);
                         postModInclusion.AgencyFileName = Path.GetFileName(agencyFileName);
                         postModInclusion.AgencyFileDt = DateTime.Now;
-                        postModInclusion.AgencyId = 4;
+                        postModInclusion.AgencyId = 4;//Novadebt
                         postModInclusion.SetInsertTrackingInformation("System");
                         postModInclusionDAO.InsertPostModInclusion(postModInclusion);
                     }
                 }
                 //Move file to processed folder
-                PostModInclusionBL.Instance.MoveProcessedFile(errorFileContent, processedFileContent,agencyFileContent, filename,agencyFileName);
+                MoveProcessedFile(errorFileContent, processedFileContent,agencyFileContent, filename,agencyFileName);
 
             }
             catch (Exception ex)
@@ -253,9 +253,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (fannieMaeLoanNumExistedList.Contains(draftResult.FannieMaeLoanNum))
                     return result;
                 else fannieMaeLoanNumExistedList.Add(draftResult.FannieMaeLoanNum);
-
-                result =ApplyHPFValue(draftResult);
-
+                
                 //Set post-mod agency line
                 postModAgencyLine = buffer.Replace(fields[PostModInclusionDTO.ServicerNamePos], result.ServicerId.Value.ToString());
                 postModAgencyLine = AddExtendFiels(postModAgencyLine, result);
@@ -361,14 +359,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             return result.ToString();
         }
-
-        private PostModInclusionDTO ApplyHPFValue(PostModInclusionDTO postModInclusion)
-        {
-            postModInclusion.AgencyId = 4;//Novadebt
-            postModInclusion.AgencyFileName = null;
-            postModInclusion.AgencyFileDt = DateTime.Now;
-            return postModInclusion;
-        }
+                
         /// <summary>
         /// Check all fields are required by post mod inclusion
         /// </summary>
@@ -526,8 +517,8 @@ namespace HPF.FutureState.BusinessLogic
         }
         #endregion
         
-        #region Process OptOutFile
-        public int ImportOptOutData()
+        #region Process PostModOptOutFile
+        public int ImportPostModOptOutData()
         {
             string[] optOutFiles = Directory.GetFiles(servicerAccessFolder + @"OptoutFiles\");
             int recordCount = 0;
@@ -538,7 +529,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     try
                     {
-                        recordCount += ImportOutOutData(optOutFile);
+                        recordCount += ImportPostModOutOutData(optOutFile);
                     }
                     catch (Exception ex)
                     {
@@ -558,7 +549,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             return recordCount;
         }
-        private int ImportOutOutData(string filename)
+        private int ImportPostModOutOutData(string filename)
         {
             int recordErrorCount = 0;
             int recordCount = 0;
@@ -575,8 +566,8 @@ namespace HPF.FutureState.BusinessLogic
                 while (strLine != null)
                 {
                     //Bypass the empty line
-                    if (strLine.Trim() == "") break;
-                    OptOutDTO optOut = ReadOptOutData(strLine);
+                    if (strLine.Trim() == "") continue;
+                    PostModOptOutDTO optOut = ReadPostModOptOutData(strLine);
                     if (optOut != null)
                     {
                         optOut.UploadFileName = Path.GetFileName(filename);
@@ -624,23 +615,23 @@ namespace HPF.FutureState.BusinessLogic
 
             return recordCount;
         }
-        private OptOutDTO ReadOptOutData(string buffer)
+        private PostModOptOutDTO ReadPostModOptOutData(string buffer)
         {
-            OptOutDTO result = null;
-            string[] fields = buffer.Split(OptOutDTO.SpitChar);
-            if (fields.Length == OptOutDTO.TotalFields)
+            PostModOptOutDTO result = null;
+            string[] fields = buffer.Split(PostModOptOutDTO.SpitChar);
+            if (fields.Length == PostModOptOutDTO.TotalFields)
             {
-                OptOutDTO draftResult = new OptOutDTO();
-                draftResult.FannieMaeLoanNum = fields[OptOutDTO.FannieMaeLoanNumPos];
-                draftResult.ServicerName = fields[OptOutDTO.ServicerNamePos];
-                draftResult.ActNum = fields[OptOutDTO.ServicerLoanNumPost];
-                draftResult.BorrowerFName = fields[OptOutDTO.BorrowerFNamePos];
-                draftResult.BorrowerLName = fields[OptOutDTO.BorrowerLNamePos];
-                draftResult.CoBorrowerFName = fields[OptOutDTO.CoBorrowerFNamePos];
-                draftResult.CoBorrowerLName = fields[OptOutDTO.CoBorrowerLNamePos];
-                draftResult.PropStateCd = fields[OptOutDTO.PropStateCdPos];
-                draftResult.OptOutDt = ConvertToDateTime(fields[OptOutDTO.OptOutDtPos]);
-                draftResult.OptOutReason = fields[OptOutDTO.OptOutReasonPos];
+                PostModOptOutDTO draftResult = new PostModOptOutDTO();
+                draftResult.FannieMaeLoanNum = fields[PostModOptOutDTO.FannieMaeLoanNumPos];
+                draftResult.ServicerName = fields[PostModOptOutDTO.ServicerNamePos];
+                draftResult.ActNum = fields[PostModOptOutDTO.ServicerLoanNumPost];
+                draftResult.BorrowerFName = fields[PostModOptOutDTO.BorrowerFNamePos];
+                draftResult.BorrowerLName = fields[PostModOptOutDTO.BorrowerLNamePos];
+                draftResult.CoBorrowerFName = fields[PostModOptOutDTO.CoBorrowerFNamePos];
+                draftResult.CoBorrowerLName = fields[PostModOptOutDTO.CoBorrowerLNamePos];
+                draftResult.PropStateCd = fields[PostModOptOutDTO.PropStateCdPos];
+                draftResult.OptOutDt = ConvertToDateTime(fields[PostModOptOutDTO.OptOutDtPos]);
+                draftResult.OptOutReason = fields[PostModOptOutDTO.OptOutReasonPos];
 
                 //Validate fields
                 var exceptionList = CheckRequiredFields(draftResult);
@@ -668,7 +659,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="optOut"></param>
         /// <returns></returns>
-        private ExceptionMessageCollection CheckRequiredFields(OptOutDTO optOut)
+        private ExceptionMessageCollection CheckRequiredFields(PostModOptOutDTO optOut)
         {
             return ValidateFieldsByRuleSet(optOut, Constant.RULESET_MIN_REQUIRE_FIELD);
         }
@@ -677,7 +668,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="optOut"></param>
         /// <returns></returns>
-        private ExceptionMessageCollection CheckInvalidFormatData(OptOutDTO optOut)
+        private ExceptionMessageCollection CheckInvalidFormatData(PostModOptOutDTO optOut)
         {
             ExceptionMessageCollection exceptionList = new ExceptionMessageCollection();
             exceptionList.Add(ValidateFieldsByRuleSet(optOut, Constant.RULESET_LENGTH));
@@ -688,7 +679,7 @@ namespace HPF.FutureState.BusinessLogic
                 exceptionList.AddExceptionMessage("fannie_mae_loan_num must be exactly 10 digits with no leading zeros");
             return exceptionList;
         }
-        private ExceptionMessageCollection CheckValidCode(OptOutDTO optOut)
+        private ExceptionMessageCollection CheckValidCode(PostModOptOutDTO optOut)
         {
             ExceptionMessageCollection exceptionList = new ExceptionMessageCollection();
             ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
@@ -696,7 +687,7 @@ namespace HPF.FutureState.BusinessLogic
                 exceptionList.AddExceptionMessage("Invalid property state code!");
             return exceptionList;
         }
-        private ExceptionMessageCollection ValidateFieldsByRuleSet(OptOutDTO optOut, string ruleSet)
+        private ExceptionMessageCollection ValidateFieldsByRuleSet(PostModOptOutDTO optOut, string ruleSet)
         {
             var msgEventSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(optOut, ruleSet) };
             return msgEventSet;

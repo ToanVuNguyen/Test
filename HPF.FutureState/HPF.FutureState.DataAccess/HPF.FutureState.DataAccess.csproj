@@ -74,6 +74,7 @@
     <Compile Include="PPBudgetDAO.cs" />
     <Compile Include="PrePurchaseCaseSetDAO.cs" />
     <Compile Include="RefCodeSettDAO.cs" />
+    <Compile Include="ServicerApplicantDAO.cs" />
     <Compile Include="ServicerDAO.cs" />
     <Compile Include="OutcomeDAO.cs" />
     <Compile Include="ForeclosureCaseDAO.cs" />
