@@ -179,6 +179,16 @@
             </td>
         </tr>
         <tr>
+            <td>
+                <asp:Label CssClass = "sidelinks" ID="Label111" runat="server" Text="Change last User ID"></asp:Label>             
+            </td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtWorkingUserID" runat="server"></asp:TextBox>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
         <td colspan="2">&nbsp;</td>
         </tr>
         <tr>            
@@ -456,12 +466,8 @@
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtCounselingDurationMins" runat="server"></asp:TextBox>
             </td>
-            <td>
-                <asp:Label CssClass = "sidelinks" ID="Label111" runat="server" Text="Change last User ID"></asp:Label>             
-            </td>
-            <td>
-                <asp:TextBox CssClass = "Text" ID="txtWorkingUserID" runat="server"></asp:TextBox>
-            </td>
+            <td></td>
+            <td></td>
         </tr>
         </table>
 

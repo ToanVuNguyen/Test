@@ -374,7 +374,6 @@ namespace HPF.FutureState.WebService.Test.Web
                 var objs = from obj in xdoc.Descendants("PrePurchaseCase")
                            select new PrePurchaseCaseDTO
                            {
-                               ApplicantId = Util.ConvertToInt(obj.Element("ApplicantId")),
                                AgencyId = Util.ConvertToInt(obj.Element("AgencyId")),
                                AgencyCaseNum = Util.ConvertToString(obj.Element("AgencyCaseNum")),
                                AcctNum = Util.ConvertToString(obj.Element("AcctNum")),
@@ -411,8 +410,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                CounselorEmail = Util.ConvertToString(obj.Element("CounselorEmail")),
                                CounselorPhone = Util.ConvertToString(obj.Element("CounselorPhone")),
                                CounselorExt = Util.ConvertToString(obj.Element("CounselorExt")),
-                               CounselingDurationMins = Util.ConvertToInt(obj.Element("CounselingDurationMins")),
-                               ChgLstUserId = Util.ConvertToString(obj.Element("ChgLstUserId"))
+                               CounselingDurationMins = Util.ConvertToInt(obj.Element("CounselingDurationMins"))
                            };
                 PrePurchaseCaseDTO PPCase = objs.ToList<PrePurchaseCaseDTO>()[0];
                 return PPCase;
@@ -430,6 +428,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 var objs = from obj in xdoc.Descendants("Applicant")
                            select new ApplicantDTO
                            {
+                               ApplicantId = Util.ConvertToInt(obj.Element("ApplicantId")),
                                RightPartyContactInd =Util.ConvertToString(obj.Element("RightPartyContactInd")),
                                RpcMostRecentDt = Util.ConvertToDateTime(obj.Element("RpcMostRecentDt")),
                                NoRpcReason = Util.ConvertToString(obj.Element("NoRpcReason")),
@@ -442,7 +441,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                EdModuleCompletedDt = Util.ConvertToDateTime(obj.Element("EdModuleCompletedDt")),
                                InboundCallToNumDt = Util.ConvertToDateTime(obj.Element("InboundCallToNumDt")),
                                InboundCallToNumReason = Util.ConvertToString(obj.Element("InboundCallToNumReason")),
-                               ActualCloseDt = Util.ConvertToDateTime(obj.Element("ActualCloseDt"))
+                               ActualCloseDt = Util.ConvertToDateTime(obj.Element("ActualCloseDt")),
+                               ChgLstUserId = Util.ConvertToString(obj.Element("ChgLstUserId"))
                            };
                 ApplicantDTO applicant = objs.ToList<ApplicantDTO>()[0];
                 return applicant;

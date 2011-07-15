@@ -65,46 +65,44 @@ namespace HPF.FutureState.WebService.Test.Web
         private PrePurchaseCaseDTO FormToPrePurchaseCase()
         {
             PrePurchaseCaseDTO ppCase = new PrePurchaseCaseDTO();
-            ppCase.ApplicantId = Util.ConvertToInt(txtApplicantId.Text.Trim());
             ppCase.AgencyId = Util.ConvertToInt(txtAgencyId.Text.Trim());
-            ppCase.AgencyCaseNum = txtAgencyCaseNumber.Text.Trim();
-            ppCase.AcctNum = txtAcctNum.Text.Trim();
-            ppCase.MortgageProgramCd = txtMortgageProgramCd.Text.Trim();
-            ppCase.BorrowerFName = txtBorrowerFName.Text.Trim();
-            ppCase.BorrowerLName = txtBorrowerLName.Text.Trim();
-            ppCase.CoBorrowerFName = txtCoBorrowerFName.Text.Trim();
-            ppCase.CoBorrowerLName = txtCoBorrowerLName.Text.Trim();
-            ppCase.PropAddr1 = txtPropAddr1.Text.Trim();
-            ppCase.PropAddr2 = txtPropAddr2.Text.Trim();
-            ppCase.PropCity = txtPropCity.Text.Trim();
-            ppCase.PropStateCd = txtPropStateCd.Text.Trim();
-            ppCase.PropZip = txtPropZip.Text.Trim();
-            ppCase.MailAddr1 = txtMailAddr1.Text.Trim();
-            ppCase.MailAddr2 = txtMailAddr2.Text.Trim();
-            ppCase.MailCity = txtMailCity.Text.Trim();
-            ppCase.MailStateCd = txtMailStateCd.Text.Trim();
-            ppCase.MailZip = txtMailZip.Text.Trim();
-            ppCase.BorrowerAuthorizationInd = txtBorrowerAuthorizationInd.Text.Trim();
-            ppCase.MotherMaidenLName = txtMotherMaidenLName.Text.Trim();
-            ppCase.PrimaryContactNo = txtPrimaryContactNo.Text.Trim();
-            ppCase.SecondaryContactNo = txtSecondaryContactNo.Text.Trim();
-            ppCase.BorrowerEmployerName = txtBorrowerEmployerName.Text.Trim();
-            ppCase.BorrowerJobTitle = txtBorrowerJobTitle.Text.Trim();
-            ppCase.BorrowerSelfEmployedInd = txtBorrowerSelfEmployedInd.Text.Trim();
+            ppCase.AgencyCaseNum =Util.ConvertToString(txtAgencyCaseNumber.Text.Trim());
+            ppCase.AcctNum = Util.ConvertToString(txtAcctNum.Text.Trim());
+            ppCase.MortgageProgramCd = Util.ConvertToString(txtMortgageProgramCd.Text.Trim());
+            ppCase.BorrowerFName = Util.ConvertToString(txtBorrowerFName.Text.Trim());
+            ppCase.BorrowerLName = Util.ConvertToString(txtBorrowerLName.Text.Trim());
+            ppCase.CoBorrowerFName = Util.ConvertToString(txtCoBorrowerFName.Text.Trim());
+            ppCase.CoBorrowerLName = Util.ConvertToString(txtCoBorrowerLName.Text.Trim());
+            ppCase.PropAddr1 = Util.ConvertToString(txtPropAddr1.Text.Trim());
+            ppCase.PropAddr2 = Util.ConvertToString(txtPropAddr2.Text.Trim());
+            ppCase.PropCity = Util.ConvertToString(txtPropCity.Text.Trim());
+            ppCase.PropStateCd = Util.ConvertToString(txtPropStateCd.Text.Trim());
+            ppCase.PropZip = Util.ConvertToString(txtPropZip.Text.Trim());
+            ppCase.MailAddr1 = Util.ConvertToString(txtMailAddr1.Text.Trim());
+            ppCase.MailAddr2 = Util.ConvertToString(txtMailAddr2.Text.Trim());
+            ppCase.MailCity = Util.ConvertToString(txtMailCity.Text.Trim());
+            ppCase.MailStateCd = Util.ConvertToString(txtMailStateCd.Text.Trim());
+            ppCase.MailZip = Util.ConvertToString(txtMailZip.Text.Trim());
+            ppCase.BorrowerAuthorizationInd = Util.ConvertToString(txtBorrowerAuthorizationInd.Text.Trim());
+            ppCase.MotherMaidenLName = Util.ConvertToString(txtMotherMaidenLName.Text.Trim());
+            ppCase.PrimaryContactNo = Util.ConvertToString(txtPrimaryContactNo.Text.Trim());
+            ppCase.SecondaryContactNo = Util.ConvertToString(txtSecondaryContactNo.Text.Trim());
+            ppCase.BorrowerEmployerName = Util.ConvertToString(txtBorrowerEmployerName.Text.Trim());
+            ppCase.BorrowerJobTitle = Util.ConvertToString(txtBorrowerJobTitle.Text.Trim());
+            ppCase.BorrowerSelfEmployedInd = Util.ConvertToString(txtBorrowerSelfEmployedInd.Text.Trim());
             ppCase.BorrowerYearsEmployed = Util.ConvertToDouble(txtBorrowerYearsEmployed.Text.Trim());
-            ppCase.CoBorrowerEmployerName = txtCoBorrowerEmployerName.Text.Trim();
-            ppCase.CoBorrowerJobTitle = txtCoBorrowerJobTitle.Text.Trim();
-            ppCase.CoBorrowerSelfEmployedInd = txtCoBorrowerSelfEmployedInd.Text.Trim();
+            ppCase.CoBorrowerEmployerName = Util.ConvertToString(txtCoBorrowerEmployerName.Text.Trim());
+            ppCase.CoBorrowerJobTitle = Util.ConvertToString(txtCoBorrowerJobTitle.Text.Trim());
+            ppCase.CoBorrowerSelfEmployedInd = Util.ConvertToString(txtCoBorrowerSelfEmployedInd.Text.Trim());
             ppCase.CoBorrowerYearsEmployed = Util.ConvertToDouble(txtCoBorrowerYearsEmployed.Text.Trim());
-            ppCase.CounselorIdRef = txtCounselorIdRef.Text.Trim();
-            ppCase.CounselorFName = txtCounselorFName.Text.Trim();
-            ppCase.CounselorLName = txtCounselorLName.Text.Trim();
-            ppCase.CounselorEmail = txtCounselorEmail.Text.Trim();
-            ppCase.CounselorPhone = txtCounselorPhone.Text.Trim();
-            ppCase.CounselorExt = txtCounselorExt.Text.Trim();
+            ppCase.CounselorIdRef = Util.ConvertToString(txtCounselorIdRef.Text.Trim());
+            ppCase.CounselorFName = Util.ConvertToString(txtCounselorFName.Text.Trim());
+            ppCase.CounselorLName = Util.ConvertToString(txtCounselorLName.Text.Trim());
+            ppCase.CounselorEmail = Util.ConvertToString(txtCounselorEmail.Text.Trim());
+            ppCase.CounselorPhone = Util.ConvertToString(txtCounselorPhone.Text.Trim());
+            ppCase.CounselorExt = Util.ConvertToString(txtCounselorExt.Text.Trim());
             ppCase.CounselingDurationMins = Util.ConvertToInt(txtCounselingDurationMins.Text.Trim());
-            ppCase.ChgLstUserId = txtWorkingUserID.Text;
-
+            
             return ppCase;
         }
         private void PrePurchaseCaseToForm(PrePurchaseCaseDTO ppCase)
@@ -113,7 +111,6 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 //if (ppCase.PpcId.HasValue)
                 //    txtPpcId.Text = ppCase.PpcId.Value.ToString();
-                txtApplicantId.Text =Util.ConvertToString(ppCase.ApplicantId);
                 txtAgencyId.Text=Util.ConvertToString(ppCase.AgencyId);
                 txtAgencyCaseNumber.Text = ppCase.AgencyCaseNum;
                 txtAcctNum.Text = ppCase.AcctNum;
@@ -150,15 +147,15 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtCounselorPhone.Text = ppCase.CounselorPhone;
                 txtCounselorExt.Text = ppCase.CounselorExt;
                 txtCounselingDurationMins.Text =Util.ConvertToString(ppCase.CounselingDurationMins);
-                txtWorkingUserID.Text = ppCase.ChgLstUserId.ToString();
             }
         }
         private ApplicantDTO FormToApplicant()
         {
             ApplicantDTO applicant = new ApplicantDTO();
-            applicant.RightPartyContactInd = txtRightPartyContactInd.Text.Trim();
+            applicant.ApplicantId = Util.ConvertToInt(txtApplicantId.Text.Trim());
+            applicant.RightPartyContactInd =Util.ConvertToString(txtRightPartyContactInd.Text.Trim());
             applicant.RpcMostRecentDt = Util.ConvertToDateTime(txtRpcMostrecentDt.Text.Trim());
-            applicant.NoRpcReason = txtNoRpcReason.Text.Trim();
+            applicant.NoRpcReason = Util.ConvertToString(txtNoRpcReason.Text.Trim());
             applicant.CounselingAcceptedDt =Util.ConvertToDateTime(txtCounselingAcceptedDt.Text.Trim());
             applicant.CounselingScheduledDt = Util.ConvertToDateTime(txtCounselingScheduledDt.Text.Trim());
             applicant.CounselingCompletedDt = Util.ConvertToDateTime(txtCounselingCompletedDt.Text.Trim());
@@ -167,14 +164,16 @@ namespace HPF.FutureState.WebService.Test.Web
             applicant.SecondCounseledDt = Util.ConvertToDateTime(txtSecondCounseledDt.Text.Trim());
             applicant.EdModuleCompletedDt = Util.ConvertToDateTime(txtEdModuleCompletedDt.Text.Trim());
             applicant.InboundCallToNumDt = Util.ConvertToDateTime(txtInboundCallToNumDt.Text.Trim());
-            applicant.InboundCallToNumReason = txtInboundCallToNumReason.Text.Trim();
+            applicant.InboundCallToNumReason = Util.ConvertToString(txtInboundCallToNumReason.Text.Trim());
             applicant.ActualCloseDt =Util.ConvertToDateTime(txtActualCloseDt.Text.Trim());
+            applicant.ChgLstUserId = Util.ConvertToString(txtWorkingUserID.Text.Trim());
             return applicant;
         }
         private void ApplicantToForm(ApplicantDTO applicant)
         {
             if (applicant != null)
             {
+                txtApplicantId.Text = Util.ConvertToString(applicant.ApplicantId);
                 txtRightPartyContactInd.Text = applicant.RightPartyContactInd;
                 txtRpcMostrecentDt.Text = Util.ConvertToString(applicant.RpcMostRecentDt);
                 txtNoRpcReason.Text = applicant.NoRpcReason;
@@ -188,6 +187,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtInboundCallToNumDt.Text = Util.ConvertToString(applicant.InboundCallToNumDt);
                 txtInboundCallToNumReason.Text = applicant.InboundCallToNumReason;
                 txtActualCloseDt.Text = Util.ConvertToString(applicant.ActualCloseDt);
+                txtWorkingUserID.Text = applicant.ChgLstUserId.ToString();
             }
         }
         private void RefreshAllGrids()
@@ -229,7 +229,7 @@ namespace HPF.FutureState.WebService.Test.Web
             
             PPBudgetItemDTO_App ppBudgetItem = new PPBudgetItemDTO_App();
             ppBudgetItem.PPBudgetItemAmt = Util.ConvertToDouble(txtPPBudgetItemAmt.Text.Trim());
-            ppBudgetItem.PPBudgetNote = txtPPBudgetNote.Text.Trim();
+            ppBudgetItem.PPBudgetNote = Util.ConvertToString(txtPPBudgetNote.Text.Trim());
             ppBudgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
 
             ppBudgetItem.PPBudgetItemId = Util.ConvertToInt(lblPPBudgetItemId.Text.Trim());
@@ -367,7 +367,7 @@ namespace HPF.FutureState.WebService.Test.Web
 
             PPPBudgetItemDTO_App proposedPPBudgetItem = new PPPBudgetItemDTO_App();
             proposedPPBudgetItem.ProposedBudgetItemAmt = Util.ConvertToDouble(txtProposedBudgetItemAmt.Text.Trim());
-            proposedPPBudgetItem.ProposedBudgetNote = txtProposedBudgetNote.Text.Trim();
+            proposedPPBudgetItem.ProposedBudgetNote = Util.ConvertToString(txtProposedBudgetNote.Text.Trim());
             proposedPPBudgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
 
             proposedPPBudgetItem.PPPBudgetItemId = Util.ConvertToInt(lblProposedBudgetItemId.Text.Trim());
@@ -503,7 +503,7 @@ namespace HPF.FutureState.WebService.Test.Web
             Label lblPPBudgetAssetID = (Label)row.FindControl("lblPPBudgetAssetID");
 
             PPBudgetAssetDTO_App ppBudgetAsset = new PPBudgetAssetDTO_App();
-            ppBudgetAsset.PPBudgetAssetName = txtPPBudgetAssetName.Text.Trim();
+            ppBudgetAsset.PPBudgetAssetName = Util.ConvertToString(txtPPBudgetAssetName.Text.Trim());
             ppBudgetAsset.PPBudgetAssetValue = Util.ConvertToDouble(txtPPBudgetAssetValue.Text.Trim());
             ppBudgetAsset.PPBudgetAssetId = Util.ConvertToInt(lblPPBudgetAssetID.Text.Trim());
             
@@ -663,7 +663,9 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 if (response.Status == ResponseStatus.Warning)
                 {
-                    lblMessage.Text = "Congratulation - PpcId is " + response.PpcId;
+                    if (response.PpcId.HasValue)
+                        lblMessage.Text = "Congratulation - PpcId is " + response.PpcId;
+                    else lblMessage.Text = "Congratulation - Just applicant is updated";
                 }
                 else
                     lblMessage.Text = "Error Message: ";
@@ -674,7 +676,9 @@ namespace HPF.FutureState.WebService.Test.Web
             else
             {
                 grdvMessages.Visible = false;
-                lblMessage.Text = "Congratulation - PpcId is " + response.PpcId;
+                if (response.PpcId.HasValue)
+                    lblMessage.Text = "Congratulation - PpcId is " + response.PpcId;
+                else lblMessage.Text = "Congratulation - Just applicant is updated";
             }
         }
         private PrePurchaseCaseSaveRequest CreatePrePurchaseCaseSaveRequest()
@@ -684,7 +688,6 @@ namespace HPF.FutureState.WebService.Test.Web
             
             ppCaseSet.PrePurchaseCase = FormToPrePurchaseCase();
             ppCaseSet.Applicant = FormToApplicant();
-            ppCaseSet.PrePurchaseCase.ChgLstUserId = txtWorkingUserID.Text.Trim();
             if (Session[SessionVariables.PP_BUDGET_ASSET_COLLECTION] != null)
             {
                 var list = new List<PPBudgetAssetDTO>();

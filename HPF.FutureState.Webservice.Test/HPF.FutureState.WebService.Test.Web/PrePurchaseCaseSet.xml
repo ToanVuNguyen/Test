@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PrePurchaseCaseSet>
   <Applicant>
+    <ApplicantId>1</ApplicantId>
     <RightPartyContactInd>Y</RightPartyContactInd>
     <RpcMostrecentDt>12/12/2010</RpcMostrecentDt>
     <NoRpcReason></NoRpcReason>
@@ -14,9 +15,9 @@
     <InboundCallToNumDt>12/12/2010</InboundCallToNumDt>
     <InboundCallToNumReason>Reason</InboundCallToNumReason>
     <ActualCloseDt></ActualCloseDt>
+    <ChgLstUserId>Agency1</ChgLstUserId>
   </Applicant>
   <PrePurchaseCase>
-    <ApplicantId>1</ApplicantId>
     <AgencyId>4</AgencyId>
     <AgencyCaseNum>123456</AgencyCaseNum>
     <AcctNum>123456</AcctNum>
@@ -54,7 +55,6 @@
     <CounselorPhone>123456</CounselorPhone>
     <CounselorExt>084</CounselorExt>
     <CounselingDurationMins>100</CounselingDurationMins>
-    <ChgLstUserId>Agency1</ChgLstUserId>
   </PrePurchaseCase>
   <PPBudgetAssetSet>
     <PPBudgetAsset>
