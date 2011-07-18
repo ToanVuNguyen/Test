@@ -440,8 +440,6 @@ namespace HPF.FutureState.BusinessLogic
                 ApplicantDTO applicant = prePurchaseCaseSet.Applicant;
                 InitiateTransaction();
                 //Update Applicant
-                //Set applicantId from PrePurchaseCase
-                applicant.ApplicantId = prePurchaseCaseSet.PrePurchaseCase.ApplicantId;
                 UpdateApplicant(prePurchaseCaseSetDAO, applicant);
                 CompleteTransaction();
             }
