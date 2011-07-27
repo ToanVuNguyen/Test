@@ -1,1 +1,0 @@
-﻿This is a temp directory, it will be used to contain a temp excel file which is upload by HPF user.

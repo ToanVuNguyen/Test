@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
-<Properties><Property Name="Solution" Value="CCRC">
-</Property><Property Name="Solution File" Value="C:\HPF\Code\CCRC\CCRC.sln">
-</Property><Property Name="Date" Value="Wednesday, May 28, 2008">
-</Property><Property Name="Time" Value="0:14:03 AM">
-</Property><Property Name="Log Number" Value="3">
-</Property></Properties><Event ErrorLevel="2" Project="C:\HPF\Code\CCRC\CCRC.vbproj" Source="CCRC.vbproj" Description="Unable to open the Web 'C:\HPF\Code\CCRC\CCRC.vbproj'.  The Web 'C:\HPF\Code\CCRC\CCRC.vbproj' does not exist.">
-</Event></UpgradeLog>
